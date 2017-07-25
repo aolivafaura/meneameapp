@@ -1,8 +1,8 @@
 package es.mnmapp.aolv.meneame.ui
 
-import android.app.Fragment
 import android.content.Context
-import dagger.android.AndroidInjection
+import android.support.v4.app.Fragment
+import dagger.android.support.AndroidSupportInjection
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -21,7 +21,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     override fun onAttach(context : Context?) {
-        AndroidInjection.inject(this)
+        AndroidSupportInjection.inject(this)
 
         super.onAttach(context)
     }

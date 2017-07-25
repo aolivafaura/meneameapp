@@ -20,7 +20,7 @@ class MainActivity : BaseActivity() {
         mainViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
 
         if (savedInstanceState == null) {
-            fragmentManager
+            supportFragmentManager
                     .beginTransaction()
                     .add(R.id.container, MainFragment.newInstance())
                     .commitAllowingStateLoss()

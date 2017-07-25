@@ -1,12 +1,12 @@
 package es.mnmapp.aolv.meneame.ui
 
-import android.app.Fragment
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasFragmentInjector
+import dagger.android.support.HasSupportFragmentInjector
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
@@ -15,7 +15,7 @@ import javax.inject.Inject
  * Created by antoniojoseoliva on 20/07/2017.
  */
 
-abstract class BaseActivity : AppCompatActivity(), HasFragmentInjector {
+abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     @Inject lateinit var fragmentDispatchingAndroidInjector : DispatchingAndroidInjector<Fragment>
 
@@ -43,7 +43,7 @@ abstract class BaseActivity : AppCompatActivity(), HasFragmentInjector {
         disposables.addAll(*disposable)
     }
 
-    override fun fragmentInjector() : AndroidInjector<Fragment> {
+    override fun supportFragmentInjector() : AndroidInjector<Fragment> {
         return fragmentDispatchingAndroidInjector
     }
 }
