@@ -5,6 +5,8 @@ import dagger.Provides
 import es.mnmapp.aolv.meneame.MnmApp
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -15,7 +17,7 @@ import javax.inject.Singleton
 
     @Provides @Singleton fun provideContext(app : MnmApp) = app
 
-    @Provides
-    @Singleton
-    fun provideUIThread() : Scheduler = AndroidSchedulers.mainThread()
+    @Provides @Named("uiThread") fun provideUIThread() : Scheduler = AndroidSchedulers.mainThread()
+
+    @Provides @Named("workerThread") fun provideWorkerThread() : Scheduler = Schedulers.io()
 }
