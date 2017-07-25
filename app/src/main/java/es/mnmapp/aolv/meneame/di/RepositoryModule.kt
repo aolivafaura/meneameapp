@@ -2,7 +2,8 @@ package es.mnmapp.aolv.meneame.di
 
 import dagger.Module
 import dagger.Provides
-import es.mnmapp.aolv.data.repository.cloud.MeneosCloudRepo
+import es.mnmapp.aolv.data.net.MeneameService
+import es.mnmapp.aolv.data.repository.MeneosDataRepo
 import es.mnmapp.aolv.domain.repository.MeneosRepo
 import javax.inject.Singleton
 
@@ -14,5 +15,5 @@ import javax.inject.Singleton
 
     @Provides
     @Singleton
-    fun provideMeneosRepo() : MeneosRepo = MeneosCloudRepo()
+    fun provideMeneosRepo(meneameService : MeneameService) : MeneosRepo = MeneosDataRepo(meneameService)
 }

@@ -10,21 +10,19 @@ import io.reactivex.Observable
  * Created by antoniojoseoliva on 19/07/2017.
  */
 
-class MeneosCloudRepo : MeneosRepo {
+class MeneosCloudRepo(val meneameService : MeneameService) : MeneosRepo {
 
     override fun getPopular() : Observable<List<Meneo>> {
 
         val options = HashMap<String, String>().apply { put("popular", "true") }
-        val service = MeneameService.create()
 
-        return service.getMeneos(options).map { fromMeneoEntityListToMeneoList(it.objects) }
+        return meneameService.getMeneos(options).map { fromMeneoEntityListToMeneoList(it.objects) }
     }
 
     override fun getTopVisited() : Observable<List<Meneo>> {
 
         val options = HashMap<String, String>().apply { put("top_visited", "true") }
-        val service = MeneameService.create()
 
-        return service.getMeneos(options).map { fromMeneoEntityListToMeneoList(it.objects) }
+        return meneameService.getMeneos(options).map { fromMeneoEntityListToMeneoList(it.objects) }
     }
 }
