@@ -1,7 +1,7 @@
 package es.mnmapp.aolv.meneame.ui
 
+import android.arch.lifecycle.LifecycleFragment
 import android.content.Context
-import android.support.v4.app.Fragment
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -10,7 +10,7 @@ import io.reactivex.disposables.Disposable
  * Created by antoniojoseoliva on 22/07/2017.
  */
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : LifecycleFragment() {
 
     protected val disposables = CompositeDisposable()
 

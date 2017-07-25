@@ -1,8 +1,8 @@
 package es.mnmapp.aolv.meneame.ui
 
+import android.arch.lifecycle.LifecycleActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -15,7 +15,7 @@ import javax.inject.Inject
  * Created by antoniojoseoliva on 20/07/2017.
  */
 
-abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector {
+abstract class BaseActivity : LifecycleActivity(), HasSupportFragmentInjector {
 
     @Inject lateinit var fragmentDispatchingAndroidInjector : DispatchingAndroidInjector<Fragment>
 

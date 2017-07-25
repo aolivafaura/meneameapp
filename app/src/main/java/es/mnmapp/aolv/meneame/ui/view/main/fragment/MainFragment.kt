@@ -1,13 +1,16 @@
 package es.mnmapp.aolv.meneame.ui.view.main.fragment
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import es.mnmapp.aolv.domain.entity.Meneo
 import es.mnmapp.aolv.meneame.R
 import es.mnmapp.aolv.meneame.ui.BaseFragment
 import es.mnmapp.aolv.meneame.ui.view.main.MainViewModel
+import timber.log.Timber
 
 /**
  * Created by antoniojoseoliva on 22/07/2017.
@@ -25,6 +28,8 @@ class MainFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
 
         mainViewModel = ViewModelProviders.of(activity).get(MainViewModel::class.java)
+
+        observeMeneos()
     }
 
     override fun onCreateView(inflater : LayoutInflater?,
@@ -32,5 +37,13 @@ class MainFragment : BaseFragment() {
                               savedInstanceState : Bundle?) : View {
 
         return inflater!!.inflate(R.layout.fragment_main, container, false)
+    }
+
+    fun observeMeneos() {
+
+        mainViewModel.meneos.observe(this, Observer<List<Meneo>> {
+
+            Timber.d(it.toString())
+        })
     }
 }

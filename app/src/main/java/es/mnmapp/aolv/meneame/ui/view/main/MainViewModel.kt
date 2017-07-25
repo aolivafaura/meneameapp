@@ -13,11 +13,11 @@ import timber.log.Timber
 
 class MainViewModel(val getPopularMeneos : GetPopularMeneos) : ViewModel() {
 
-    val meneos = MutableLiveData<Meneo>()
+    val meneos = MutableLiveData<List<Meneo>>()
 
     fun loadMeneos() {
 
-        getPopularMeneos.execute(object : DisposableObserver<List<Meneo>>()  {
+        getPopularMeneos.execute(object : DisposableObserver<List<Meneo>>() {
             override fun onComplete() {
             }
 
@@ -26,13 +26,15 @@ class MainViewModel(val getPopularMeneos : GetPopularMeneos) : ViewModel() {
             }
 
             override fun onNext(t : List<Meneo>) {
-                Timber.d(t.toString())
+                meneos.value = t
             }
 
         }, Unit)
     }
 
     override fun onCleared() {
-        super.onCleared()
+
     }
+
+    init { loadMeneos() }
 }
