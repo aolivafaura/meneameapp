@@ -1,0 +1,8 @@
+package es.mnmapp.aolv.data.net
+
+import es.mnmapp.aolv.data.entity.MeneoEntity
+
+/**
+ * Created by antoniojoseoliva on 19/07/2017.
+ */
+data class MeneoResult(val url : String, val objects : List<MeneoEntity>)
