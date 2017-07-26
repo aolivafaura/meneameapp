@@ -5,6 +5,16 @@ apply plugin: 'io.fabric'
 apply from: 'props.gradle'
 
 android {
+
+    signingConfigs {
+        release {
+            keyAlias prodKeyStoreAlias
+            keyPassword prodKeyStoreKeyPass
+            storeFile file('../mnmaolvdprod.keystore')
+            storePassword prodKeyStorePass
+        }
+    }
+
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
     defaultConfig {
@@ -24,9 +34,7 @@ android {
             debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            debuggable true
+            signingConfig signingConfigs.release
         }
     }
 
