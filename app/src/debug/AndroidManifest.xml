@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="es.mnmapp.aolv.meneame"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:name=".MnmDebugApp"
+        tools:replace="name">
+    </application>
+</manifest>

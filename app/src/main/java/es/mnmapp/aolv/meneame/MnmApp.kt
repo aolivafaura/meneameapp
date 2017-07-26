@@ -2,7 +2,6 @@ package es.mnmapp.aolv.meneame
 
 import android.app.Activity
 import android.app.Application
-import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -16,7 +15,7 @@ import javax.inject.Inject
  * Created by antoniojoseoliva on 20/07/2017.
  */
 
-class MnmApp : Application(), HasActivityInjector {
+open class MnmApp : Application(), HasActivityInjector {
 
     @Inject lateinit var activityDispatchingAndroidInjector : DispatchingAndroidInjector<Activity>
 
@@ -24,7 +23,6 @@ class MnmApp : Application(), HasActivityInjector {
         super.onCreate()
 
         initTimber()
-        initLeakCanary()
         initDagger()
         initPreferences()
     }
@@ -32,11 +30,6 @@ class MnmApp : Application(), HasActivityInjector {
     fun initTimber() {
 
         BuildConfig.DEBUG.let { Timber.plant(DebugTree()) }
-    }
-
-    fun initLeakCanary() {
-
-        LeakCanary.isInAnalyzerProcess(this).let { LeakCanary.install(this) }
     }
 
     fun initDagger() {

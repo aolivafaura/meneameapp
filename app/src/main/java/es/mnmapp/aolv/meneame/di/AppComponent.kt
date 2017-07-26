@@ -14,7 +14,8 @@ import javax.inject.Singleton
                                         AppModule::class,
                                         BuildersModule::class,
                                         RepositoryModule::class,
-                                        ApiModule::class)) interface AppComponent {
+                                        ApiModule::class,
+                                        HttpClientModule::class)) interface AppComponent {
 
     @Component.Builder interface Builder {
 
