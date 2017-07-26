@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
+apply from: 'props.gradle'
 
 android {
     compileSdkVersion 26
@@ -12,6 +14,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [
+                fabricApiKey: fabricApiKey
+        ]
     }
     buildTypes {
         release {
@@ -35,6 +41,17 @@ android {
             dimension "default"
         }
     }
+
+    // Exclude useless variants
+    android.variantFilter { variant ->
+        if (variant.buildType.name == 'debug' && variant.getFlavors().get(0).name == 'prod') {
+            variant.setIgnore(true)
+        }
+
+        if (variant.buildType.name == 'release' && variant.getFlavors().get(0).name == 'dev') {
+            variant.setIgnore(true)
+        }
+    }
 }
 
 kapt {
@@ -42,6 +59,9 @@ kapt {
 }
 
 dependencies {
+    implementation('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'

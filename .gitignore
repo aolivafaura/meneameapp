@@ -10,3 +10,5 @@
 gradle/
 .idea/
 gradle.properties
+fabric.properties
+props.gradle

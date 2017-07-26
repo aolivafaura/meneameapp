@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="es.mnmapp.aolv.meneame">
 
+    <!-- PERMISSIONS -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -19,6 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Fabric -->
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="${fabricApiKey}" />
     </application>
 
 </manifest>
