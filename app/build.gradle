@@ -94,6 +94,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.1.1'
     compile project(path: ':data')
     compile project(path: ':domain')
+    compile project(path: ':views')
 
     kapt 'com.google.dagger:dagger-compiler:2.11'
     kapt 'com.google.dagger:dagger-android-processor:2.11'
