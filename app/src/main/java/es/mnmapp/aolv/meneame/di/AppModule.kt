@@ -8,6 +8,7 @@ import es.mnmapp.aolv.meneame.utils.Connectivity
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.io.File
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -30,5 +31,5 @@ import javax.inject.Singleton
     fun provideConnectivityManager(context : Context) = Connectivity(context)
 
     @Provides @Singleton
-    fun provideCacheDirectory(context : Context) = context.cacheDir!!
+    fun provideCacheDirectory(context : Context) = File(context.cacheDir, "responses")
 }

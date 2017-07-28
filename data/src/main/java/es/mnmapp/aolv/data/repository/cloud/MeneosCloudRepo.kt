@@ -14,15 +14,19 @@ class MeneosCloudRepo(val meneameService : MeneameService) : MeneosRepo {
 
     override fun getPopular() : Observable<List<Meneo>> {
 
-        val options = HashMap<String, String>().apply { put("popular", "true") }
-
-        return meneameService.getMeneos(options).map { fromMeneoEntityListToMeneoList(it.objects) }
+        val options = HashMap<String, String>().apply {
+            put("popular", "true")
+        }
+        return meneameService.getMeneos(options)
+                .map { fromMeneoEntityListToMeneoList(it.objects) }
     }
 
     override fun getTopVisited() : Observable<List<Meneo>> {
 
-        val options = HashMap<String, String>().apply { put("top_visited", "true") }
-
-        return meneameService.getMeneos(options).map { fromMeneoEntityListToMeneoList(it.objects) }
+        val options = HashMap<String, String>().apply {
+            put("top_visited", "true")
+        }
+        return meneameService.getMeneos(options)
+                .map { fromMeneoEntityListToMeneoList(it.objects) }
     }
 }

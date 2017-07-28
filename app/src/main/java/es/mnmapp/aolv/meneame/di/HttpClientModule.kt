@@ -15,15 +15,15 @@ import javax.inject.Singleton
 @Module class HttpClientModule {
 
     @Provides @Singleton
-    fun providesHttpClient(cacheDir : File, interceptors : ArrayList<Interceptor>) : OkHttpClient {
+    fun providesHttpClient(httpCacheDirectory : File, interceptors : ArrayList<Interceptor>) : OkHttpClient {
 
-        val httpCacheDirectory = File(cacheDir, "responses")
         val cacheSize = 10L * 1024 * 1024 // 10 MiB
         val cache = Cache(httpCacheDirectory, cacheSize)
 
         val builder = OkHttpClient.Builder()
-                .readTimeout(15, TimeUnit.SECONDS)
-                .connectTimeout(5, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
                 .cache(cache)
 
         for (interceptor in interceptors) {
