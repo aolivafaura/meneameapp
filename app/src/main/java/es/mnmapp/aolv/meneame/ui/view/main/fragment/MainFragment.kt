@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import es.mnmapp.aolv.domain.entity.Meneo
 import es.mnmapp.aolv.meneame.R
 import es.mnmapp.aolv.meneame.ui.BaseFragment
@@ -36,7 +37,9 @@ class MainFragment : BaseFragment() {
                               container : ViewGroup?,
                               savedInstanceState : Bundle?) : View {
 
-        return inflater!!.inflate(R.layout.fragment_main, container, false)
+        val v = inflater!!.inflate(R.layout.fragment_main, container, false)
+        v.findViewById<Button>(R.id.b_refresh).setOnClickListener { mainViewModel.loadMeneos() }
+        return v
     }
 
     fun observeMeneos() {

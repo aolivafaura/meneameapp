@@ -35,6 +35,4 @@ class MainViewModel(val getPopularMeneos : GetPopularMeneos) : ViewModel() {
     override fun onCleared() {
 
     }
-
-    init { loadMeneos() }
 }

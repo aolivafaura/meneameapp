@@ -1,8 +1,10 @@
 package es.mnmapp.aolv.meneame.di
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import es.mnmapp.aolv.meneame.MnmApp
+import es.mnmapp.aolv.meneame.utils.Connectivity
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -15,9 +17,11 @@ import javax.inject.Singleton
 
 @Module class AppModule {
 
-    @Provides @Singleton fun provideContext(app : MnmApp) = app
+    @Provides @Singleton fun provideContext(app : MnmApp) = app.applicationContext!!
 
     @Provides @Named("uiThread") fun provideUIThread() : Scheduler = AndroidSchedulers.mainThread()
 
     @Provides @Named("workerThread") fun provideWorkerThread() : Scheduler = Schedulers.io()
+
+    @Provides @Singleton fun provideConectivityManager(context : Context) = Connectivity(context)
 }

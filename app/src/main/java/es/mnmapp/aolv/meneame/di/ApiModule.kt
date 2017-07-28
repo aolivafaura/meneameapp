@@ -11,5 +11,6 @@ import okhttp3.OkHttpClient
 
 @Module class ApiModule {
 
-    @Provides fun provideMeneameService(okHttpClient : OkHttpClient) = MeneameService.create(okHttpClient)
+    @Provides fun provideMeneameService(okHttpClient : OkHttpClient) = MeneameService.create(
+            okHttpClient)
 }
