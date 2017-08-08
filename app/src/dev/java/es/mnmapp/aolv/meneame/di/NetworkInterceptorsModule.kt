@@ -34,7 +34,7 @@ import javax.inject.Singleton
         }
         val originalResponse = chain.proceed(request)
         if (connectivity.isConnected()) {
-            val maxAge = 30 // Cache lifetime: 30 seconds
+            val maxAge = 5 // Cache lifetime: 30 seconds
             originalResponse.newBuilder().header("Cache-Control",
                                                  "public, max-age=" + maxAge).build()
         }

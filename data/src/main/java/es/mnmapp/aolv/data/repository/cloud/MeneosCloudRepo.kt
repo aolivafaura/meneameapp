@@ -1,6 +1,6 @@
 package es.mnmapp.aolv.data.repository.cloud
 
-import es.mnmapp.aolv.data.entity.mapper.fromMeneoEntityListToMeneoList
+import es.mnmapp.aolv.data.entity.mapper.fromMeneoEntityToMeneo
 import es.mnmapp.aolv.data.net.MeneameService
 import es.mnmapp.aolv.domain.entity.Meneo
 import es.mnmapp.aolv.domain.repository.MeneosRepo
@@ -17,8 +17,9 @@ class MeneosCloudRepo(val meneameService : MeneameService) : MeneosRepo {
         val options = HashMap<String, String>().apply {
             put("popular", "true")
         }
-        return meneameService.getMeneos(options)
-                .map { fromMeneoEntityListToMeneoList(it.objects) }
+        return meneameService.getMeneos(options).map {
+            it.objects.map { fromMeneoEntityToMeneo(it) }
+        }
     }
 
     override fun getTopVisited() : Observable<List<Meneo>> {
@@ -26,7 +27,8 @@ class MeneosCloudRepo(val meneameService : MeneameService) : MeneosRepo {
         val options = HashMap<String, String>().apply {
             put("top_visited", "true")
         }
-        return meneameService.getMeneos(options)
-                .map { fromMeneoEntityListToMeneoList(it.objects) }
+        return meneameService.getMeneos(options).map {
+            it.objects.map { fromMeneoEntityToMeneo(it) }
+        }
     }
 }

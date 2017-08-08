@@ -21,4 +21,4 @@ data class MeneoEntity(val id : Long,
                        val sent_date : Long,
                        val date : Long,
                        val content : String,
-                       val thumb : String)
+                       val thumb : String?)

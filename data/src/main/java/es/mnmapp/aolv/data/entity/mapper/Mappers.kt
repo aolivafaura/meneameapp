@@ -9,17 +9,5 @@ import es.mnmapp.aolv.domain.entity.Meneo
 
 fun fromMeneoEntityToMeneo(meneoEntity : MeneoEntity) = Meneo(meneoEntity.id,
                                                               meneoEntity.url,
-                                                              meneoEntity.title)
-
-fun fromMeneoEntityListToMeneoList(meneoEntityList : List<MeneoEntity>) : List<Meneo> {
-
-    if (meneoEntityList.isNotEmpty()) {
-
-        val meneoList = ArrayList<Meneo>()
-        meneoEntityList.mapTo(meneoList) { fromMeneoEntityToMeneo(it) }
-
-        return meneoList
-    }
-
-    return emptyList()
-}
+                                                              meneoEntity.title,
+                                                              meneoEntity.thumb)

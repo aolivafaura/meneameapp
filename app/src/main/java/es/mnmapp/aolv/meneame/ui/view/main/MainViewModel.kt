@@ -4,8 +4,10 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import es.mnmapp.aolv.domain.entity.Meneo
 import es.mnmapp.aolv.domain.usecase.GetPopularMeneos
-import io.reactivex.observers.DisposableObserver
-import timber.log.Timber
+import es.mnmapp.aolv.meneame.entity.MeneoUi
+import es.mnmapp.aolv.meneame.entity.mapper.fromMeneoToMeneoUi
+import es.mnmapp.aolv.meneame.rx.BaseObserver
+import es.mnmapp.aolv.meneame.ui.view.common.ViewState
 
 /**
  * Created by antoniojoseoliva on 25/07/2017.
@@ -13,22 +15,24 @@ import timber.log.Timber
 
 class MainViewModel(val getPopularMeneos : GetPopularMeneos) : ViewModel() {
 
-    val meneos = MutableLiveData<List<Meneo>>()
+    val meneos = MutableLiveData<MutableList<MeneoUi>>()
+    val state = MutableLiveData<ViewState>()
 
     fun loadMeneos() {
 
-        getPopularMeneos.execute(object : DisposableObserver<List<Meneo>>() {
-            override fun onComplete() {
+        state.value = ViewState.Refreshing
+
+        getPopularMeneos.execute(object : BaseObserver<List<Meneo>>() {
+
+            override fun onError(error : Throwable) {
+                super.onError(error)
+                state.value = ViewState.Idle
             }
 
-            override fun onError(e : Throwable) {
-                Timber.w(e.message)
+            override fun onNext(result : List<Meneo>) {
+                state.value = ViewState.Idle
+                meneos.value = result.map { fromMeneoToMeneoUi(it) }.toMutableList()
             }
-
-            override fun onNext(t : List<Meneo>) {
-                meneos.value = t
-            }
-
         }, Unit)
     }
 

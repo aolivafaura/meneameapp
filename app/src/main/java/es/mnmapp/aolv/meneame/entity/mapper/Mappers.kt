@@ -7,4 +7,4 @@ import es.mnmapp.aolv.meneame.entity.MeneoUi
  * Created by antoniojoseoliva on 21/07/2017.
  */
 
-fun fromMeneoToMeneoUi(meneo : Meneo) = MeneoUi(meneo.id, meneo.url, meneo.title)
+fun fromMeneoToMeneoUi(meneo : Meneo) = MeneoUi(meneo.id, meneo.url, meneo.title, meneo.thumb)

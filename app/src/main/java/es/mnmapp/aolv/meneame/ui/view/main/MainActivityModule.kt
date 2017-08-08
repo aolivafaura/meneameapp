@@ -9,5 +9,6 @@ import es.mnmapp.aolv.domain.usecase.GetPopularMeneos
  */
 @Module class MainActivityModule {
 
-    @Provides fun provideMainViewModelFactory(getPopularMeneos : GetPopularMeneos) = MainViewModelFactory(getPopularMeneos)
+    @Provides
+    fun provideMainViewModelFactory(getPopularMeneos : GetPopularMeneos) = MainViewModelFactory(getPopularMeneos)
 }

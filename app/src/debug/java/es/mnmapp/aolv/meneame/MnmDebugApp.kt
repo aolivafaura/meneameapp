@@ -2,7 +2,7 @@ package es.mnmapp.aolv.meneame
 
 import com.facebook.stetho.Stetho
 import com.squareup.leakcanary.LeakCanary
-import timber.log.Timber
+import es.mnmapp.aolv.meneame.utils.d
 
 /**
  * Created by antoniojoseoliva on 20/07/2017.
@@ -11,12 +11,14 @@ import timber.log.Timber
 class MnmDebugApp : MnmApp() {
 
     override fun onCreate() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return
+        }
         super.onCreate()
 
-        Timber.d("APPLICATION ON DEBUG MODE")
-
-        initStetho()
+        d("APPLICATION ON DEBUG MODE")
         initLeakCanary()
+        initStetho()
     }
 
     fun initStetho() {
@@ -24,6 +26,6 @@ class MnmDebugApp : MnmApp() {
     }
 
     fun initLeakCanary() {
-        LeakCanary.isInAnalyzerProcess(this).let { LeakCanary.install(this) }
+        LeakCanary.install(this)
     }
 }
