@@ -11,8 +11,5 @@ import javax.inject.Inject
 
 class GetPopularMeneos @Inject constructor(val meneosRepo : MeneosRepo) : UseCase<List<Meneo>, Unit>() {
 
-    override fun buildUseCaseObservable(params : Unit) : Observable<List<Meneo>> {
-
-        return meneosRepo.getPopular()
-    }
+    override fun buildUseCaseObservable(params : Unit) : Observable<List<Meneo>> = meneosRepo.getPopular()
 }

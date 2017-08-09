@@ -23,7 +23,7 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "es.mnmapp.aolv.meneame.TestRunner"
 
         manifestPlaceholders = [
                 fabricApiKey: fabricApiKey
@@ -60,6 +60,12 @@ android {
         prod {
             dimension "default"
         }
+
+        thetest {
+            dimension "default"
+            versionNameSuffix "-thetest"
+            applicationIdSuffix '.thetest'
+        }
     }
 
     // Exclude useless variants
@@ -69,6 +75,10 @@ android {
         }
 
         if (variant.buildType.name == 'release' && variant.getFlavors().get(0).name == 'dev') {
+            variant.setIgnore(true)
+        }
+
+        if (variant.buildType.name == 'release' && variant.getFlavors().get(0).name == 'thetest') {
             variant.setIgnore(true)
         }
     }
@@ -93,8 +103,8 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:26.0.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.1.1'
-    compile project(path: ':data')
-    compile project(path: ':domain')
+    implementation project(path: ':data')
+    implementation project(path: ':domain')
 
     kapt 'com.google.dagger:dagger-compiler:2.11'
     kapt 'com.google.dagger:dagger-android-processor:2.11'
@@ -119,8 +129,8 @@ dependencies {
     debugCompile("com.facebook.stetho:stetho-okhttp3:1.5.0") {
         exclude group: "com.squareup.okhttp3"
     }
-    provided 'com.squareup.okhttp3:okhttp:3.8.1'
+    compileOnly 'com.squareup.okhttp3:okhttp:3.8.1'
 
     implementation 'com.github.bumptech.glide:glide:4.0.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
+    kapt 'com.github.bumptech.glide:compiler:4.0.0'
 }

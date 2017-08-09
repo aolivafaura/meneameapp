@@ -13,8 +13,12 @@ import javax.inject.Named
  */
 abstract class UseCase<T, in Params> {
 
+    /*
+     * On this project, those schedulers will be always the same and provided by dagger.
+     * There is no advantage then injecting them on children constructor vs injecting them directly
+     * here
+     */
     @field:[Inject Named("uiThread")] lateinit var postExecutionThread : Scheduler
-
     @field:[Inject Named("workerThread")] lateinit var workerThread : Scheduler
 
     private val disposables : CompositeDisposable = CompositeDisposable()

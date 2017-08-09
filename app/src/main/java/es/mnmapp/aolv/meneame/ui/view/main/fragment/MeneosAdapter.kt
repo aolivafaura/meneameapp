@@ -31,7 +31,7 @@ class MeneosAdapter(var meneos : MutableList<MeneoUi>) : RecyclerView.Adapter<Me
         holder.title.text = meneo.title
     }
 
-    override fun getItemId(position : Int) = meneos[position].id
+    override fun getItemId(position : Int) = meneos[position].id?: 0L
 
     override fun getItemCount() = meneos.size
 
@@ -44,7 +44,7 @@ class MeneosAdapter(var meneos : MutableList<MeneoUi>) : RecyclerView.Adapter<Me
     }
 
     class Holder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-        val image = itemView.findViewById<ImageView>(R.id.iv_row_meneo)
-        val title = itemView.findViewById<TextView>(R.id.tv_meneo_row_title)
+        val image = itemView.findViewById<ImageView>(R.id.iv_row_meneo)!!
+        val title = itemView.findViewById<TextView>(R.id.tv_meneo_row_title)!!
     }
 }
