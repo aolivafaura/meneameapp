@@ -10,7 +10,7 @@ import io.reactivex.Observable
  * Created by antoniojoseoliva on 19/07/2017.
  */
 
-class MeneosCloudRepo(val meneameService : MeneameService) : MeneosRepo {
+class MeneosCloudRepo(private val meneameService : MeneameService) : MeneosRepo {
 
     override fun getPopular() : Observable<List<Meneo>> {
 
