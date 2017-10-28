@@ -14,13 +14,13 @@ import retrofit2.http.QueryMap
 interface MeneameService {
 
     @GET("list.php")
-    fun getMeneos(@QueryMap options : Map<String, String>) : Observable<MeneoApiResult>
+    fun getMeneos(@QueryMap options: Map<String, String>): Observable<MeneoApiResult>
 
     /**
      * Companion object to create the MeneameService
      */
     companion object Factory {
-        fun create(httpClient : OkHttpClient) : MeneameService {
+        fun create(httpClient: OkHttpClient): MeneameService {
             val retrofit = Retrofit.Builder()
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())

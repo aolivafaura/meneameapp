@@ -10,10 +10,9 @@ import io.reactivex.Observable
  * Created by antoniojoseoliva on 19/07/2017.
  */
 
-class MeneosCloudRepo(private val meneameService : MeneameService) : MeneosRepo {
+class MeneosCloudRepo(private val meneameService: MeneameService) : MeneosRepo {
 
-    override fun getPopular() : Observable<List<Meneo>> {
-
+    override fun getPopular(): Observable<List<Meneo>> {
         val options = HashMap<String, String>().apply {
             put("popular", "true")
         }
@@ -22,8 +21,7 @@ class MeneosCloudRepo(private val meneameService : MeneameService) : MeneosRepo 
         }
     }
 
-    override fun getTopVisited() : Observable<List<Meneo>> {
-
+    override fun getTopVisited(): Observable<List<Meneo>> {
         val options = HashMap<String, String>().apply {
             put("top_visited", "true")
         }

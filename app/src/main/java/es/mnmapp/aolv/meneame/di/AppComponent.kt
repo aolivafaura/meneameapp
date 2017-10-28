@@ -10,20 +10,24 @@ import javax.inject.Singleton
  * Created by antoniojoseoliva on 20/07/2017.
  */
 
-@Singleton @Component(modules = arrayOf(AndroidSupportInjectionModule::class,
-                                        AppModule::class,
-                                        BuildersModule::class,
-                                        RepositoryModule::class,
-                                        NetworkInterceptorsModule::class,
-                                        ApiModule::class,
-                                        HttpClientModule::class)) interface AppComponent {
+@Singleton
+@Component(modules = arrayOf(AndroidSupportInjectionModule::class,
+        AppModule::class,
+        BuildersModule::class,
+        RepositoryModule::class,
+        NetworkInterceptorsModule::class,
+        ApiModule::class,
+        HttpClientModule::class))
+interface AppComponent {
 
-    @Component.Builder interface Builder {
+    @Component.Builder
+    interface Builder {
 
-        @BindsInstance fun application(app : MnmApp) : Builder
+        @BindsInstance
+        fun application(app: MnmApp): Builder
 
-        fun build() : AppComponent
+        fun build(): AppComponent
     }
 
-    fun inject(app : MnmApp)
+    fun inject(app: MnmApp)
 }

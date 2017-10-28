@@ -21,7 +21,7 @@ import javax.inject.Singleton
         return arrayListOf(getCacheInterceptor(connectivity), getStethoInterceptor())
     }
 
-    fun getCacheInterceptor(connectivity : Connectivity) = Interceptor { chain ->
+    private fun getCacheInterceptor(connectivity : Connectivity) = Interceptor { chain ->
 
         val cacheBuilder = CacheControl.Builder()
         cacheBuilder.maxAge(0, TimeUnit.SECONDS)
@@ -45,5 +45,5 @@ import javax.inject.Singleton
         }
     }
 
-    fun getStethoInterceptor() = StethoInterceptor()
+    private fun getStethoInterceptor() = StethoInterceptor()
 }

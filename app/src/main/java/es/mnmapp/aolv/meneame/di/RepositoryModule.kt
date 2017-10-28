@@ -11,9 +11,10 @@ import javax.inject.Singleton
  * Created by antoniojoseoliva on 20/07/2017.
  */
 
-@Module class RepositoryModule {
+@Module
+class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideMeneosRepo(meneameService : MeneameService) : MeneosRepo = MeneosDataRepo(meneameService)
+    fun provideMeneosRepo(meneameService: MeneameService): MeneosRepo = MeneosDataRepo(meneameService)
 }

@@ -11,11 +11,11 @@ import io.reactivex.observers.DisposableObserver
 open class BaseObserver<T> : DisposableObserver<T>() {
 
     @CallSuper
-    override fun onError(error : Throwable) {
+    override fun onError(error: Throwable) {
         w(error.message ?: "Null exception on base observer")
     }
 
-    override fun onNext(result : T) {
+    override fun onNext(result: T) {
 
     }
 

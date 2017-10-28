@@ -9,6 +9,7 @@
     <application
         android:name=".MnmApp"
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -16,12 +17,14 @@
         android:theme="@style/AppTheme">
 
         <!-- Activity -->
-        <activity android:name="es.mnmapp.aolv.meneame.ui.view.main.MainActivity">
+        <activity android:name=".ui.view.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.view.webview.WebViewActivity" />
 
         <!-- Fabric -->
         <meta-data

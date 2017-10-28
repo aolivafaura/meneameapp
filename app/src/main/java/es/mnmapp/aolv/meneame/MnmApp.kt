@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 open class MnmApp : Application(), HasActivityInjector {
 
-    @Inject lateinit var activityDispatchingAndroidInjector : DispatchingAndroidInjector<Activity>
+    @Inject lateinit var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
     override fun onCreate() {
         super.onCreate()
@@ -32,22 +32,22 @@ open class MnmApp : Application(), HasActivityInjector {
         initPreferences()
     }
 
-    fun initTimber() {
+    private fun initTimber() {
         Timber.plant(if (BuildConfig.DEBUG) DebugTree() else CrashlyticsTree())
     }
 
-    fun initDagger() {
+    private fun initDagger() {
         DaggerAppComponent.builder().application(this).build().inject(this)
     }
 
-    fun initPreferences() {
+    private fun initPreferences() {
         KotlinPreferences.init(applicationContext)
     }
 
-    fun initFabric() {
+    private fun initFabric() {
         val core = CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()
         Fabric.with(this, Crashlytics.Builder().core(core).build())
     }
 
-    override fun activityInjector() : AndroidInjector<Activity> = activityDispatchingAndroidInjector
+    override fun activityInjector(): AndroidInjector<Activity> = activityDispatchingAndroidInjector
 }

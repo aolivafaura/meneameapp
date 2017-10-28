@@ -9,8 +9,10 @@ import okhttp3.OkHttpClient
  * Created by antoniojoseoliva on 25/07/2017.
  */
 
-@Module class ApiModule {
+@Module
+class ApiModule {
 
-    @Provides fun provideMeneameService(okHttpClient : OkHttpClient) = MeneameService.create(
+    @Provides
+    fun provideMeneameService(okHttpClient: OkHttpClient) = MeneameService.create(
             okHttpClient)
 }

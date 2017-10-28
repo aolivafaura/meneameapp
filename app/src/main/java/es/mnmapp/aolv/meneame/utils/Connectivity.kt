@@ -9,7 +9,7 @@ import android.telephony.TelephonyManager
  * Check device's network connectivity and speed
  * Based on Connectivity utils of {@link http://stackoverflow.com/users/220710/emil}
  */
-class Connectivity(val context : Context) {
+class Connectivity(val context: Context) {
 
     /**
      * Get the network info
@@ -17,7 +17,7 @@ class Connectivity(val context : Context) {
      * *
      * @return
      */
-    fun getNetworkInfo() : NetworkInfo? {
+    fun getNetworkInfo(): NetworkInfo? {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         return cm.activeNetworkInfo
     }
@@ -28,7 +28,7 @@ class Connectivity(val context : Context) {
      * *
      * @return
      */
-    fun isConnected() : Boolean {
+    fun isConnected(): Boolean {
         return getNetworkInfo()?.isConnected ?: false
     }
 
@@ -40,7 +40,7 @@ class Connectivity(val context : Context) {
      * *
      * @return
      */
-    fun isConnectedWifi() : Boolean {
+    fun isConnectedWifi(): Boolean {
         val info = getNetworkInfo()
         return isConnected() && info!!.type == ConnectivityManager.TYPE_WIFI
     }
@@ -53,7 +53,7 @@ class Connectivity(val context : Context) {
      * *
      * @return
      */
-    fun isConnectedMobile() : Boolean {
+    fun isConnectedMobile(): Boolean {
         val info = getNetworkInfo()
         return isConnected() && info!!.type == ConnectivityManager.TYPE_MOBILE
     }
@@ -64,7 +64,7 @@ class Connectivity(val context : Context) {
      * *
      * @return
      */
-    fun isConnectedFast() : Boolean {
+    fun isConnectedFast(): Boolean {
         val info = getNetworkInfo()
         return isConnected() && isConnectionFast(info!!.type, info.subtype)
     }
@@ -77,18 +77,18 @@ class Connectivity(val context : Context) {
      * *
      * @return
      */
-    fun isConnectionFast(type : Int, subType : Int) : Boolean {
+    fun isConnectionFast(type: Int, subType: Int): Boolean {
         if (type == ConnectivityManager.TYPE_MOBILE) {
             val fastConnections = arrayOf(TelephonyManager.NETWORK_TYPE_EVDO_0, // ~ 400-1000 kbps
-                                          TelephonyManager.NETWORK_TYPE_EVDO_A, // ~ 600-1400 kbps
-                                          TelephonyManager.NETWORK_TYPE_HSDPA, // ~ 2-14 Mbps
-                                          TelephonyManager.NETWORK_TYPE_HSPA, // ~ 700-1700 kbps
-                                          TelephonyManager.NETWORK_TYPE_HSUPA, // ~ 1-23 Mbps
-                                          TelephonyManager.NETWORK_TYPE_UMTS, // ~ 400-7000 kbps
-                                          TelephonyManager.NETWORK_TYPE_EHRPD, // ~ 1-2 Mbps
-                                          TelephonyManager.NETWORK_TYPE_EVDO_B, // ~ 5 Mbps
-                                          TelephonyManager.NETWORK_TYPE_HSPAP, // ~ 10-20 Mbps
-                                          TelephonyManager.NETWORK_TYPE_LTE) // ~ 10+ Mbps
+                    TelephonyManager.NETWORK_TYPE_EVDO_A, // ~ 600-1400 kbps
+                    TelephonyManager.NETWORK_TYPE_HSDPA, // ~ 2-14 Mbps
+                    TelephonyManager.NETWORK_TYPE_HSPA, // ~ 700-1700 kbps
+                    TelephonyManager.NETWORK_TYPE_HSUPA, // ~ 1-23 Mbps
+                    TelephonyManager.NETWORK_TYPE_UMTS, // ~ 400-7000 kbps
+                    TelephonyManager.NETWORK_TYPE_EHRPD, // ~ 1-2 Mbps
+                    TelephonyManager.NETWORK_TYPE_EVDO_B, // ~ 5 Mbps
+                    TelephonyManager.NETWORK_TYPE_HSPAP, // ~ 10-20 Mbps
+                    TelephonyManager.NETWORK_TYPE_LTE) // ~ 10+ Mbps
 
             return subType in fastConnections
         }

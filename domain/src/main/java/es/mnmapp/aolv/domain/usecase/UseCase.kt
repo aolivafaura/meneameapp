@@ -18,14 +18,14 @@ abstract class UseCase<T, in Params> {
      * There is no advantage then injecting them on children constructor vs injecting them directly
      * here
      */
-    @field:[Inject Named("uiThread")] lateinit internal var postExecutionThread : Scheduler
-    @field:[Inject Named("workerThread")] lateinit internal var workerThread : Scheduler
+    @field:[Inject Named("uiThread")] lateinit internal var postExecutionThread: Scheduler
+    @field:[Inject Named("workerThread")] lateinit internal var workerThread: Scheduler
 
-    private val disposables : CompositeDisposable = CompositeDisposable()
+    private val disposables: CompositeDisposable = CompositeDisposable()
 
-    internal abstract fun buildUseCaseObservable(params : Params) : Observable<T>
+    internal abstract fun buildUseCaseObservable(params: Params): Observable<T>
 
-    fun execute(observer : DisposableObserver<T>, params : Params) {
+    fun execute(observer: DisposableObserver<T>, params: Params) {
         val observable = this.buildUseCaseObservable(params)
                 .subscribeOn(workerThread)
                 .observeOn(postExecutionThread)
@@ -45,7 +45,7 @@ abstract class UseCase<T, in Params> {
     /**
      * Dispose from current [CompositeDisposable].
      */
-    private fun addDisposable(disposable : Disposable) {
+    private fun addDisposable(disposable: Disposable) {
         disposables.add(disposable)
     }
 }

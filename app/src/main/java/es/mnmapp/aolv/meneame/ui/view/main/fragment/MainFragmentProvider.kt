@@ -10,5 +10,5 @@ import dagger.android.ContributesAndroidInjector
 @Module abstract class MainFragmentProvider {
 
     @ContributesAndroidInjector(modules = arrayOf(MainFragmentModule::class))
-    abstract fun provideMainFragmentFactory() : MainFragment
+    abstract fun provideMainFragmentFactory(): MainFragment
 }

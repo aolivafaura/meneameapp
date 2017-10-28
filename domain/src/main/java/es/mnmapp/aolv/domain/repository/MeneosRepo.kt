@@ -8,7 +8,7 @@ import io.reactivex.Observable
  */
 interface MeneosRepo {
 
-    fun getPopular() : Observable<List<Meneo>>
+    fun getPopular(): Observable<List<Meneo>>
 
-    fun getTopVisited() : Observable<List<Meneo>>
+    fun getTopVisited(): Observable<List<Meneo>>
 }

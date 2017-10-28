@@ -1,8 +1,8 @@
 package es.mnmapp.aolv.meneame.ui
 
-import android.arch.lifecycle.LifecycleActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -15,13 +15,13 @@ import javax.inject.Inject
  * Created by antoniojoseoliva on 20/07/2017.
  */
 
-abstract class BaseActivity : LifecycleActivity(), HasSupportFragmentInjector {
+abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
-    @Inject lateinit var fragmentDispatchingAndroidInjector : DispatchingAndroidInjector<Fragment>
+    @Inject lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
     protected val disposables = CompositeDisposable()
 
-    override fun onCreate(savedInstanceState : Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
 
         super.onCreate(savedInstanceState)
@@ -38,12 +38,12 @@ abstract class BaseActivity : LifecycleActivity(), HasSupportFragmentInjector {
      * automatically when the activity will be destroyed.
      * Do it to avoid potential memory leaks.
      */
-    fun addDisposable(vararg disposable : Disposable) {
+    fun addDisposable(vararg disposable: Disposable) {
 
         disposables.addAll(*disposable)
     }
 
-    override fun supportFragmentInjector() : AndroidInjector<Fragment> {
+    override fun supportFragmentInjector(): AndroidInjector<Fragment> {
         return fragmentDispatchingAndroidInjector
     }
 }

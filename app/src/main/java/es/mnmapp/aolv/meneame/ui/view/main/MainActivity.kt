@@ -9,11 +9,11 @@ import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
 
-    @Inject lateinit var viewModelFactory : MainViewModelFactory
+    @Inject lateinit var viewModelFactory: MainViewModelFactory
 
-    lateinit var mainViewModel : MainViewModel
+    lateinit var mainViewModel: MainViewModel
 
-    override fun onCreate(savedInstanceState : Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 

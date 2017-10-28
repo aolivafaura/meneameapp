@@ -13,18 +13,21 @@ import org.mockito.runners.MockitoJUnitRunner
  * Created by antoniojoseoliva on 12/08/2017.
  */
 
-@RunWith(MockitoJUnitRunner::class) class GetPopularMeneosTest {
+@RunWith(MockitoJUnitRunner::class)
+class GetPopularMeneosTest {
 
-    private lateinit var getPopularMeneos : GetPopularMeneos
+    private lateinit var getPopularMeneos: GetPopularMeneos
 
-    @Mock private lateinit var meneosRepo : MeneosRepo
+    @Mock private lateinit var meneosRepo: MeneosRepo
 
-    @Before fun setUp() {
+    @Before
+    fun setUp() {
 
         getPopularMeneos = GetPopularMeneos(meneosRepo)
     }
 
-    @Test fun Given_UseCaseCalled_When_ParamsAreValid_Then_MeneosAreRetrievedFromRepoOneTime() {
+    @Test
+    fun Given_UseCaseCalled_When_ParamsAreValid_Then_MeneosAreRetrievedFromRepoOneTime() {
         getPopularMeneos.buildUseCaseObservable(Unit)
 
         verify(meneosRepo, times(1)).getPopular()

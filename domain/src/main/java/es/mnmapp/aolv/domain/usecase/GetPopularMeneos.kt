@@ -9,7 +9,7 @@ import javax.inject.Inject
  * Created by antoniojoseoliva on 09/07/2017.
  */
 
-class GetPopularMeneos @Inject constructor(val meneosRepo : MeneosRepo) : UseCase<List<Meneo>, Unit>() {
+class GetPopularMeneos @Inject constructor(val meneosRepo: MeneosRepo) : UseCase<List<Meneo>, Unit>() {
 
-    override fun buildUseCaseObservable(params : Unit) : Observable<List<Meneo>> = meneosRepo.getPopular()
+    override fun buildUseCaseObservable(params: Unit): Observable<List<Meneo>> = meneosRepo.getPopular()
 }

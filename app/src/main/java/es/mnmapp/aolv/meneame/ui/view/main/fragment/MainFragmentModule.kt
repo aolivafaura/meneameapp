@@ -6,6 +6,7 @@ import dagger.Module
  * Created by antoniojoseoliva on 22/07/2017.
  */
 
-@Module class MainFragmentModule {
+@Module
+class MainFragmentModule {
 
 }

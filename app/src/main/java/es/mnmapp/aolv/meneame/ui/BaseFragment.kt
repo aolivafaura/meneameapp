@@ -1,7 +1,7 @@
 package es.mnmapp.aolv.meneame.ui
 
-import android.arch.lifecycle.LifecycleFragment
 import android.content.Context
+import android.support.v4.app.Fragment
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -10,7 +10,7 @@ import io.reactivex.disposables.Disposable
  * Created by antoniojoseoliva on 22/07/2017.
  */
 
-abstract class BaseFragment : LifecycleFragment() {
+abstract class BaseFragment : Fragment() {
 
     protected val disposables = CompositeDisposable()
 
@@ -20,7 +20,7 @@ abstract class BaseFragment : LifecycleFragment() {
         disposables.clear()
     }
 
-    override fun onAttach(context : Context?) {
+    override fun onAttach(context: Context?) {
         AndroidSupportInjection.inject(this)
 
         super.onAttach(context)
@@ -39,7 +39,7 @@ abstract class BaseFragment : LifecycleFragment() {
      * be sure all your subscriptions will be on the correct state if the fragment is attached again.
      * Do it to avoid potential memory leaks.
      */
-    fun addDisposable(vararg disposable : Disposable) {
+    fun addDisposable(vararg disposable: Disposable) {
 
         disposables.addAll(*disposable)
     }

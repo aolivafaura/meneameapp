@@ -12,10 +12,12 @@ import javax.inject.Singleton
 /**
  * Created by antoniojoseoliva on 26/07/2017.
  */
-@Module class HttpClientModule {
+@Module
+class HttpClientModule {
 
-    @Provides @Singleton
-    fun providesHttpClient(httpCacheDirectory : File, interceptors : ArrayList<Interceptor>) : OkHttpClient {
+    @Provides
+    @Singleton
+    fun providesHttpClient(httpCacheDirectory: File, interceptors: ArrayList<Interceptor>): OkHttpClient {
 
         val cacheSize = 10L * 1024 * 1024 // 10 MiB
         val cache = Cache(httpCacheDirectory, cacheSize)
