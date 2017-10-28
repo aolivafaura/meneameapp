@@ -1,7 +1,7 @@
 package es.mnmapp.aolv.meneame.rx
 
 import android.support.annotation.CallSuper
-import es.mnmapp.aolv.meneame.utils.w
+import android.util.Log
 import io.reactivex.observers.DisposableObserver
 
 /**
@@ -12,7 +12,7 @@ open class BaseObserver<T> : DisposableObserver<T>() {
 
     @CallSuper
     override fun onError(error: Throwable) {
-        w(error.message ?: "Null exception on base observer")
+        Log.w("BaseObserver", error.message ?: "Null exception on base observer")
     }
 
     override fun onNext(result: T) {

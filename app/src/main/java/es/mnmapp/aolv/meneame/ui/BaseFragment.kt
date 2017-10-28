@@ -3,8 +3,10 @@ package es.mnmapp.aolv.meneame.ui
 import android.content.Context
 import android.support.v4.app.Fragment
 import dagger.android.support.AndroidSupportInjection
+import es.mnmapp.aolv.meneame.utils.Lg
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import javax.inject.Inject
 
 /**
  * Created by antoniojoseoliva on 22/07/2017.
@@ -13,6 +15,7 @@ import io.reactivex.disposables.Disposable
 abstract class BaseFragment : Fragment() {
 
     protected val disposables = CompositeDisposable()
+    @Inject protected lateinit var logger : Lg
 
     override fun onDestroyView() {
         super.onDestroyView()

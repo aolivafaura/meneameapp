@@ -93,6 +93,7 @@ dependencies {
         transitive = true
     }
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.google.firebase:firebase-core:11.4.2'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -133,3 +134,5 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.0.0'
     kapt 'com.github.bumptech.glide:compiler:4.0.0'
 }
+
+apply plugin: 'com.google.gms.google-services'

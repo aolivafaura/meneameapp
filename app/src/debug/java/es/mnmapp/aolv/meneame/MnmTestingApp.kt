@@ -1,6 +1,7 @@
 package es.mnmapp.aolv.meneame
 
-import es.mnmapp.aolv.meneame.utils.d
+import es.mnmapp.aolv.meneame.utils.Lg
+import javax.inject.Inject
 
 /**
  * Created by antoniojoseoliva on 08/08/2017.
@@ -8,9 +9,11 @@ import es.mnmapp.aolv.meneame.utils.d
 
 class MnmTestingApp : MnmApp() {
 
+    @Inject lateinit var logger : Lg
+
     override fun onCreate() {
         super.onCreate()
 
-        d("APPLICATION ON TESTING MODE")
+        logger.d("APPLICATION ON TESTING MODE")
     }
 }

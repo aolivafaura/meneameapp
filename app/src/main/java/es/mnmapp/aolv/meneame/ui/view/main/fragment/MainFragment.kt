@@ -79,13 +79,7 @@ class MainFragment : BaseFragment() {
         mainViewModel.meneos.observe(this, Observer<MutableList<MeneoUi>> {
             it?.let {
                 if (meneosList.adapter == null) {
-                    meneosList.adapter = MeneosAdapter(it)
-                    (meneosList.adapter as MeneosAdapter).observeItemClick()
-                            .subscribe(object : BaseObserver<MeneoUi>() {
-                                override fun onNext(result: MeneoUi) {
-                                    onListItemClick(result)
-                                }
-                            })
+                    initAdapter(it)
                 } else {
                     (meneosList.adapter as MeneosAdapter).updateList(it)
                 }
@@ -101,5 +95,17 @@ class MainFragment : BaseFragment() {
                 else -> swipeLayout.isRefreshing = false
             }
         })
+    }
+
+    private fun initAdapter(items: MutableList<MeneoUi>) {
+        meneosList.adapter = MeneosAdapter(items)
+        (meneosList.adapter as MeneosAdapter)
+                .observeItemClick()
+                .subscribe(object : BaseObserver<MeneoUi>() {
+                    override fun onNext(result: MeneoUi) {
+                        onListItemClick(result)
+                        logger.ev("ITEM_CLICK", null)
+                    }
+                })
     }
 }

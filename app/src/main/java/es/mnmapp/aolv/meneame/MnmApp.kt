@@ -8,7 +8,7 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import es.mnmapp.aolv.meneame.di.DaggerAppComponent
-import es.mnmapp.aolv.meneame.logger.CrashlyticsTree
+import es.mnmapp.aolv.meneame.loggers.CrashlyticsTree
 import io.fabric.sdk.android.Fabric
 import ir.mirrajabi.kotlinpreferencesextensions.KotlinPreferences
 import timber.log.Timber

@@ -1,4 +1,4 @@
-package es.mnmapp.aolv.meneame.logger
+package es.mnmapp.aolv.meneame.loggers
 
 import android.util.Log
 import com.crashlytics.android.Crashlytics

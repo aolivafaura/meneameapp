@@ -1,12 +1,13 @@
-package es.mnmapp.aolv.meneame.extensions
+package es.mnmapp.aolv.meneame.ui.extensions
 
 import android.webkit.URLUtil
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 
 /**
- * Created by antoniojoseoliva on 03/08/2017.
+ * Created by antonio on 10/29/17.
  */
+
 
 fun ImageView.loadUrl(url: String?) {
     url?.let {

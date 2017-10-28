@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import es.mnmapp.aolv.meneame.R
 import es.mnmapp.aolv.meneame.entity.MeneoUi
-import es.mnmapp.aolv.meneame.extensions.loadUrl
+import es.mnmapp.aolv.meneame.ui.extensions.loadUrl
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
