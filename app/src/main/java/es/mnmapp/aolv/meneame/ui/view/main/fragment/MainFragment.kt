@@ -3,9 +3,7 @@ package es.mnmapp.aolv.meneame.ui.view.main.fragment
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +15,7 @@ import es.mnmapp.aolv.meneame.ui.BaseFragment
 import es.mnmapp.aolv.meneame.ui.view.common.ViewState
 import es.mnmapp.aolv.meneame.ui.view.main.MainViewModel
 import es.mnmapp.aolv.meneame.ui.view.webview.WebViewActivity
+import kotlinx.android.synthetic.main.fragment_main.*
 
 /**
  * Created by antoniojoseoliva on 22/07/2017.
@@ -31,8 +30,6 @@ class MainFragment : BaseFragment() {
     //endregion
 
     //region Variables
-    private lateinit var swipeLayout: SwipeRefreshLayout
-    private lateinit var meneosList: RecyclerView
     private lateinit var mainViewModel: MainViewModel
     //endregion
 
@@ -50,12 +47,14 @@ class MainFragment : BaseFragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
-        val view = inflater!!.inflate(R.layout.fragment_main, container, false)
+        return inflater!!.inflate(R.layout.fragment_main, container, false)
+    }
 
-        initViews(view)
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        initViews()
         mainViewModel.loadMeneos()
-        return view
     }
     //endregion
 
@@ -67,21 +66,19 @@ class MainFragment : BaseFragment() {
     }
     //endregion
 
-    private fun initViews(view: View) {
-        swipeLayout = view.findViewById(R.id.swiperefresh)
-        swipeLayout.setOnRefreshListener(onRefreshAction())
+    private fun initViews() {
+        swiperefresh.setOnRefreshListener(onRefreshAction())
 
-        meneosList = view.findViewById(R.id.rv_list_meneos)
-        meneosList.layoutManager = LinearLayoutManager(this.context)
+        rvListMeneos.layoutManager = LinearLayoutManager(this.context)
     }
 
     private fun observeMeneos() {
         mainViewModel.meneos.observe(this, Observer<MutableList<MeneoUi>> {
             it?.let {
-                if (meneosList.adapter == null) {
+                if (rvListMeneos.adapter == null) {
                     initAdapter(it)
                 } else {
-                    (meneosList.adapter as MeneosAdapter).updateList(it)
+                    (rvListMeneos.adapter as MeneosAdapter).updateList(it)
                 }
             }
         })
@@ -90,16 +87,16 @@ class MainFragment : BaseFragment() {
     private fun observeViewState() {
         mainViewModel.state.observe(this, Observer<ViewState> {
             when (it) {
-                ViewState.Refreshing -> swipeLayout.isRefreshing = true
-                ViewState.Idle -> swipeLayout.isRefreshing = false
-                else -> swipeLayout.isRefreshing = false
+                ViewState.Refreshing -> swiperefresh.isRefreshing = true
+                ViewState.Idle -> swiperefresh.isRefreshing = false
+                else -> swiperefresh.isRefreshing = false
             }
         })
     }
 
     private fun initAdapter(items: MutableList<MeneoUi>) {
-        meneosList.adapter = MeneosAdapter(items)
-        (meneosList.adapter as MeneosAdapter)
+        rvListMeneos.adapter = MeneosAdapter(items)
+        (rvListMeneos.adapter as MeneosAdapter)
                 .observeItemClick()
                 .subscribe(object : BaseObserver<MeneoUi>() {
                     override fun onNext(result: MeneoUi) {

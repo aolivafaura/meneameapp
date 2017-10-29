@@ -37,6 +37,6 @@ class MainViewModel(private val getPopularMeneos: GetPopularMeneos) : ViewModel(
     }
 
     override fun onCleared() {
-
+        getPopularMeneos.dispose()
     }
 }
