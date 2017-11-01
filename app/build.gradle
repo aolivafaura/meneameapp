@@ -53,8 +53,8 @@ android {
     productFlavors {
         dev {
             dimension "default"
-            versionNameSuffix "-dev"
-            applicationIdSuffix '.dev'
+            versionNameSuffix "-dvlp"
+            applicationIdSuffix '.dvlp'
         }
 
         prod {
