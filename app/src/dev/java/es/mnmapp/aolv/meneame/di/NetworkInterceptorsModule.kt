@@ -3,7 +3,7 @@ package es.mnmapp.aolv.meneame.di
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import dagger.Module
 import dagger.Provides
-import es.mnmapp.aolv.meneame.interceptors.CacheInterceptor
+import es.mnmapp.aolv.meneame.interceptors.LocalCacheInterceptor
 import okhttp3.Interceptor
 import javax.inject.Singleton
 
@@ -14,7 +14,7 @@ import javax.inject.Singleton
 @Module class NetworkInterceptorsModule {
 
     @Provides @Singleton
-    fun provideNetworkInterceptors(interceptor: CacheInterceptor) : ArrayList<Interceptor> {
+    fun provideNetworkInterceptors(interceptor: LocalCacheInterceptor) : ArrayList<Interceptor> {
 
         return arrayListOf(interceptor, getStethoInterceptor())
     }

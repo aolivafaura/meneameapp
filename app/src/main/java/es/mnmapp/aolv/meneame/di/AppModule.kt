@@ -4,7 +4,7 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import es.mnmapp.aolv.meneame.MnmApp
-import es.mnmapp.aolv.meneame.interceptors.CacheInterceptor
+import es.mnmapp.aolv.meneame.interceptors.LocalCacheInterceptor
 import es.mnmapp.aolv.meneame.loggers.AnalitycsLogger
 import es.mnmapp.aolv.meneame.utils.Connectivity
 import es.mnmapp.aolv.meneame.utils.Lg
@@ -52,5 +52,5 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideCacheInterceptor(connectivity: Connectivity): CacheInterceptor = CacheInterceptor(connectivity)
+    fun provideCacheInterceptor(connectivity: Connectivity): LocalCacheInterceptor = LocalCacheInterceptor(connectivity)
 }
