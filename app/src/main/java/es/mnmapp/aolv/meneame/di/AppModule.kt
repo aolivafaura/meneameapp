@@ -1,10 +1,11 @@
 package es.mnmapp.aolv.meneame.di
 
 import android.content.Context
-import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.Module
 import dagger.Provides
 import es.mnmapp.aolv.meneame.MnmApp
+import es.mnmapp.aolv.meneame.interceptors.CacheInterceptor
+import es.mnmapp.aolv.meneame.loggers.AnalitycsLogger
 import es.mnmapp.aolv.meneame.utils.Connectivity
 import es.mnmapp.aolv.meneame.utils.Lg
 import io.reactivex.Scheduler
@@ -43,9 +44,13 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideAnalitycs(context: Context): FirebaseAnalytics = FirebaseAnalytics.getInstance(context)
+    fun provideAnalitycs(context: Context): AnalitycsLogger = AnalitycsLogger(context)
 
     @Provides
     @Singleton
-    fun provideLogger(firebaseAnalytics: FirebaseAnalytics): Lg = Lg(firebaseAnalytics)
+    fun provideLogger(analitycsLogger: AnalitycsLogger): Lg = Lg(analitycsLogger)
+
+    @Provides
+    @Singleton
+    fun provideCacheInterceptor(connectivity: Connectivity): CacheInterceptor = CacheInterceptor(connectivity)
 }

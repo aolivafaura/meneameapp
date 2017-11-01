@@ -60,25 +60,11 @@ android {
         prod {
             dimension "default"
         }
-
-        thetest {
-            dimension "default"
-            versionNameSuffix "-thetest"
-            applicationIdSuffix '.thetest'
-        }
     }
 
     // Exclude useless variants
     android.variantFilter { variant ->
-        if (variant.buildType.name == 'debug' && variant.getFlavors().get(0).name == 'prod') {
-            variant.setIgnore(true)
-        }
-
         if (variant.buildType.name == 'release' && variant.getFlavors().get(0).name == 'dev') {
-            variant.setIgnore(true)
-        }
-
-        if (variant.buildType.name == 'release' && variant.getFlavors().get(0).name == 'thetest') {
             variant.setIgnore(true)
         }
     }
@@ -93,8 +79,7 @@ dependencies {
         transitive = true
     }
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.google.firebase:firebase-core:11.4.2'
-    implementation 'com.google.firebase:firebase-config:11.4.2'
+    releaseCompile 'com.google.firebase:firebase-core:11.4.2'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

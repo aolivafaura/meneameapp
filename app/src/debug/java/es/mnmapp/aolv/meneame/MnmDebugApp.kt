@@ -9,15 +9,12 @@ import com.squareup.leakcanary.LeakCanary
 
 class MnmDebugApp : MnmApp() {
 
-    //@Inject lateinit var logger : Lg
-
     override fun onCreate() {
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return
         }
         super.onCreate()
 
-        //logger.d("APPLICATION ON DEBUG MODE")
         initLeakCanary()
         initStetho()
     }
