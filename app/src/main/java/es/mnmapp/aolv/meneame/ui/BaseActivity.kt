@@ -7,6 +7,7 @@ import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
+import es.mnmapp.aolv.meneame.R
 import es.mnmapp.aolv.meneame.utils.Lg
 import javax.inject.Inject
 
@@ -17,12 +18,20 @@ import javax.inject.Inject
 abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     @Inject lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
-    @Inject protected lateinit var logger : Lg
+    @Inject protected lateinit var logger: Lg
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
+        setContentView(R.layout.activity_base)
 
         super.onCreate(savedInstanceState)
+    }
+
+    protected fun setFragment(fragment: BaseFragment) {
+        supportFragmentManager
+                .beginTransaction()
+                .add(R.id.container, fragment)
+                .commitAllowingStateLoss()
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> {

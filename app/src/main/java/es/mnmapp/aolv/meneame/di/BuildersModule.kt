@@ -7,6 +7,8 @@ import es.mnmapp.aolv.meneame.ui.view.main.MainActivity
 import es.mnmapp.aolv.meneame.ui.view.main.MainActivityModule
 import es.mnmapp.aolv.meneame.ui.view.main.fragment.MainFragmentProvider
 import es.mnmapp.aolv.meneame.ui.view.webview.WebViewActivity
+import es.mnmapp.aolv.meneame.ui.view.webview.fragment.WebViewFragmentModule
+import es.mnmapp.aolv.meneame.ui.view.webview.fragment.WebViewFragmentProvider
 
 /**
  * Created by antoniojoseoliva on 20/07/2017.
@@ -19,6 +21,6 @@ import es.mnmapp.aolv.meneame.ui.view.webview.WebViewActivity
     abstract fun bindMainActivity(): MainActivity
 
     @PerActivity
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = arrayOf(WebViewFragmentModule::class, WebViewFragmentProvider::class))
     abstract fun bindWebViewActivity(): WebViewActivity
 }

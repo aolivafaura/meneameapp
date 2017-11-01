@@ -4,9 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import es.mnmapp.aolv.meneame.R
 import es.mnmapp.aolv.meneame.entity.MeneoUi
 import es.mnmapp.aolv.meneame.rx.BaseObserver
@@ -45,12 +43,7 @@ class MainFragment : BaseFragment() {
         observeViewState()
     }
 
-    override fun onCreateView(inflater: LayoutInflater?,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-
-        return inflater!!.inflate(R.layout.fragment_main, container, false)
-    }
+    override fun getFragmentLayout() = R.layout.fragment_main
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
