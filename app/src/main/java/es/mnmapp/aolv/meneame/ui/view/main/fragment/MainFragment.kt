@@ -23,17 +23,12 @@ class MainFragment : BaseFragment() {
 
     private val BUNDLE_KEY_ITEMS = "MainFragmentItemsKey"
 
-    //region Companion object
     companion object Factory {
         fun newInstance() = MainFragment()
     }
-    //endregion
 
-    //region Variables
     private lateinit var mainViewModel: MainViewModel
-    //endregion
 
-    //region Fragment overrides
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -66,15 +61,12 @@ class MainFragment : BaseFragment() {
 
         outState.putParcelableArrayList(BUNDLE_KEY_ITEMS, ArrayList(mainViewModel.meneos.value))
     }
-    //endregion
 
-    //region View actions
     private fun onRefreshAction() = { mainViewModel.loadMeneos() }
 
     private fun onListItemClick(meneoUi: MeneoUi) {
         startActivity(WebViewActivity.createIntent(activity as BaseActivity, meneoUi.url!!, meneoUi.title!!))
     }
-    //endregion
 
     private fun initViews() {
         swiperefresh.setOnRefreshListener(onRefreshAction())
