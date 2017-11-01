@@ -37,7 +37,7 @@ class MainFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        mainViewModel = ViewModelProviders.of(activity).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
 
         observeMeneos()
         observeViewState()
@@ -45,7 +45,7 @@ class MainFragment : BaseFragment() {
 
     override fun getFragmentLayout() = R.layout.fragment_main
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
@@ -61,10 +61,10 @@ class MainFragment : BaseFragment() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState?.putParcelableArrayList(BUNDLE_KEY_ITEMS, ArrayList(mainViewModel.meneos.value))
+        outState.putParcelableArrayList(BUNDLE_KEY_ITEMS, ArrayList(mainViewModel.meneos.value))
     }
     //endregion
 

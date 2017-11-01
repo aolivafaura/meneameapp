@@ -18,16 +18,16 @@ class WebViewFragment: BaseFragment() {
 
     override fun getFragmentLayout() = R.layout.web_view_fragment
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val title = arguments?.getString(KEY_TITLE)
         val url = arguments?.getString(KEY_URL)
 
         url?.let {
             setUpWebView()
-            activity.title = title
+            activity?.title = title
 
             wvContainer.loadUrl(url)
-        } ?: activity.finish()
+        } ?: activity?.finish()
     }
 
     @SuppressLint("SetJavaScriptEnabled")
