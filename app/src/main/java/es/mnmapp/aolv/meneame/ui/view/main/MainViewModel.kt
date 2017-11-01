@@ -19,7 +19,6 @@ class MainViewModel(private val getPopularMeneos: GetPopularMeneos) : ViewModel(
     val state = MutableLiveData<ViewState>()
 
     fun loadMeneos() {
-
         state.value = ViewState.Refreshing
 
         getPopularMeneos.execute(object : BaseObserver<List<Meneo>>() {
@@ -28,7 +27,6 @@ class MainViewModel(private val getPopularMeneos: GetPopularMeneos) : ViewModel(
                 super.onError(error)
                 state.value = ViewState.Idle
             }
-
             override fun onNext(result: List<Meneo>) {
                 state.value = ViewState.Idle
                 meneos.value = result.map { fromMeneoToMeneoUi(it) }.toMutableList()

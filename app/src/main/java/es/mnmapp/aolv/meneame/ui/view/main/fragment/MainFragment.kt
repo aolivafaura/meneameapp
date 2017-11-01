@@ -23,6 +23,8 @@ import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : BaseFragment() {
 
+    private val BUNDLE_KEY_ITEMS = "MainFragmentItemsKey"
+
     //region Companion object
     companion object Factory {
         fun newInstance() = MainFragment()
@@ -54,7 +56,22 @@ class MainFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
-        mainViewModel.loadMeneos()
+
+        if (savedInstanceState?.containsKey(BUNDLE_KEY_ITEMS) == true) {
+            if (rvListMeneos.adapter == null) {
+                initAdapter(savedInstanceState.getParcelableArrayList(BUNDLE_KEY_ITEMS))
+            } else {
+                (rvListMeneos.adapter as MeneosAdapter).updateList(savedInstanceState.getParcelableArrayList(BUNDLE_KEY_ITEMS))
+            }
+        } else {
+            mainViewModel.loadMeneos()
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+
+        outState?.putParcelableArrayList(BUNDLE_KEY_ITEMS, ArrayList(mainViewModel.meneos.value))
     }
     //endregion
 
