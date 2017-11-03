@@ -45,6 +45,8 @@ class MainFragment : BaseFragment() {
 
         initViews()
 
+        rvListMeneos.scrollState
+
         if (savedInstanceState?.containsKey(BUNDLE_KEY_ITEMS) == true) {
             if (rvListMeneos.adapter == null) {
                 initAdapter(savedInstanceState.getParcelableArrayList(BUNDLE_KEY_ITEMS))
