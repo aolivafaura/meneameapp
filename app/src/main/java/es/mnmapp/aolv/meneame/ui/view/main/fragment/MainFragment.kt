@@ -15,6 +15,7 @@ import es.mnmapp.aolv.meneame.ui.view.main.MainViewModel
 import es.mnmapp.aolv.meneame.ui.view.webview.WebViewActivity
 import kotlinx.android.synthetic.main.fragment_main.*
 
+
 /**
  * Created by antoniojoseoliva on 22/07/2017.
  */
@@ -74,6 +75,8 @@ class MainFragment : BaseFragment() {
         swiperefresh.setOnRefreshListener(onRefreshAction())
 
         rvListMeneos.layoutManager = LinearLayoutManager(this.context)
+
+        fabMenu.clickCallback = { handleFabClick(it) }
     }
 
     private fun observeMeneos() {
@@ -96,6 +99,10 @@ class MainFragment : BaseFragment() {
                 else -> swiperefresh.isRefreshing = false
             }
         })
+    }
+
+    private fun handleFabClick(id: Int) {
+        logger.d(id.toString())
     }
 
     private fun initAdapter(items: MutableList<MeneoUi>) {

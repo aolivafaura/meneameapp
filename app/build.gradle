@@ -95,6 +95,7 @@ dependencies {
     compileOnly 'io.reactivex.rxjava2:rxjava:2.1.5'
     implementation project(path: ':data')
     implementation project(path: ':domain')
+    implementation project(path: ':omfm-release')
 
     kapt 'com.google.dagger:dagger-compiler:2.11'
     kapt 'com.google.dagger:dagger-android-processor:2.11'

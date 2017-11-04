@@ -16,18 +16,13 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabFilter"
+    <com.dekoservidoni.omfm.OneMoreFabMenu
+        android:id="@+id/fabMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:borderWidth="0dp"
-        app:elevation="6dp"
-        app:fabSize="normal"
-        app:layout_behavior="es.mnmapp.aolv.meneame.ui.custom.ScrollAwareFABBehavior"
-        app:pressedTranslationZ="12dp"
-        app:rippleColor="@android:color/transparent"
-        app:srcCompat="@drawable/fire" />
+        app:color_main_button="@color/colorPrimaryDark"
+        app:color_secondary_buttons="@color/colorPrimary"
+        app:layout_behavior="com.dekoservidoni.omfm.OneMoreButtonFabScrollBehaviour"
+        app:content_options="@menu/fab_menu" />
 </android.support.design.widget.CoordinatorLayout>
-
