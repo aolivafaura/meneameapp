@@ -79,30 +79,29 @@ dependencies {
     implementation('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true
     }
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    releaseCompile 'com.google.firebase:firebase-core:11.4.2'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.0.0'
-    implementation 'com.android.support:design:27.0.0'
-    testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.android.support:recyclerview-v7:27.0.0'
-    implementation 'com.android.support:support-vector-drawable:27.0.0'
-    compileOnly 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compileOnly 'io.reactivex.rxjava2:rxjava:2.1.5'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+
     implementation project(path: ':data')
     implementation project(path: ':domain')
     implementation project(path: ':omfm-release')
+
+    releaseCompile 'com.google.firebase:firebase-core:11.6.2'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+    implementation 'com.android.support:design:27.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:recyclerview-v7:27.0.2'
+    implementation 'com.android.support:support-vector-drawable:27.0.2'
+    compileOnly 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compileOnly 'io.reactivex.rxjava2:rxjava:2.1.7'
 
     kapt 'com.google.dagger:dagger-compiler:2.11'
     kapt 'com.google.dagger:dagger-android-processor:2.11'
     implementation 'com.google.dagger:dagger-android-support:2.11'
     implementation 'com.google.dagger:dagger:2.11'
     provided 'javax.annotation:jsr250-api:1.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
@@ -110,19 +109,23 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.5.1'
 
     implementation "android.arch.lifecycle:runtime:1.0.3"
-    implementation "android.arch.lifecycle:extensions:1.0.0-rc1"
-    kapt "android.arch.lifecycle:compiler:1.0.0-rc1"
-
-    implementation 'com.github.mirrajabi:kotlin-preferences-extensions:1.0.1'
+    implementation "android.arch.lifecycle:extensions:1.0.0"
+    kapt "android.arch.lifecycle:compiler:1.0.0"
 
     debugCompile "com.facebook.stetho:stetho:1.5.0"
     debugCompile("com.facebook.stetho:stetho-okhttp3:1.5.0") {
         exclude group: "com.squareup.okhttp3"
     }
-    compileOnly 'com.squareup.okhttp3:okhttp:3.9.0'
+    compileOnly 'com.squareup.okhttp3:okhttp:3.9.1'
 
-    implementation 'com.github.bumptech.glide:glide:4.0.0'
-    kapt 'com.github.bumptech.glide:compiler:4.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.4.0'
+    kapt 'com.github.bumptech.glide:compiler:4.4.0'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
 }
+
 
 apply plugin: 'com.google.gms.google-services'

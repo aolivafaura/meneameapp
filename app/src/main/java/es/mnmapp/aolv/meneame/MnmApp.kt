@@ -10,7 +10,6 @@ import dagger.android.HasActivityInjector
 import es.mnmapp.aolv.meneame.di.DaggerAppComponent
 import es.mnmapp.aolv.meneame.loggers.CrashlyticsTree
 import io.fabric.sdk.android.Fabric
-import ir.mirrajabi.kotlinpreferencesextensions.KotlinPreferences
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 import javax.inject.Inject
@@ -29,7 +28,6 @@ open class MnmApp : Application(), HasActivityInjector {
         initFabric()
         initTimber()
         initDagger()
-        initPreferences()
     }
 
     private fun initTimber() {
@@ -38,10 +36,6 @@ open class MnmApp : Application(), HasActivityInjector {
 
     private fun initDagger() {
         DaggerAppComponent.builder().application(this).build().inject(this)
-    }
-
-    private fun initPreferences() {
-        KotlinPreferences.init(applicationContext)
     }
 
     private fun initFabric() {

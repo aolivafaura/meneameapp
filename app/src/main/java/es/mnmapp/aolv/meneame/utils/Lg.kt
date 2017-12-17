@@ -4,8 +4,6 @@ import es.mnmapp.aolv.meneame.loggers.AnalitycsLogger
 import es.mnmapp.aolv.meneame.ui.BaseActivity
 import timber.log.Timber
 
-
-
 /**
  * Created by antoniojoseoliva on 04/08/2017.
  */
