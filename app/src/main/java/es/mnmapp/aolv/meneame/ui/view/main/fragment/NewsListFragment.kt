@@ -5,15 +5,18 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import dagger.Module
+import dagger.Provides
+import dagger.android.ContributesAndroidInjector
+import es.mnmapp.aolv.domain.usecase.GetPopularNews
 import es.mnmapp.aolv.meneame.R
 import es.mnmapp.aolv.meneame.entity.NewUi
 import es.mnmapp.aolv.meneame.rx.BaseObserver
-import es.mnmapp.aolv.meneame.ui.BaseActivity
 import es.mnmapp.aolv.meneame.ui.BaseFragment
 import es.mnmapp.aolv.meneame.ui.view.common.ViewState
 import es.mnmapp.aolv.meneame.ui.view.main.MainViewModel
-import es.mnmapp.aolv.meneame.ui.view.webview.WebViewActivity
 import kotlinx.android.synthetic.main.fragment_main.*
+import javax.inject.Inject
 
 
 /**
@@ -22,20 +25,19 @@ import kotlinx.android.synthetic.main.fragment_main.*
 
 class NewsListFragment : BaseFragment() {
 
-    private val BUNDLE_KEY_ITEMS = "MainFragmentItemsKey"
-
-    companion object Factory {
-        fun newInstance() = NewsListFragment()
-    }
+    @Inject
+    lateinit var viewModelFactory: NewsListViewModel.NewsListViewModelFactory
 
     private lateinit var mainViewModel: MainViewModel
+    private lateinit var newsListViewModel: NewsListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
+        newsListViewModel = ViewModelProviders.of(this, viewModelFactory).get(NewsListViewModel::class.java)
 
-        observeMeneos()
+        observeNews()
         observeViewState()
     }
 
@@ -46,53 +48,53 @@ class NewsListFragment : BaseFragment() {
 
         initViews()
 
-        rvListMeneos.scrollState
+        rvListNews.scrollState
 
         if (savedInstanceState?.containsKey(BUNDLE_KEY_ITEMS) == true) {
-            if (rvListMeneos.adapter == null) {
+            if (rvListNews.adapter == null) {
                 initAdapter(savedInstanceState.getParcelableArrayList(BUNDLE_KEY_ITEMS))
             } else {
-                (rvListMeneos.adapter as NewsAdapter).updateList(savedInstanceState.getParcelableArrayList(BUNDLE_KEY_ITEMS))
+                (rvListNews.adapter as NewsAdapter).updateList(savedInstanceState.getParcelableArrayList(BUNDLE_KEY_ITEMS))
             }
         } else {
-            mainViewModel.loadNews()
+            newsListViewModel.loadNews()
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putParcelableArrayList(BUNDLE_KEY_ITEMS, ArrayList(mainViewModel.news.value))
+        outState.putParcelableArrayList(BUNDLE_KEY_ITEMS, ArrayList(newsListViewModel.news.value))
     }
 
-    private fun onRefreshAction() = { mainViewModel.loadNews() }
+    private fun onRefreshAction() = { newsListViewModel.loadNews() }
 
     private fun onListItemClick(newUi: NewUi) {
-        startActivity(WebViewActivity.createIntent(activity as BaseActivity, newUi.url!!, newUi.title!!))
+        mainViewModel.onNewSelected(newUi)
     }
 
     private fun initViews() {
         swiperefresh.setOnRefreshListener(onRefreshAction())
 
-        rvListMeneos.layoutManager = LinearLayoutManager(this.context)
+        rvListNews.layoutManager = LinearLayoutManager(this.context)
 
         fabMenu.clickCallback = { handleFabClick(it) }
     }
 
-    private fun observeMeneos() {
-        mainViewModel.news.observe(this, Observer<MutableList<NewUi>> {
+    private fun observeNews() {
+        newsListViewModel.news.observe(this, Observer<MutableList<NewUi>> {
             it?.let {
-                if (rvListMeneos.adapter == null) {
+                if (rvListNews.adapter == null) {
                     initAdapter(it)
                 } else {
-                    (rvListMeneos.adapter as NewsAdapter).updateList(it)
+                    (rvListNews.adapter as NewsAdapter).updateList(it)
                 }
             }
         })
     }
 
     private fun observeViewState() {
-        mainViewModel.state.observe(this, Observer<ViewState> {
+        newsListViewModel.state.observe(this, Observer<ViewState> {
             when (it) {
                 ViewState.Refreshing -> swiperefresh.isRefreshing = true
                 ViewState.Idle -> swiperefresh.isRefreshing = false
@@ -106,8 +108,8 @@ class NewsListFragment : BaseFragment() {
     }
 
     private fun initAdapter(items: MutableList<NewUi>) {
-        rvListMeneos.adapter = NewsAdapter(items)
-        (rvListMeneos.adapter as NewsAdapter)
+        rvListNews.adapter = NewsAdapter(items)
+        (rvListNews.adapter as NewsAdapter)
                 .observeItemClick()
                 .subscribe(object : BaseObserver<NewUi>() {
                     override fun onNext(result: NewUi) {
@@ -115,5 +117,25 @@ class NewsListFragment : BaseFragment() {
                         logger.ev("ITEM_CLICK", null)
                     }
                 })
+    }
+
+    // DAGGER MODULE -------------------------------------------------------------------------------
+    @Module
+    class NewsListFragmentModule {
+        @Provides
+        fun provideListViewModelFactory(getPopularNews: GetPopularNews) = NewsListViewModel.NewsListViewModelFactory(getPopularNews)
+
+    }
+
+    // DAGGER PROVIDER -----------------------------------------------------------------------------
+    @Module
+    abstract class NewsListFragmentProvider {
+        @ContributesAndroidInjector(modules = [(NewsListFragmentModule::class)])
+        abstract fun provideEventListFragmentFactory(): NewsListFragment
+    }
+
+    companion object Factory {
+        private const val BUNDLE_KEY_ITEMS = "MainFragmentItemsKey"
+        fun newInstance() = NewsListFragment()
     }
 }

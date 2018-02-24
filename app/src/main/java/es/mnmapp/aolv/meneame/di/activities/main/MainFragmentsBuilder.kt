@@ -11,6 +11,8 @@ import es.mnmapp.aolv.meneame.ui.view.main.fragment.NewsListFragment
 @Module
 abstract class MainFragmentsBuilder {
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [
+        (NewsListFragment.NewsListFragmentModule::class),
+        (NewsListFragment.NewsListFragmentProvider::class)])
     abstract fun contributeMainFragment(): NewsListFragment
 }

@@ -1,14 +1,16 @@
 package es.mnmapp.aolv.meneame.ui.view.main
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import dagger.Module
 import dagger.Provides
-import es.mnmapp.aolv.domain.usecase.GetPopularNews
+import es.mnmapp.aolv.meneame.entity.NewUi
 import es.mnmapp.aolv.meneame.ui.BaseActivity
 import es.mnmapp.aolv.meneame.ui.view.main.fragment.NewsListFragment
+import es.mnmapp.aolv.meneame.ui.view.webview.WebViewActivity
 import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
@@ -25,20 +27,28 @@ class MainActivity : BaseActivity() {
         if (savedInstanceState == null) {
             setFragment(NewsListFragment.newInstance())
         }
+
+        observeSelectedNew()
+    }
+
+    private fun observeSelectedNew() {
+        mainViewModel.selectedNew.observe(this, Observer<NewUi> {
+            startActivity(WebViewActivity.createIntent(this, it!!.url!!, it.title!!))
+        })
     }
 
     @Module
     class MainActivityModule {
 
         @Provides
-        fun provideMainViewModelFactory(getPopularNews: GetPopularNews) = MainViewModelFactory(getPopularNews)
+        fun provideMainViewModelFactory() = MainViewModelFactory()
     }
 
-    class MainViewModelFactory(private val getPopularNews: GetPopularNews) : ViewModelProvider.Factory {
+    class MainViewModelFactory : ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST") return MainViewModel(getPopularNews) as T
+                @Suppress("UNCHECKED_CAST") return MainViewModel() as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

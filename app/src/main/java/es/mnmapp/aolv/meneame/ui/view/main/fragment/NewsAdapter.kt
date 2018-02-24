@@ -32,9 +32,9 @@ class NewsAdapter(private var aNews: MutableList<NewUi>) : RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val meneo = aNews[position]
-        holder.image.loadUrl(meneo.thumb)
-        holder.title.text = meneo.title
+        val new = aNews[position]
+        holder.image.loadUrl(new.thumb)
+        holder.title.text = new.title
         holder.itemView.setOnClickListener { onClickItem.onNext(aNews[position]) }
     }
 
@@ -42,10 +42,10 @@ class NewsAdapter(private var aNews: MutableList<NewUi>) : RecyclerView.Adapter<
 
     override fun getItemCount() = aNews.size
 
-    fun updateList(aNews: MutableList<NewUi>) {
+    fun updateList(news: MutableList<NewUi>) {
         this.aNews.apply {
             clear()
-            addAll(aNews)
+            addAll(news)
         }
 
         notifyDataSetChanged()
