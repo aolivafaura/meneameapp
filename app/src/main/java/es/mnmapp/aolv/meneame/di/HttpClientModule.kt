@@ -12,7 +12,8 @@ import javax.inject.Singleton
 /**
  * Created by antoniojoseoliva on 26/07/2017.
  */
-@Module
+
+@Module(includes = [(NetworkInterceptorsModule::class)])
 class HttpClientModule {
 
     @Provides

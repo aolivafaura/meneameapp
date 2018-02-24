@@ -9,7 +9,7 @@ import okhttp3.OkHttpClient
  * Created by antoniojoseoliva on 25/07/2017.
  */
 
-@Module
+@Module(includes = [(HttpClientModule::class)])
 class ApiModule {
 
     @Provides

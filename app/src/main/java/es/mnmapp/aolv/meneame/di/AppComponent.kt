@@ -4,6 +4,7 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.android.support.AndroidSupportInjectionModule
 import es.mnmapp.aolv.meneame.MnmApp
+import es.mnmapp.aolv.meneame.di.activities.BuildersModule
 import javax.inject.Singleton
 
 /**
@@ -15,10 +16,7 @@ import javax.inject.Singleton
     (AndroidSupportInjectionModule::class),
     (AppModule::class),
     (BuildersModule::class),
-    (RepositoryModule::class),
-    (NetworkInterceptorsModule::class),
-    (ApiModule::class),
-    (HttpClientModule::class)])
+    (RepositoryModule::class)])
 interface AppComponent {
 
     @Component.Builder

@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
 import es.mnmapp.aolv.meneame.R
 import es.mnmapp.aolv.meneame.ui.BaseFragment
 import es.mnmapp.aolv.meneame.ui.extensions.fadeOut
@@ -14,7 +16,7 @@ import kotlinx.android.synthetic.main.web_view_fragment.*
  * Created by antonio on 11/1/17.
  */
 
-class WebViewFragment: BaseFragment() {
+class WebViewFragment : BaseFragment() {
 
     override fun getFragmentLayout() = R.layout.web_view_fragment
 
@@ -48,6 +50,16 @@ class WebViewFragment: BaseFragment() {
                 }
             }
         }
+    }
+
+    @Module
+    class WebViewFragmentModule
+
+    @Module
+    abstract class WebViewFragmentProvider {
+
+        @ContributesAndroidInjector
+        abstract fun provideWebViewFragmentFactory(): WebViewFragment
     }
 
     companion object {

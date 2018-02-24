@@ -11,7 +11,7 @@ import javax.inject.Singleton
  * Created by antoniojoseoliva on 20/07/2017.
  */
 
-@Module
+@Module(includes = [(ApiModule::class)])
 class RepositoryModule {
 
     @Provides
