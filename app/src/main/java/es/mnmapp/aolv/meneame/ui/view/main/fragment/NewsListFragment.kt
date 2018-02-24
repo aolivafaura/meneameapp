@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import es.mnmapp.aolv.meneame.R
-import es.mnmapp.aolv.meneame.entity.MeneoUi
+import es.mnmapp.aolv.meneame.entity.NewUi
 import es.mnmapp.aolv.meneame.rx.BaseObserver
 import es.mnmapp.aolv.meneame.ui.BaseActivity
 import es.mnmapp.aolv.meneame.ui.BaseFragment
@@ -20,12 +20,12 @@ import kotlinx.android.synthetic.main.fragment_main.*
  * Created by antoniojoseoliva on 22/07/2017.
  */
 
-class MainFragment : BaseFragment() {
+class NewsListFragment : BaseFragment() {
 
     private val BUNDLE_KEY_ITEMS = "MainFragmentItemsKey"
 
     companion object Factory {
-        fun newInstance() = MainFragment()
+        fun newInstance() = NewsListFragment()
     }
 
     private lateinit var mainViewModel: MainViewModel
@@ -52,23 +52,23 @@ class MainFragment : BaseFragment() {
             if (rvListMeneos.adapter == null) {
                 initAdapter(savedInstanceState.getParcelableArrayList(BUNDLE_KEY_ITEMS))
             } else {
-                (rvListMeneos.adapter as MeneosAdapter).updateList(savedInstanceState.getParcelableArrayList(BUNDLE_KEY_ITEMS))
+                (rvListMeneos.adapter as NewsAdapter).updateList(savedInstanceState.getParcelableArrayList(BUNDLE_KEY_ITEMS))
             }
         } else {
-            mainViewModel.loadMeneos()
+            mainViewModel.loadNews()
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putParcelableArrayList(BUNDLE_KEY_ITEMS, ArrayList(mainViewModel.meneos.value))
+        outState.putParcelableArrayList(BUNDLE_KEY_ITEMS, ArrayList(mainViewModel.news.value))
     }
 
-    private fun onRefreshAction() = { mainViewModel.loadMeneos() }
+    private fun onRefreshAction() = { mainViewModel.loadNews() }
 
-    private fun onListItemClick(meneoUi: MeneoUi) {
-        startActivity(WebViewActivity.createIntent(activity as BaseActivity, meneoUi.url!!, meneoUi.title!!))
+    private fun onListItemClick(newUi: NewUi) {
+        startActivity(WebViewActivity.createIntent(activity as BaseActivity, newUi.url!!, newUi.title!!))
     }
 
     private fun initViews() {
@@ -80,12 +80,12 @@ class MainFragment : BaseFragment() {
     }
 
     private fun observeMeneos() {
-        mainViewModel.meneos.observe(this, Observer<MutableList<MeneoUi>> {
+        mainViewModel.news.observe(this, Observer<MutableList<NewUi>> {
             it?.let {
                 if (rvListMeneos.adapter == null) {
                     initAdapter(it)
                 } else {
-                    (rvListMeneos.adapter as MeneosAdapter).updateList(it)
+                    (rvListMeneos.adapter as NewsAdapter).updateList(it)
                 }
             }
         })
@@ -105,12 +105,12 @@ class MainFragment : BaseFragment() {
         logger.d(id.toString())
     }
 
-    private fun initAdapter(items: MutableList<MeneoUi>) {
-        rvListMeneos.adapter = MeneosAdapter(items)
-        (rvListMeneos.adapter as MeneosAdapter)
+    private fun initAdapter(items: MutableList<NewUi>) {
+        rvListMeneos.adapter = NewsAdapter(items)
+        (rvListMeneos.adapter as NewsAdapter)
                 .observeItemClick()
-                .subscribe(object : BaseObserver<MeneoUi>() {
-                    override fun onNext(result: MeneoUi) {
+                .subscribe(object : BaseObserver<NewUi>() {
+                    override fun onNext(result: NewUi) {
                         onListItemClick(result)
                         logger.ev("ITEM_CLICK", null)
                     }

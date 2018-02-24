@@ -7,7 +7,7 @@ import android.os.Parcelable
  * Created by antoniojoseoliva on 21/07/2017.
  */
 
-data class MeneoUi(val id: Long?, val url: String?, val title: String?, val thumb: String?) : Parcelable {
+data class NewUi(val id: Long?, val url: String?, val title: String?, val thumb: String?) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readValue(Long::class.java.classLoader) as Long?,
@@ -27,9 +27,9 @@ data class MeneoUi(val id: Long?, val url: String?, val title: String?, val thum
 
     companion object {
         @JvmField
-        val CREATOR: Parcelable.Creator<MeneoUi> = object : Parcelable.Creator<MeneoUi> {
-            override fun createFromParcel(source: Parcel): MeneoUi = MeneoUi(source)
-            override fun newArray(size: Int): Array<MeneoUi?> = arrayOfNulls(size)
+        val CREATOR: Parcelable.Creator<NewUi> = object : Parcelable.Creator<NewUi> {
+            override fun createFromParcel(source: Parcel): NewUi = NewUi(source)
+            override fun newArray(size: Int): Array<NewUi?> = arrayOfNulls(size)
         }
     }
 }

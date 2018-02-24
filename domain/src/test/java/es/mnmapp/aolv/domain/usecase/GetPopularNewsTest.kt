@@ -1,6 +1,6 @@
 package es.mnmapp.aolv.domain.usecase
 
-import es.mnmapp.aolv.domain.repository.MeneosRepo
+import es.mnmapp.aolv.domain.repository.NewsRepo
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -14,22 +14,22 @@ import org.mockito.runners.MockitoJUnitRunner
  */
 
 @RunWith(MockitoJUnitRunner::class)
-class GetPopularMeneosTest {
+class GetPopularNewsTest {
 
-    private lateinit var getPopularMeneos: GetPopularMeneos
+    private lateinit var getPopularNews: GetPopularNews
 
-    @Mock private lateinit var meneosRepo: MeneosRepo
+    @Mock private lateinit var newsRepo: NewsRepo
 
     @Before
     fun setUp() {
 
-        getPopularMeneos = GetPopularMeneos(meneosRepo)
+        getPopularNews = GetPopularNews(newsRepo)
     }
 
     @Test
     fun Given_UseCaseCalled_When_ParamsAreValid_Then_MeneosAreRetrievedFromRepoOneTime() {
-        getPopularMeneos.buildUseCaseObservable(Unit)
+        getPopularNews.buildUseCaseObservable(Unit)
 
-        verify(meneosRepo, times(1)).getPopular()
+        verify(newsRepo, times(1)).getPopular()
     }
 }

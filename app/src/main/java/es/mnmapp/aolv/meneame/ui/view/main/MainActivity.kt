@@ -6,9 +6,9 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import dagger.Module
 import dagger.Provides
-import es.mnmapp.aolv.domain.usecase.GetPopularMeneos
+import es.mnmapp.aolv.domain.usecase.GetPopularNews
 import es.mnmapp.aolv.meneame.ui.BaseActivity
-import es.mnmapp.aolv.meneame.ui.view.main.fragment.MainFragment
+import es.mnmapp.aolv.meneame.ui.view.main.fragment.NewsListFragment
 import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
@@ -23,7 +23,7 @@ class MainActivity : BaseActivity() {
         mainViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
 
         if (savedInstanceState == null) {
-            setFragment(MainFragment.newInstance())
+            setFragment(NewsListFragment.newInstance())
         }
     }
 
@@ -31,14 +31,14 @@ class MainActivity : BaseActivity() {
     class MainActivityModule {
 
         @Provides
-        fun provideMainViewModelFactory(getPopularMeneos: GetPopularMeneos) = MainViewModelFactory(getPopularMeneos)
+        fun provideMainViewModelFactory(getPopularNews: GetPopularNews) = MainViewModelFactory(getPopularNews)
     }
 
-    class MainViewModelFactory(private val getPopularMeneos: GetPopularMeneos) : ViewModelProvider.Factory {
+    class MainViewModelFactory(private val getPopularNews: GetPopularNews) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST") return MainViewModel(getPopularMeneos) as T
+                @Suppress("UNCHECKED_CAST") return MainViewModel(getPopularNews) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import es.mnmapp.aolv.meneame.R
-import es.mnmapp.aolv.meneame.entity.MeneoUi
+import es.mnmapp.aolv.meneame.entity.NewUi
 import es.mnmapp.aolv.meneame.ui.extensions.loadUrl
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,13 +18,13 @@ import io.reactivex.subjects.PublishSubject
  * Created by antoniojoseoliva on 02/08/2017.
  */
 
-class MeneosAdapter(private var meneos: MutableList<MeneoUi>) : RecyclerView.Adapter<MeneosAdapter.Holder>() {
+class NewsAdapter(private var aNews: MutableList<NewUi>) : RecyclerView.Adapter<NewsAdapter.Holder>() {
 
     init {
         setHasStableIds(true)
     }
 
-    private val onClickItem = PublishSubject.create<MeneoUi>()
+    private val onClickItem = PublishSubject.create<NewUi>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -32,26 +32,26 @@ class MeneosAdapter(private var meneos: MutableList<MeneoUi>) : RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val meneo = meneos[position]
+        val meneo = aNews[position]
         holder.image.loadUrl(meneo.thumb)
         holder.title.text = meneo.title
-        holder.itemView.setOnClickListener { onClickItem.onNext(meneos[position]) }
+        holder.itemView.setOnClickListener { onClickItem.onNext(aNews[position]) }
     }
 
-    override fun getItemId(position: Int) = meneos[position].id ?: 0L
+    override fun getItemId(position: Int) = aNews[position].id ?: 0L
 
-    override fun getItemCount() = meneos.size
+    override fun getItemCount() = aNews.size
 
-    fun updateList(meneos: MutableList<MeneoUi>) {
-        this.meneos.apply {
+    fun updateList(aNews: MutableList<NewUi>) {
+        this.aNews.apply {
             clear()
-            addAll(meneos)
+            addAll(aNews)
         }
 
         notifyDataSetChanged()
     }
 
-    fun observeItemClick(): Observable<MeneoUi> = onClickItem.observeOn(AndroidSchedulers.mainThread())
+    fun observeItemClick(): Observable<NewUi> = onClickItem.observeOn(AndroidSchedulers.mainThread())
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image = itemView.findViewById<ImageView>(R.id.iv_row_meneo)!!

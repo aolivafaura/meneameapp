@@ -2,10 +2,10 @@ package es.mnmapp.aolv.meneame.ui.view.main
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import es.mnmapp.aolv.domain.entity.Meneo
-import es.mnmapp.aolv.domain.usecase.GetPopularMeneos
-import es.mnmapp.aolv.meneame.entity.MeneoUi
-import es.mnmapp.aolv.meneame.entity.mapper.fromMeneoToMeneoUi
+import es.mnmapp.aolv.domain.entity.New
+import es.mnmapp.aolv.domain.usecase.GetPopularNews
+import es.mnmapp.aolv.meneame.entity.NewUi
+import es.mnmapp.aolv.meneame.entity.mapper.fromNewToNewUi
 import es.mnmapp.aolv.meneame.rx.BaseObserver
 import es.mnmapp.aolv.meneame.ui.view.common.ViewState
 
@@ -13,29 +13,29 @@ import es.mnmapp.aolv.meneame.ui.view.common.ViewState
  * Created by antoniojoseoliva on 25/07/2017.
  */
 
-class MainViewModel(private val getPopularMeneos: GetPopularMeneos) : ViewModel() {
+class MainViewModel(private val getPopularNews: GetPopularNews) : ViewModel() {
 
-    val meneos = MutableLiveData<MutableList<MeneoUi>>()
+    val news = MutableLiveData<MutableList<NewUi>>()
     val state = MutableLiveData<ViewState>()
 
-    fun loadMeneos() {
+    fun loadNews() {
         state.value = ViewState.Refreshing
 
-        getPopularMeneos.execute(object : BaseObserver<List<Meneo>>() {
+        getPopularNews.execute(object : BaseObserver<List<New>>() {
 
             override fun onError(error: Throwable) {
                 super.onError(error)
                 state.value = ViewState.Idle
             }
 
-            override fun onNext(result: List<Meneo>) {
+            override fun onNext(result: List<New>) {
                 state.value = ViewState.Idle
-                meneos.value = result.map { fromMeneoToMeneoUi(it) }.toMutableList()
+                news.value = result.map { fromNewToNewUi(it) }.toMutableList()
             }
         }, Unit)
     }
 
     override fun onCleared() {
-        getPopularMeneos.dispose()
+        getPopularNews.dispose()
     }
 }
