@@ -18,8 +18,10 @@ abstract class UseCase<T, in Params> {
      * There is no advantage then injecting them on children constructor vs injecting them directly
      * here
      */
-    @field:[Inject Named("uiThread")] lateinit internal var postExecutionThread: Scheduler
-    @field:[Inject Named("workerThread")] lateinit internal var workerThread: Scheduler
+    @field:[Inject Named("uiThread")]
+    internal lateinit var postExecutionThread: Scheduler
+    @field:[Inject Named("workerThread")]
+    internal lateinit var workerThread: Scheduler
 
     private val disposables: CompositeDisposable = CompositeDisposable()
 

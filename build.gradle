@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.2.10'
+    ext.kotlin_version = '1.2.21'
     repositories {
         google()
         jcenter()
@@ -23,6 +23,15 @@ allprojects {
         maven { url 'https://maven.google.com' }
         maven { url 'https://maven.fabric.io/public' }
     }
+}
+
+ext {
+    compileSdkVersion = 27
+    minSdkVersion = 19
+    targetSdkVersion = 27
+    versionCode = 1
+    versionName = "1.0"
+    applicationId = "es.mnmapp.aolv.meneame"
 }
 
 task clean(type: Delete) {

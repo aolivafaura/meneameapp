@@ -25,7 +25,7 @@ interface MeneameService {
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(httpClient)
-                    .baseUrl("http://meneame.net/api/")
+                    .baseUrl("https://www.meneame.net/api/")
                     .build()
 
             return retrofit.create(MeneameService::class.java)

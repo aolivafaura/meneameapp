@@ -2,7 +2,7 @@ package es.mnmapp.aolv.meneame
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
-import es.mnmapp.aolv.meneame.utils.d
+import android.util.Log
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -17,7 +17,7 @@ import org.junit.runner.RunWith
     @Test fun testUseAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        d(appContext.packageName)
+        Log.d("", appContext.packageName)
         assertEquals("es.mnmapp.aolv.meneame.dev", appContext.packageName)
     }
 }

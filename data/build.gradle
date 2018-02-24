@@ -3,17 +3,12 @@ apply plugin: 'kotlin-android'
 
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
-
+    compileSdkVersion rootProject.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionName rootProject.versionName
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -23,26 +18,40 @@ android {
     }
     buildTypes {
         release {
+            debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
 
+ext {
+    rxAndroidVersion = '2.0.1'
+    rxJavaVersion = '2.1.7'
+    okhttpVersion = '3.9.1'
+    junitVersion = '4.12'
+    retrofitVersion = '2.3.0'
+}
+
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    testImplementation 'junit:junit:4.12'
-
+    // Modules
     compile project(path: ':domain')
 
-    implementation('com.squareup.retrofit2:retrofit:2.3.0') {
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+
+    // Network
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion") {
         exclude group: "com.squareup.okhttp3"
     }
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.7'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+
+    // Rx
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+
+    // Testing
+    testImplementation "junit:junit:$junitVersion"
 }

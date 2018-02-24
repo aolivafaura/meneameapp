@@ -15,13 +15,13 @@ android {
         }
     }
 
-    compileSdkVersion 27
+    compileSdkVersion rootProject.compileSdkVersion
     defaultConfig {
-        applicationId "es.mnmapp.aolv.meneame"
-        minSdkVersion 19
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        applicationId rootProject.applicationId
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
         testInstrumentationRunner "es.mnmapp.aolv.meneame.TestRunner"
         vectorDrawables.useSupportLibrary = true
 
@@ -33,6 +33,7 @@ android {
         release {
             debuggable false
             minifyEnabled true
+            useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
@@ -61,13 +62,6 @@ android {
             dimension "default"
         }
     }
-
-    // Exclude useless variants
-    android.variantFilter { variant ->
-        if (variant.buildType.name == 'release' && variant.getFlavors().get(0).name == 'dev') {
-            variant.setIgnore(true)
-        }
-    }
 }
 
 kapt {
@@ -93,51 +87,64 @@ ext {
 }
 
 dependencies {
+    // Tracking
     implementation('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true
     }
+    releaseCompile "com.google.firebase:firebase-core:$firebaseVersion"
 
+    // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
+    // Modules
     implementation project(path: ':data')
     implementation project(path: ':domain')
     implementation project(path: ':omfm-release')
 
-    releaseCompile "com.google.firebase:firebase-core:$firebaseVersion"
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    // Support
     implementation "com.android.support:appcompat-v7:$supportVersion"
     implementation "com.android.support:design:$supportVersion"
     implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
     implementation "com.android.support:recyclerview-v7:$supportVersion"
     implementation "com.android.support:support-vector-drawable:$supportVersion"
+
+    // Rx
     compileOnly "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
     compileOnly "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
 
+    // Dagger & annotations
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
     implementation "com.google.dagger:dagger:$daggerVersion"
     provided "javax.annotation:jsr250-api:$jsrVersion"
 
+    // Canary leaks
     debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
     testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
     implementation "com.jakewharton.timber:timber:$timberVersion"
 
+    // Architecture components
     implementation "android.arch.lifecycle:runtime:$architectureComponentsVersion"
     implementation "android.arch.lifecycle:extensions:$architectureComponentsVersion"
     kapt "android.arch.lifecycle:compiler:$architectureComponentsVersion"
 
+    // Stetho
     debugCompile "com.facebook.stetho:stetho:$stethoVersion"
     debugCompile("com.facebook.stetho:stetho-okhttp3:$stethoVersion") {
         exclude group: "com.squareup.okhttp3"
     }
-    compileOnly "com.squareup.okhttp3:okhttp:$okhttpVersion"
 
+    // Network
+    compileOnly "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+
+    // Images
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     kapt "com.github.bumptech.glide:compiler:$glideVersion"
 
+    // Testing
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation("com.android.support.test.espresso:espresso-core:$espressoVersion", {
         exclude group: "com.android.support", module: "support-annotations"
