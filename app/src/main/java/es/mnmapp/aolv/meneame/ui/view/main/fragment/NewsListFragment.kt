@@ -21,8 +21,8 @@ import org.koin.android.architecture.ext.viewModel
 
 class NewsListFragment : BaseFragment() {
 
-    val mainViewModel: MainViewModel by sharedViewModel()
-    val newsListViewModel: NewsListViewModel by viewModel()
+    private val mainViewModel: MainViewModel by sharedViewModel()
+    private val newsListViewModel: NewsListViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,8 +67,6 @@ class NewsListFragment : BaseFragment() {
         swiperefresh.setOnRefreshListener(onRefreshAction())
 
         rvListNews.layoutManager = LinearLayoutManager(this.context)
-
-        fabMenu.clickCallback = { handleFabClick(it) }
     }
 
     private fun observeNews() {
@@ -91,10 +89,6 @@ class NewsListFragment : BaseFragment() {
                 else -> swiperefresh.isRefreshing = false
             }
         })
-    }
-
-    private fun handleFabClick(id: Int) {
-        //logger.d(id.toString())
     }
 
     private fun initAdapter(items: MutableList<NewUi>) {

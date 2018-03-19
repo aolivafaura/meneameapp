@@ -1,1 +1,1 @@
-include ':app', ':domain', ':data', ':omfm-release'
+include ':app', ':domain', ':data'
