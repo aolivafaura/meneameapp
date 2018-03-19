@@ -2,7 +2,7 @@ package es.mnmapp.aolv.domain.usecase
 
 import es.mnmapp.aolv.domain.entity.New
 import es.mnmapp.aolv.domain.repository.NewsRepo
-import io.reactivex.Observable
+import io.reactivex.Flowable
 import io.reactivex.Scheduler
 
 /**
@@ -12,5 +12,5 @@ import io.reactivex.Scheduler
 class GetPopularNews(postExecutionThread: Scheduler, workerThread: Scheduler, private val newsRepo: NewsRepo)
     : UseCase<List<New>, Unit>(postExecutionThread, workerThread) {
 
-    override fun buildUseCaseObservable(params: Unit): Observable<List<New>> = newsRepo.getPopular()
+    override fun buildUseCaseObservable(params: Unit): Flowable<List<New>> = newsRepo.getPopular()
 }

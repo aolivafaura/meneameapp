@@ -4,7 +4,7 @@ import es.mnmapp.aolv.data.net.MeneameService
 import es.mnmapp.aolv.data.repository.cloud.NewsCloudRepo
 import es.mnmapp.aolv.domain.entity.New
 import es.mnmapp.aolv.domain.repository.NewsRepo
-import io.reactivex.Observable
+import io.reactivex.Flowable
 
 /**
  * This class should decide between available data sources.
@@ -13,11 +13,11 @@ import io.reactivex.Observable
  */
 class NewsDataRepo(private val meneameService: MeneameService) : NewsRepo {
 
-    override fun getPopular(): Observable<List<New>> {
+    override fun getPopular(): Flowable<List<New>> {
         return NewsCloudRepo(meneameService).getPopular()
     }
 
-    override fun getTopVisited(): Observable<List<New>> {
+    override fun getTopVisited(): Flowable<List<New>> {
         return NewsCloudRepo(meneameService).getTopVisited()
     }
 }

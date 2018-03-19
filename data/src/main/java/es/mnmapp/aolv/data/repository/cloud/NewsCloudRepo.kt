@@ -4,7 +4,7 @@ import es.mnmapp.aolv.data.entity.mapper.fromNewEntityToNew
 import es.mnmapp.aolv.data.net.MeneameService
 import es.mnmapp.aolv.domain.entity.New
 import es.mnmapp.aolv.domain.repository.NewsRepo
-import io.reactivex.Observable
+import io.reactivex.Flowable
 
 /**
  * Created by antoniojoseoliva on 19/07/2017.
@@ -12,7 +12,7 @@ import io.reactivex.Observable
 
 class NewsCloudRepo(private val meneameService: MeneameService) : NewsRepo {
 
-    override fun getPopular(): Observable<List<New>> {
+    override fun getPopular(): Flowable<List<New>> {
         val options = HashMap<String, String>().apply {
             put("popular", "true")
         }
@@ -21,7 +21,7 @@ class NewsCloudRepo(private val meneameService: MeneameService) : NewsRepo {
         }
     }
 
-    override fun getTopVisited(): Observable<List<New>> {
+    override fun getTopVisited(): Flowable<List<New>> {
         val options = HashMap<String, String>().apply {
             put("top_visited", "true")
         }

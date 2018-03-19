@@ -1,6 +1,6 @@
 package es.mnmapp.aolv.data.net
 
-import io.reactivex.Observable
+import io.reactivex.Flowable
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -14,7 +14,7 @@ import retrofit2.http.QueryMap
 interface MeneameService {
 
     @GET("list.php")
-    fun getMeneos(@QueryMap options: Map<String, String>): Observable<MeneoApiResult>
+    fun getMeneos(@QueryMap options: Map<String, String>): Flowable<MeneoApiResult>
 
     /**
      * Companion object to create the MeneameService

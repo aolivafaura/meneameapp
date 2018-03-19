@@ -10,7 +10,7 @@ import org.koin.android.architecture.ext.viewModel
 
 class MainActivity : BaseActivity() {
 
-    private val mainViewModel: MainViewModel by viewModel()
+    private val mainViewModel by viewModel<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

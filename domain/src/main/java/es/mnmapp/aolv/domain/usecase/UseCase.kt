@@ -1,10 +1,8 @@
 package es.mnmapp.aolv.domain.usecase
 
-import io.reactivex.Observable
+import io.reactivex.Flowable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import io.reactivex.observers.DisposableObserver
 
 /**
  * Created by antoniojoseoliva on 08/07/2017.
@@ -13,29 +11,21 @@ abstract class UseCase<T, in Params>(private val postExecutionThread: Scheduler,
 
     private val disposables: CompositeDisposable = CompositeDisposable()
 
-    internal abstract fun buildUseCaseObservable(params: Params): Observable<T>
+    internal abstract fun buildUseCaseObservable(params: Params): Flowable<T>
 
-    fun execute(observer: DisposableObserver<T>, params: Params) {
-        val observable = this.buildUseCaseObservable(params)
+    fun execute(params: Params,
+                onNext: ((T) -> Unit),
+                onError: ((Throwable) -> Unit),
+                onComplete: (() -> Unit)? = {}) {
+
+        this.buildUseCaseObservable(params)
                 .subscribeOn(workerThread)
                 .observeOn(postExecutionThread)
-
-        addDisposable(observable.subscribeWith(observer))
+                .subscribe(onNext, onError, onComplete)
+                .apply { disposables.add(this) }
     }
 
-    /**
-     * Dispose from current [CompositeDisposable].
-     */
-    fun dispose() {
-        if (!disposables.isDisposed) {
-            disposables.dispose()
-        }
-    }
-
-    /**
-     * Dispose from current [CompositeDisposable].
-     */
-    private fun addDisposable(disposable: Disposable) {
-        disposables.add(disposable)
+    fun clear() {
+        disposables.clear()
     }
 }

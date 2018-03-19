@@ -21,8 +21,8 @@ import org.koin.android.architecture.ext.viewModel
 
 class NewsListFragment : BaseFragment() {
 
-    private val mainViewModel: MainViewModel by sharedViewModel()
-    private val newsListViewModel: NewsListViewModel by viewModel()
+    private val mainViewModel by sharedViewModel<MainViewModel>()
+    private val newsListViewModel by viewModel<NewsListViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
