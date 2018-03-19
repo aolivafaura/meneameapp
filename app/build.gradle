@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'io.fabric'
+apply plugin: 'kotlin-kapt'
 apply from: 'props.gradle'
 
 android {
@@ -64,17 +65,13 @@ android {
     }
 }
 
-kapt {
-    generateStubs = true
-}
-
 ext {
     firebaseVersion = '11.8.0'
-    supportVersion = '27.0.2'
+    supportVersion = '27.1.0'
     constraintLayoutVersion = '1.0.2'
     rxAndroidVersion = '2.0.1'
     rxJavaVersion = '2.1.7'
-    daggerVersion = '2.11'
+    koinVersion = '0.9.0'
     jsrVersion = '1.0'
     leakCanaryVersion = '1.5.1'
     timberVersion = '4.5.1'
@@ -112,12 +109,9 @@ dependencies {
     compileOnly "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
     compileOnly "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
 
-    // Dagger & annotations
-    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
-    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
-    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
-    implementation "com.google.dagger:dagger:$daggerVersion"
-    provided "javax.annotation:jsr250-api:$jsrVersion"
+    // Koin
+    implementation "org.koin:koin-android:0.9.1"
+    implementation "org.koin:koin-android-architecture:0.9.1"
 
     // Canary leaks
     debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"

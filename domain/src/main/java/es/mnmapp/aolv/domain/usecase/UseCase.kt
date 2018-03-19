@@ -5,23 +5,11 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
-import javax.inject.Inject
-import javax.inject.Named
 
 /**
  * Created by antoniojoseoliva on 08/07/2017.
  */
-abstract class UseCase<T, in Params> {
-
-    /*
-     * On this project, those schedulers will be always the same and provided by dagger.
-     * There is no advantage then injecting them on children constructor vs injecting them directly
-     * here
-     */
-    @field:[Inject Named("uiThread")]
-    internal lateinit var postExecutionThread: Scheduler
-    @field:[Inject Named("workerThread")]
-    internal lateinit var workerThread: Scheduler
+abstract class UseCase<T, in Params>(private val postExecutionThread: Scheduler, private val workerThread: Scheduler) {
 
     private val disposables: CompositeDisposable = CompositeDisposable()
 

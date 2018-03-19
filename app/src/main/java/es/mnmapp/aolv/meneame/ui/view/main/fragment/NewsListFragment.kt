@@ -1,14 +1,9 @@
 package es.mnmapp.aolv.meneame.ui.view.main.fragment
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import dagger.Module
-import dagger.Provides
-import dagger.android.ContributesAndroidInjector
-import es.mnmapp.aolv.domain.usecase.GetPopularNews
 import es.mnmapp.aolv.meneame.R
 import es.mnmapp.aolv.meneame.entity.NewUi
 import es.mnmapp.aolv.meneame.rx.BaseObserver
@@ -16,7 +11,8 @@ import es.mnmapp.aolv.meneame.ui.BaseFragment
 import es.mnmapp.aolv.meneame.ui.view.common.ViewState
 import es.mnmapp.aolv.meneame.ui.view.main.MainViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
-import javax.inject.Inject
+import org.koin.android.architecture.ext.sharedViewModel
+import org.koin.android.architecture.ext.viewModel
 
 
 /**
@@ -25,17 +21,11 @@ import javax.inject.Inject
 
 class NewsListFragment : BaseFragment() {
 
-    @Inject
-    lateinit var viewModelFactory: NewsListViewModel.NewsListViewModelFactory
-
-    private lateinit var mainViewModel: MainViewModel
-    private lateinit var newsListViewModel: NewsListViewModel
+    val mainViewModel: MainViewModel by sharedViewModel()
+    val newsListViewModel: NewsListViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
-        newsListViewModel = ViewModelProviders.of(this, viewModelFactory).get(NewsListViewModel::class.java)
 
         observeNews()
         observeViewState()
@@ -104,7 +94,7 @@ class NewsListFragment : BaseFragment() {
     }
 
     private fun handleFabClick(id: Int) {
-        logger.d(id.toString())
+        //logger.d(id.toString())
     }
 
     private fun initAdapter(items: MutableList<NewUi>) {
@@ -114,24 +104,8 @@ class NewsListFragment : BaseFragment() {
                 .subscribe(object : BaseObserver<NewUi>() {
                     override fun onNext(result: NewUi) {
                         onListItemClick(result)
-                        logger.ev("ITEM_CLICK", null)
                     }
                 })
-    }
-
-    // DAGGER MODULE -------------------------------------------------------------------------------
-    @Module
-    class NewsListFragmentModule {
-        @Provides
-        fun provideListViewModelFactory(getPopularNews: GetPopularNews) = NewsListViewModel.NewsListViewModelFactory(getPopularNews)
-
-    }
-
-    // DAGGER PROVIDER -----------------------------------------------------------------------------
-    @Module
-    abstract class NewsListFragmentProvider {
-        @ContributesAndroidInjector(modules = [(NewsListFragmentModule::class)])
-        abstract fun provideEventListFragmentFactory(): NewsListFragment
     }
 
     companion object Factory {

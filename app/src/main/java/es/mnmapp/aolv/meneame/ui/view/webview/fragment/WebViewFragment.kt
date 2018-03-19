@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import dagger.Module
-import dagger.android.ContributesAndroidInjector
 import es.mnmapp.aolv.meneame.R
 import es.mnmapp.aolv.meneame.ui.BaseFragment
 import es.mnmapp.aolv.meneame.ui.extensions.fadeOut
@@ -50,16 +48,6 @@ class WebViewFragment : BaseFragment() {
                 }
             }
         }
-    }
-
-    @Module
-    class WebViewFragmentModule
-
-    @Module
-    abstract class WebViewFragmentProvider {
-
-        @ContributesAndroidInjector
-        abstract fun provideWebViewFragmentFactory(): WebViewFragment
     }
 
     companion object {

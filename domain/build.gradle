@@ -18,10 +18,6 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
 
-    // Annotations
-    implementation "javax.annotation:jsr250-api:$jsrVersion"
-    implementation "javax.inject:javax.inject:$javaxVersion"
-
     // Testing
     testImplementation "junit:junit:$junitVersion"
     testImplementation "org.mockito:mockito-all:$mockito"

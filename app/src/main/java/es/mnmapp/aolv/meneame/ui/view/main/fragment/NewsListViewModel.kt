@@ -2,7 +2,6 @@ package es.mnmapp.aolv.meneame.ui.view.main.fragment
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
 import es.mnmapp.aolv.domain.entity.New
 import es.mnmapp.aolv.domain.usecase.GetPopularNews
 import es.mnmapp.aolv.meneame.entity.NewUi
@@ -34,16 +33,5 @@ class NewsListViewModel(private val getPopularNews: GetPopularNews) : ViewModel(
                 news.value = result.map { fromNewToNewUi(it) }.toMutableList()
             }
         }, Unit)
-    }
-
-    // FACTORY -------------------------------------------------------------------------------------
-    class NewsListViewModelFactory(private val getPopularNews: GetPopularNews) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(NewsListViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return NewsListViewModel(getPopularNews) as T
-            }
-            throw IllegalArgumentException("Unknown ViewModel class")
-        }
     }
 }
