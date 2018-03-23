@@ -4,23 +4,20 @@ apply plugin: 'kotlin'
 ext {
     rxKotlinVersion = "2.2.0"
     rxJavaVersion = "2.1.7"
-    jsrVersion = "1.0"
-    javaxVersion = "1"
     junitVersion = "4.12"
     mockito = '2.0.2-beta'
 }
 
 dependencies {
+    // Testing
+    testImplementation "org.mockito:mockito-all:$mockito"
+    testImplementation "junit:junit:$junitVersion"
+
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-
     // Rx
     implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
-
-    // Testing
-    testImplementation "junit:junit:$junitVersion"
-    testImplementation "org.mockito:mockito-all:$mockito"
 }
 
 sourceCompatibility = "1.8"

@@ -7,15 +7,6 @@ apply from: 'props.gradle'
 
 android {
 
-    signingConfigs {
-        release {
-            keyAlias prodKeyStoreAlias
-            keyPassword prodKeyStoreKeyPass
-            storeFile file('../mnmaolvdprod.keystore')
-            storePassword prodKeyStorePass
-        }
-    }
-
     compileSdkVersion rootProject.compileSdkVersion
     defaultConfig {
         applicationId rootProject.applicationId
@@ -36,7 +27,6 @@ android {
             minifyEnabled true
             useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
         }
 
         debug {
@@ -84,6 +74,12 @@ ext {
 }
 
 dependencies {
+    // Testing
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:$espressoVersion", {
+        exclude group: "com.android.support", module: "support-annotations"
+    })
+
     // Tracking
     implementation('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true
@@ -139,12 +135,6 @@ dependencies {
     // Images
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     kapt "com.github.bumptech.glide:compiler:$glideVersion"
-
-    // Testing
-    testImplementation "junit:junit:$junitVersion"
-    androidTestImplementation("com.android.support.test.espresso:espresso-core:$espressoVersion", {
-        exclude group: "com.android.support", module: "support-annotations"
-    })
 }
 
 apply plugin: 'com.google.gms.google-services'
