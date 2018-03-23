@@ -15,3 +15,4 @@ props.gradle
 mnmaolvdprod.keystore
 app/src/prod/google-services.json
 dig
+sec.tar

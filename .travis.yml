@@ -27,12 +27,10 @@ android:
   - google-gdk-license-.+
 
 before_install:
-  # Key store
-  - openssl aes-256-cbc -K $encrypted_aee72d1c3958_key -iv $encrypted_aee72d1c3958_iv -in mnmaolvdprod.keystore.enc -out mn
-  # Fabric api key (props.gradle)
-  - openssl aes-256-cbc -K $encrypted_aee72d1c3958_key -iv $encrypted_aee72d1c3958_iv -in props.gradle.enc -out app/props.gradle -d
-  # Google services json
-  - openssl aes-256-cbc -K $encrypted_aee72d1c3958_key -iv $encrypted_aee72d1c3958_iv -in google-services.json.enc -out app/src/prod/google-services.json -d
+  # Secrets
+  - openssl aes-256-cbc -K $encrypted_aee72d1c3958_key -iv $encrypted_aee72d1c3958_iv -in sec.tar.enc -out sec.tar -d
+  - tar xvf sec.tar
+  - mv google-services.json app/src/prod/google-services.json && mv props.gradle app/props.gradle
   - mkdir "$ANDROID_HOME/licenses" || true
   - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
   - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
@@ -40,7 +38,7 @@ before_install:
   - ./gradlew dependencies || true
 
 before_script:
-  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+  - echo no | android create avd -n test -k "system-images;android-25;google_apis;x86"
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
