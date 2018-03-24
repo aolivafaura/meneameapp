@@ -7,7 +7,6 @@
 /build
 /captures
 .externalNativeBuil
-gradle/
 .idea/
 gradle.properties
 fabric.properties
