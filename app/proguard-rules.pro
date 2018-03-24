@@ -24,9 +24,6 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-# DAGGER 2
--dontwarn com.google.errorprone.annotations.*
-
 # RETROFIT
 # Platform calls Class.forName on types which do not exist on Android to determine platform.
 -dontnote retrofit2.Platform
@@ -38,18 +35,23 @@
 -keepattributes Exceptions
 
 # OKHTTP3
+-dontwarn okhttp3.**
 -dontwarn okio.**
+-dontwarn javax.annotation.**
+-dontwarn org.conscrypt.**
+# A resource is loaded with a relative path so the package of this class must be preserved.
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+# Keep api models (Gson doesn't work otherwise)
+-keep public class es.mnmapp.aolv.data.net.** {*;}
 
 # Rx
 -keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
    long producerIndex;
    long consumerIndex;
 }
-
 -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
     rx.internal.util.atomic.LinkedQueueNode producerNode;
 }
-
 -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
     rx.internal.util.atomic.LinkedQueueNode consumerNode;
 }

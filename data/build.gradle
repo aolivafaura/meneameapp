@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-
+apply from: '../config/dependencies.gradle'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -17,14 +17,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
-
-ext {
-    rxAndroidVersion = '2.0.1'
-    rxJavaVersion = '2.1.7'
-    okhttpVersion = '3.9.1'
-    junitVersion = '4.12'
-    retrofitVersion = '2.3.0'
 }
 
 dependencies {

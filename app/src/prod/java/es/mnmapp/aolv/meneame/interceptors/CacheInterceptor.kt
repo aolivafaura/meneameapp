@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
  * Created by antonio on 11/1/17.
  */
 
-class CacheInterceptor(val connectivity: Connectivity) : Interceptor {
+class CacheInterceptor(private val connectivity: Connectivity) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain?): Response {
         val cacheBuilder = CacheControl.Builder()
@@ -26,12 +26,12 @@ class CacheInterceptor(val connectivity: Connectivity) : Interceptor {
         if (connectivity.isConnected()) {
             val maxAge = 30 // Cache lifetime: 30 seconds
             response.newBuilder().header("Cache-Control",
-                    "public, max-age=" + maxAge).build()
+                    "public, max-age=$maxAge").build()
         }
         else {
             val maxStale = 60 * 60 * 24 * 28 // tolerate 4-weeks stale
             response.newBuilder().header("Cache-Control",
-                    "public, only-if-cached, max-stale=" + maxStale).build()
+                    "public, only-if-cached, max-stale=$maxStale").build()
         }
 
         return response

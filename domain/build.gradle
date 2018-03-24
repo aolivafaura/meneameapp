@@ -1,12 +1,6 @@
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
-
-ext {
-    rxKotlinVersion = "2.2.0"
-    rxJavaVersion = "2.1.7"
-    junitVersion = "4.12"
-    mockito = '2.0.2-beta'
-}
+apply from: '../config/dependencies.gradle'
 
 dependencies {
     // Testing
