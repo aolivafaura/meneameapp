@@ -38,8 +38,8 @@ before_install:
   - ./gradlew dependencies || true
 
 before_script:
-  - avdmanager
-  - avdmanager create avd -n test -k "system-images;android-25;google_apis;x86"
+  - /usr/local/android-sdk/tools/bin/avdmanager
+  - /usr/local/android-sdk/tools/bin/avdmanager create avd -n test -k "system-images;android-25;google_apis;x86"
   # - echo no | android create avd -n test -k "system-images;android-25;google_apis;x86"
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
