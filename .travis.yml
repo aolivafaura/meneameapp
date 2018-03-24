@@ -41,8 +41,8 @@ before_install:
   - tar xvf sec.tar
   - mv google-services.json app/src/prod/google-services.json && mv props.gradle app/props.gradle
   - mkdir "$ANDROID_HOME/licenses" || true
-  - echo -e "\d56f5187479451eabf01fb78af6dfcb131a6481e" > "$ANDROID_HOME/licenses/android-sdk-license"
-  - echo -e "\84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
+  - echo -e "d56f5187479451eabf01fb78af6dfcb131a6481e" > "$ANDROID_HOME/licenses/android-sdk-license"
+  - echo -e "84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
   - chmod +x gradlew
   - ./gradlew dependencies || true
 
