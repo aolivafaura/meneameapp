@@ -55,6 +55,13 @@ android {
     }
 }
 
+android.variantFilter { variant ->
+    // Exclude devRelease compilation (it make no sense)
+    if(variant.buildType.name == 'release' && variant.getFlavors().get(0).name == 'dev') {
+        variant.setIgnore(true)
+    }
+}
+
 ext {
     firebaseVersion = '11.8.0'
     supportVersion = '27.1.0'
