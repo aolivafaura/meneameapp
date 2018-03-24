@@ -1,11 +1,13 @@
 language: android
 sudo: required
 jdk: oraclejdk8
+
 env:
+  matrix:
+  - ANDROID_TARGET=android-23 ANDROID_ABI=armeabi-v7a
+  - ANDROID_TARGET=android-26 ANDROID_ABI=armeabi-v7a
   global:
-  - ANDROID_API=27
-  - EMULATOR_API=27
-  - ADB_INSTALL_TIMEOUT=5 # minutes
+  - ADB_INSTALL_TIMEOUT=10 # minutes
   - secure: "myQmH/Qymtwh8VcXWkNC6z9x1n1GQ9DAdXa569oPcRF+vCFOhM7bGldNvQ5hPtfO8Qb/B0fmvqntoTIMyFm1JH7yPV7Bp8VsxHLlWgEIAb3ZpZgwN/0mGMaZ5+oBE+jNq2wwFV20C9CB/WoSJofsVx9fRKUJWqbfa5Ge/WnYygchmqML/WsRPl9hHggc8SUj3MUEYa2wdYSpby7+3knZ8b2aLh4Sdjd9AeWO4GXpwZpnqZJn2hgyqZSLcmlGnK+LUfpQ9KASsFkmx8PHG8/ic/qoPhPN++AAbCPYlP4RwnsK3sHBSyNex7aHrwrlxlJbkebxhYUJpU0SCZrSrR4o+OxeAkPCeJ3JkA9KEQa9hHAwNPNgb65+L5lc2V7I6P1Ur2FCI59h9ZqCCUBUsqmY6zk8V2U6CzhLTvm9CQpu+kxZbTq/hRryjMgE6r4qzRWLd9J1dOyddaKpVQn7iFvAaIUkXnvW87BZqnVdhJMsFUgFws3FcneC2ekUrENveBEI2ty/8IagyCG70O2bvr6xCZmrlZzUH0cqtPWDgDlsBqdF9OdqqU2d9cQugnOV74Qmhqr8PmvuSIVYEi+I1/uZOkMYMTTuiGD6bumyFI9ADrO/YfDR6vJNgC8lmd7kYJBV8rz30Z6p6nbZcR+8HB5uhnBCGfNdfBYUyiqTrM1pTgo="
   - secure: "YM1UDsrdpMYjEVne39/RhltmXoqb0OxPpb9fJUmCIpE4OQ+YIGK51L7Q+zC8A2maGCsT0FMwAdgBT7fIBNejIJhvMp1a4qqRsBoA1jESVd2+8FrOwYmzvHagh1QPXyrMBPtpK2PRNomw2letW1ZNlCSJjQK1YsIrBwdGg2yq4IDnC6vE0II19V0Z+8UEluVy91f5IcNrBdUcLWQB+vwefvcskVIiSeotadqHqcW9D1A07WPHC7tFi3Mk508O1Woj3HZBbbgHbOgM9pQCMdl0HhZWCO9e73nxxKiXHhGDnBoAnvU1SDlZ3WJ56GHuZ/8rCkq7V9trwKh/0dWGyZAaOFqqCfEW8YJTVn8x8azRK9RdlbDeaCRsXfNzhbI0sNH8sU/TFnf2+GHIHzoe4PXtVoUnfESh37eEeEfZCs2lH0oF/sMqIQ5DQj1v4bA/T6OhqlukINl0V7o+KH/AV1JL7lvzkmEyIXM2f7aZqPjOlwUw/6IyBITjygIxei4KKTwse79uFoQ0XCm8twX+ExdZh+M8AkPyOdsOFM2ExDnGrm32OzngzKyvXaKr2Cs/ah+zWx+1hgg8z9NVoyVWyKEre4eIqVkrBeHFa/8nwQVrKVkF+MsKduTn6gB9DZcDsk9xRvLVAJpwCrpMM1cMDfeV/0gcZB0m30qt74P8QfMz/+w="
 before_cache:
@@ -14,29 +16,26 @@ cache:
   directories:
     - $HOME/.m2
     - $HOME/.gradle/caches/
+    - $HOME/.gradle/native      #Cache library downloaded from the gradle dependency
     - $HOME/.gradle/wrapper/
 android:
   components:
   - tools
   - platform-tools
-  - build-tools-27.0.2
+  - build-tools-26.0.1
   - android-27
   - add-on
   - extra
   - extra-google-m2repository
   - extra-android-m2repository # for design library
-  - addon-google_apis-google-19 # google play services
-  - sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API_LEVEL
-  - sys-img-armeabi-v7a-addon-google_apis-google-$EMULATOR_API_LEVEL
+  - sys-img-armeabi-v7a-android-23
+  - sys-img-armeabi-v7a-android-26
   licenses:
   - android-sdk-preview-license-.+
   - android-sdk-license-.+
   - google-gdk-license-.+
 
 before_install:
-  # Accept last sdk licenses
-  - yes | sdkmanager "platforms;android-27"
-  # Secrets
   - openssl aes-256-cbc -K $encrypted_aee72d1c3958_key -iv $encrypted_aee72d1c3958_iv -in sec.tar.enc -out sec.tar -d
   - tar xvf sec.tar
   - mv google-services.json app/src/prod/google-services.json && mv props.gradle app/props.gradle
@@ -47,10 +46,12 @@ before_install:
   - ./gradlew dependencies || true
 
 before_script:
-  #- android create avd --force -n test -t android-25 --abi armeabi-v7a
-  #- emulator -avd test -no-skin -no-audio -no-window &
-  #- android-wait-for-emulator
-  #- adb shell input keyevent 82 &
+  - chmod +x gradlew      #Grant permissions
+  - android list targets
+  - echo no | android create avd --force --name test --target $ANDROID_TARGET --abi $ANDROID_ABI    #Create AVD for given api
+  - emulator -avd test -no-skin -no-audio -no-window &    #Start emulator
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
 
 script:
   - "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
@@ -61,7 +62,7 @@ before_deploy:
   - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/mnmaolvdprod.keystore -storepass $storepass -keypass $keypass app-release-unsigned.apk production
   # Verification
   - jarsigner -verify app-release-unsigned.apk
-  - "${ANDROID_HOME}/build-tools/25.2.5/zipalign -v 4 app-release-unsigned.apk aolvmeneame.apk"
+  - "${ANDROID_HOME}/build-tools/26.0.1/zipalign -v 4 app-release-unsigned.apk aolvmeneame.apk"
 
 deploy:
   provider: releases
