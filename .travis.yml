@@ -4,8 +4,8 @@ jdk: oraclejdk8
 
 env:
   matrix:
-  - ANDROID_TARGET=android-25
-  - ANDROID_TARGET=android-27
+  - ANDROID_TARGET=android-25 ANDROID_ABI=armeabi-v7a
+  - ANDROID_TARGET=android-27 ANDROID_ABI=armeabi-v7a
   global:
   - ADB_INSTALL_TIMEOUT=10 # minutes
   - secure: "myQmH/Qymtwh8VcXWkNC6z9x1n1GQ9DAdXa569oPcRF+vCFOhM7bGldNvQ5hPtfO8Qb/B0fmvqntoTIMyFm1JH7yPV7Bp8VsxHLlWgEIAb3ZpZgwN/0mGMaZ5+oBE+jNq2wwFV20C9CB/WoSJofsVx9fRKUJWqbfa5Ge/WnYygchmqML/WsRPl9hHggc8SUj3MUEYa2wdYSpby7+3knZ8b2aLh4Sdjd9AeWO4GXpwZpnqZJn2hgyqZSLcmlGnK+LUfpQ9KASsFkmx8PHG8/ic/qoPhPN++AAbCPYlP4RwnsK3sHBSyNex7aHrwrlxlJbkebxhYUJpU0SCZrSrR4o+OxeAkPCeJ3JkA9KEQa9hHAwNPNgb65+L5lc2V7I6P1Ur2FCI59h9ZqCCUBUsqmY6zk8V2U6CzhLTvm9CQpu+kxZbTq/hRryjMgE6r4qzRWLd9J1dOyddaKpVQn7iFvAaIUkXnvW87BZqnVdhJMsFUgFws3FcneC2ekUrENveBEI2ty/8IagyCG70O2bvr6xCZmrlZzUH0cqtPWDgDlsBqdF9OdqqU2d9cQugnOV74Qmhqr8PmvuSIVYEi+I1/uZOkMYMTTuiGD6bumyFI9ADrO/YfDR6vJNgC8lmd7kYJBV8rz30Z6p6nbZcR+8HB5uhnBCGfNdfBYUyiqTrM1pTgo="
@@ -46,7 +46,7 @@ before_install:
 before_script:
   - chmod +x gradlew      #Grant permissions
   - android list targets
-  - echo no | android create avd --force --name test --target $ANDROID_TARGET #Create AVD for given api
+  - echo no | android create avd --force --name test --target $ANDROID_TARGET --abi $ANDROID_ABI #Create AVD for given api
   - emulator -avd test -no-skin -no-audio -no-window &    #Start emulator
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
