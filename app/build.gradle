@@ -79,6 +79,15 @@ dependencies {
     androidTestImplementation("com.android.support.test.espresso:espresso-core:$espressoVersion", {
         exclude group: "com.android.support", module: "support-annotations"
     })
+    // Android runner and rules support
+    androidTestCompile "com.android.support.test:runner:$espressoRunnersVersion"
+    androidTestCompile "com.android.support.test:rules:$espressoRunnersVersion"
+
+    // add this for intent mocking support
+    androidTestCompile "com.android.support.test.espresso:espresso-intents:$espressoSupportVersion"
+    // add this for webview testing support
+    androidTestCompile "com.android.support.test.espresso:espresso-web:$espressoSupportVersion"
+
 
     // Tracking
     implementation('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
@@ -90,7 +99,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
     // KTX
-    implementation 'androidx.core:core-ktx:0.2'
+    implementation "androidx.core:core-ktx:$ktxVersion"
 
     // Modules
     implementation project(path: ':data')
@@ -108,8 +117,8 @@ dependencies {
     compileOnly "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
 
     // Koin
-    implementation "org.koin:koin-android:0.9.1"
-    implementation "org.koin:koin-android-architecture:0.9.1"
+    implementation "org.koin:koin-android:$koinVersion"
+    implementation "org.koin:koin-android-architecture:$koinVersion"
 
     // Canary leaks
     debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"

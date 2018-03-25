@@ -13,7 +13,11 @@ ext {
     glideVersion = '4.4.0'
     junitVersion = '4.12'
     espressoVersion = '2.2.2'
+    espressoRunnersVersion = '1.0.1'
+    espressoSupportVersion = '3.0.1'
     retrofitVersion = '2.3.0'
     rxKotlinVersion = "2.2.0"
     mockito = '2.0.2-beta'
+    koinVersion = '0.9.1'
+    ktxVersion = '0.2'
 }
