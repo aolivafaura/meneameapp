@@ -1,4 +1,4 @@
-package es.mnmapp.aolv.meneame.koin
+package es.mnmapp.aolv.meneame.di
 
 import es.mnmapp.aolv.data.repository.NewsDataRepo
 import es.mnmapp.aolv.domain.repository.NewsRepo

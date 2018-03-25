@@ -3,7 +3,7 @@ package es.mnmapp.aolv.meneame
 import android.app.Application
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.core.CrashlyticsCore
-import es.mnmapp.aolv.meneame.koin.getKoinModules
+import es.mnmapp.aolv.meneame.di.getKoinModules
 import es.mnmapp.aolv.meneame.loggers.CrashlyticsTree
 import io.fabric.sdk.android.Fabric
 import org.koin.android.ext.android.startKoin

@@ -1,5 +1,5 @@
 language: android
-sudo: required
+sudo: false
 jdk: oraclejdk8
 
 env:
@@ -12,14 +12,18 @@ env:
   - ADB_INSTALL_TIMEOUT=10 # minutes
   - secure: "myQmH/Qymtwh8VcXWkNC6z9x1n1GQ9DAdXa569oPcRF+vCFOhM7bGldNvQ5hPtfO8Qb/B0fmvqntoTIMyFm1JH7yPV7Bp8VsxHLlWgEIAb3ZpZgwN/0mGMaZ5+oBE+jNq2wwFV20C9CB/WoSJofsVx9fRKUJWqbfa5Ge/WnYygchmqML/WsRPl9hHggc8SUj3MUEYa2wdYSpby7+3knZ8b2aLh4Sdjd9AeWO4GXpwZpnqZJn2hgyqZSLcmlGnK+LUfpQ9KASsFkmx8PHG8/ic/qoPhPN++AAbCPYlP4RwnsK3sHBSyNex7aHrwrlxlJbkebxhYUJpU0SCZrSrR4o+OxeAkPCeJ3JkA9KEQa9hHAwNPNgb65+L5lc2V7I6P1Ur2FCI59h9ZqCCUBUsqmY6zk8V2U6CzhLTvm9CQpu+kxZbTq/hRryjMgE6r4qzRWLd9J1dOyddaKpVQn7iFvAaIUkXnvW87BZqnVdhJMsFUgFws3FcneC2ekUrENveBEI2ty/8IagyCG70O2bvr6xCZmrlZzUH0cqtPWDgDlsBqdF9OdqqU2d9cQugnOV74Qmhqr8PmvuSIVYEi+I1/uZOkMYMTTuiGD6bumyFI9ADrO/YfDR6vJNgC8lmd7kYJBV8rz30Z6p6nbZcR+8HB5uhnBCGfNdfBYUyiqTrM1pTgo="
   - secure: "YM1UDsrdpMYjEVne39/RhltmXoqb0OxPpb9fJUmCIpE4OQ+YIGK51L7Q+zC8A2maGCsT0FMwAdgBT7fIBNejIJhvMp1a4qqRsBoA1jESVd2+8FrOwYmzvHagh1QPXyrMBPtpK2PRNomw2letW1ZNlCSJjQK1YsIrBwdGg2yq4IDnC6vE0II19V0Z+8UEluVy91f5IcNrBdUcLWQB+vwefvcskVIiSeotadqHqcW9D1A07WPHC7tFi3Mk508O1Woj3HZBbbgHbOgM9pQCMdl0HhZWCO9e73nxxKiXHhGDnBoAnvU1SDlZ3WJ56GHuZ/8rCkq7V9trwKh/0dWGyZAaOFqqCfEW8YJTVn8x8azRK9RdlbDeaCRsXfNzhbI0sNH8sU/TFnf2+GHIHzoe4PXtVoUnfESh37eEeEfZCs2lH0oF/sMqIQ5DQj1v4bA/T6OhqlukINl0V7o+KH/AV1JL7lvzkmEyIXM2f7aZqPjOlwUw/6IyBITjygIxei4KKTwse79uFoQ0XCm8twX+ExdZh+M8AkPyOdsOFM2ExDnGrm32OzngzKyvXaKr2Cs/ah+zWx+1hgg8z9NVoyVWyKEre4eIqVkrBeHFa/8nwQVrKVkF+MsKduTn6gB9DZcDsk9xRvLVAJpwCrpMM1cMDfeV/0gcZB0m30qt74P8QfMz/+w="
+
 before_cache:
     - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+
 cache:
   directories:
     - $HOME/.m2
     - $HOME/.gradle/caches/
-    - $HOME/.gradle/native      #Cache library downloaded from the gradle dependency
+    - $HOME/.gradle/daemon
+    - $HOME/.gradle/native
     - $HOME/.gradle/wrapper/
+
 android:
   components:
   - tools-26.1.1
@@ -59,6 +63,13 @@ before_script:
 
 script:
   - "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
+
+after_failure:
+  - wget http://imgur.com/tools/imgurbash.sh
+  - chmod a+x imgurbash.sh
+  - adb shell screencap -p | sed 's/\r$//' &gt; screen.png
+  - ./imgurbash.sh screen.png
+  - pandoc builder/build/reports/tests/index.html -t plain | sed -n '/^Failed tests/,/default-package/p'
 
 before_deploy:
   - cp $TRAVIS_BUILD_DIR/.keystore $HOME

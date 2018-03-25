@@ -1,4 +1,4 @@
-package es.mnmapp.aolv.meneame.koin.repositoryproviders
+package es.mnmapp.aolv.meneame.di.repositoryproviders
 
 import java.io.File
 

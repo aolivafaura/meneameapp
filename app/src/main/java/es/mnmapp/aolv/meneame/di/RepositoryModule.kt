@@ -1,8 +1,8 @@
-package es.mnmapp.aolv.meneame.koin
+package es.mnmapp.aolv.meneame.di
 
 import es.mnmapp.aolv.data.net.MeneameService
-import es.mnmapp.aolv.meneame.koin.repositoryproviders.createCacheDirectory
-import es.mnmapp.aolv.meneame.koin.repositoryproviders.createOkHttpClient
+import es.mnmapp.aolv.meneame.di.repositoryproviders.createCacheDirectory
+import es.mnmapp.aolv.meneame.di.repositoryproviders.createOkHttpClient
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module.applicationContext
 

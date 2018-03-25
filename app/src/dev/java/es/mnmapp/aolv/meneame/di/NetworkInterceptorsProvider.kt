@@ -1,4 +1,4 @@
-package es.mnmapp.aolv.meneame.koin
+package es.mnmapp.aolv.meneame.di
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import es.mnmapp.aolv.meneame.interceptors.LocalCacheInterceptor

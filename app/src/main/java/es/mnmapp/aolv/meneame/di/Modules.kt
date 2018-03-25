@@ -1,4 +1,4 @@
-package es.mnmapp.aolv.meneame.koin
+package es.mnmapp.aolv.meneame.di
 
 /**
  * Created by antonio on 3/18/18.
