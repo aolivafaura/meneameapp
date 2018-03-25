@@ -48,6 +48,7 @@ before_install:
   - ./gradlew dependencies || true
 
 before_script:
+  - $ANDROID_HOME/tools/bin/avdmanager list
   - echo "y" | android update sdk -a --no-ui --filter android-27
   - echo "y" | android update sdk -a --no-ui --filter sys-img-armeabi-v7a-android-27
   - android list targets | grep -E '^id:' | awk -F '"' '{$1=""; print $2}' # list all targets
