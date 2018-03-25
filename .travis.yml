@@ -4,8 +4,8 @@ jdk: oraclejdk8
 
 env:
   matrix:
-  - ANDROID_TARGET=android-25 ANDROID_ABI=x86
-  - ANDROID_TARGET=android-27 ANDROID_ABI=x86
+  - ANDROID_TARGET=android-19 ANDROID_ABI=armeabi-v7a
+  - ANDROID_TARGET=android-25 ANDROID_ABI=armeabi-v7a
   global:
   - ANDROID_API=27
   - EMULATOR_API=27
