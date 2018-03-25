@@ -49,7 +49,6 @@ before_install:
 
 before_script:
   - echo "y" | android update sdk -a --no-ui --filter android-27
-  - echo "y" | android update sdk -a --no-ui --filter system-images;android-27;google_apis;x86
   - sdkmanager tools
   - $ANDROID_HOME/tools/bin/avdmanager list
   - avdmanager create avd -n tt4 -k "system-images;android-27;google_apis;x86"
