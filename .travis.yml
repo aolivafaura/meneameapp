@@ -30,8 +30,6 @@ android:
   - extra
   - extra-google-m2repository
   - extra-android-m2repository # for design library
-  - sys-img-armeabi-v7a-android-25
-  - sys-img-armeabi-v7a-android-27
   licenses:
   - android-sdk-preview-license-.+
   - android-sdk-license-.+
@@ -50,12 +48,12 @@ before_install:
 before_script:
   - chmod +x gradlew      #Grant permissions
   - echo "y" | android update sdk -a --no-ui --filter android-27
-  - sdkmanager tools
+  - $ANDROID_HOME/tools/bin/sdkmanager tools
   - cat $ANDROID_HOME/platform-tools/source.properties | grep Pkg.Revision
   - cat $ANDROID_HOME/tools/source.properties | grep Pkg.Revision
   - sdkmanager "system-images;$ANDROID_TARGET;google_apis;$ANDROID_ABI"
-  - echo no | avdmanager create avd -n test -k "system-images;$ANDROID_TARGET;google_apis;$ANDROID_ABI"
-  - emulator -avd test -no-skin -no-window &    #Start emulator
+  - echo no | $ANDROID_HOME/tools/bin/avdmanager create avd -n test -k "system-images;$ANDROID_TARGET;google_apis;$ANDROID_ABI"
+  - $ANDROID_HOME/tools/emulator -avd test -no-skin -no-window &    #Start emulator
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
 
