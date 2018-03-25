@@ -48,16 +48,14 @@ before_install:
   - ./gradlew dependencies || true
 
 before_script:
+  - echo "y" | android update sdk -a --no-ui --filter android-27
+  - echo "y" | android update sdk -a --no-ui --filter system-images;android-27;google_apis;x86
   - sdkmanager tools
   - $ANDROID_HOME/tools/bin/avdmanager list
-  - echo "y" | android update sdk -a --no-ui --filter android-27
-  - echo "y" | android update sdk -a --no-ui --filter sys-img-armeabi-v7a-android-27
-  - android list targets | grep -E '^id:' | awk -F '"' '{$1=""; print $2}' # list all targets
+  - avdmanager create avd -n tt4 -k "system-images;android-27;google_apis;x86"
   - chmod +x gradlew      #Grant permissions
   - cat $ANDROID_HOME/platform-tools/source.properties | grep Pkg.Revision
   - cat $ANDROID_HOME/tools/source.properties | grep Pkg.Revision
-  - android list targets
-  - echo no | android create avd --force --name test --target $ANDROID_TARGET --abi $ANDROID_ABI    #Create AVD for given api
   - emulator -avd test -no-skin -no-audio -no-window &    #Start emulator
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
