@@ -1,4 +1,4 @@
-package es.mnmapp.aolv.meneame.koin
+package es.mnmapp.aolv.meneame.di
 
 import es.mnmapp.aolv.meneame.interceptors.CacheInterceptor
 import es.mnmapp.aolv.meneame.utils.Connectivity

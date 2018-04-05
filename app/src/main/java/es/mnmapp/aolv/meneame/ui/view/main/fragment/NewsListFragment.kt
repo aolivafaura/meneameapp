@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import es.mnmapp.aolv.meneame.R
 import es.mnmapp.aolv.meneame.entity.NewUi
-import es.mnmapp.aolv.meneame.rx.BaseObserver
 import es.mnmapp.aolv.meneame.ui.BaseFragment
 import es.mnmapp.aolv.meneame.ui.view.common.ViewState
 import es.mnmapp.aolv.meneame.ui.view.main.MainViewModel
@@ -95,11 +94,13 @@ class NewsListFragment : BaseFragment() {
         rvListNews.adapter = NewsAdapter(items)
         (rvListNews.adapter as NewsAdapter)
                 .observeItemClick()
-                .subscribe(object : BaseObserver<NewUi>() {
-                    override fun onNext(result: NewUi) {
-                        onListItemClick(result)
-                    }
-                })
+                .subscribe(
+                        {
+                            onListItemClick(it)
+                        },
+                        {
+                        }
+                )
     }
 
     companion object Factory {

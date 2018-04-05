@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'io.fabric'
 apply plugin: 'kotlin-kapt'
 apply from: 'props.gradle'
+apply from: '../jacoco.gradle'
 apply from: '../config/dependencies.gradle'
 
 android {
@@ -26,6 +27,7 @@ android {
         versionName rootProject.versionName
         testInstrumentationRunner "es.mnmapp.aolv.meneame.TestRunner"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
 
         manifestPlaceholders = [
                 fabricApiKey: fabricApiKey
@@ -76,27 +78,28 @@ android.variantFilter { variant ->
 dependencies {
     // Testing
     testImplementation "junit:junit:$junitVersion"
+    testImplementation "com.nhaarman:mockito-kotlin-kt1.1:$mockitoKotlinVersion"
     androidTestImplementation("com.android.support.test.espresso:espresso-core:$espressoVersion", {
         exclude group: "com.android.support", module: "support-annotations"
     })
     // Android runner and rules support
-    androidTestCompile "com.android.support.test:runner:$espressoRunnersVersion"
-    androidTestCompile "com.android.support.test:rules:$espressoRunnersVersion"
-
+    androidTestImplementation "com.android.support.test:runner:$espressoRunnersVersion"
+    androidTestImplementation "com.android.support.test:rules:$espressoRunnersVersion"
     // add this for intent mocking support
-    androidTestCompile "com.android.support.test.espresso:espresso-intents:$espressoSupportVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$espressoSupportVersion"
     // add this for webview testing support
-    androidTestCompile "com.android.support.test.espresso:espresso-web:$espressoSupportVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-web:$espressoSupportVersion"
 
 
     // Tracking
     implementation('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true
     }
-    releaseCompile "com.google.firebase:firebase-core:$firebaseVersion"
+    releaseImplementation "com.google.firebase:firebase-core:$firebaseVersion"
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinReflect"
 
     // KTX
     implementation "androidx.core:core-ktx:$ktxVersion"
@@ -119,21 +122,23 @@ dependencies {
     // Koin
     implementation "org.koin:koin-android:$koinVersion"
     implementation "org.koin:koin-android-architecture:$koinVersion"
+    testImplementation "org.koin:koin-test:$koinVersion"
 
     // Canary leaks
-    debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
-    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
-    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+    testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
     implementation "com.jakewharton.timber:timber:$timberVersion"
 
     // Architecture components
     implementation "android.arch.lifecycle:runtime:$architectureComponentsVersion"
     implementation "android.arch.lifecycle:extensions:$architectureComponentsVersion"
+    testImplementation "android.arch.core:core-testing:$architectureComponentsVersion"
     kapt "android.arch.lifecycle:compiler:$architectureComponentsVersion"
 
     // Stetho
-    debugCompile "com.facebook.stetho:stetho:$stethoVersion"
-    debugCompile("com.facebook.stetho:stetho-okhttp3:$stethoVersion") {
+    debugImplementation "com.facebook.stetho:stetho:$stethoVersion"
+    debugImplementation("com.facebook.stetho:stetho-okhttp3:$stethoVersion") {
         exclude group: "com.squareup.okhttp3"
     }
 

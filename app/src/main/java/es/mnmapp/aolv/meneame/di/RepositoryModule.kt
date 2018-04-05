@@ -1,6 +1,7 @@
 package es.mnmapp.aolv.meneame.di
 
 import es.mnmapp.aolv.data.net.MeneameService
+import es.mnmapp.aolv.data.repository.cloud.NewsCloudRepo
 import es.mnmapp.aolv.meneame.di.repositoryproviders.createCacheDirectory
 import es.mnmapp.aolv.meneame.di.repositoryproviders.createOkHttpClient
 import org.koin.android.ext.koin.androidApplication
@@ -15,4 +16,5 @@ val repositoryModule = applicationContext {
     bean { getNetworkInterceptors(get()) }
     bean { createOkHttpClient(get(), get()) }
     bean { MeneameService.create(get()) }
+    bean { NewsCloudRepo(get())}
 }

@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply from: '../config/dependencies.gradle'
+apply from: '../jacoco.gradle'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -21,10 +22,11 @@ android {
 
 dependencies {
     // Modules
-    compile project(path: ':domain')
+    implementation project(path: ':domain')
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinReflect"
 
     // Network
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion") {
@@ -40,4 +42,5 @@ dependencies {
 
     // Testing
     testImplementation "junit:junit:$junitVersion"
+    testImplementation "com.nhaarman:mockito-kotlin-kt1.1:$mockitoKotlinVersion"
 }

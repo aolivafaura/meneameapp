@@ -20,4 +20,6 @@ ext {
     mockito = '2.0.2-beta'
     koinVersion = '0.9.1'
     ktxVersion = '0.2'
+    mockitoKotlinVersion = '1.5.0'
+    kotlinReflect = '1.2.0'
 }
