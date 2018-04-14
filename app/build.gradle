@@ -76,9 +76,11 @@ android.variantFilter { variant ->
 }
 
 dependencies {
-    // Testing
+    // Unit testing
     testImplementation "junit:junit:$junitVersion"
     testImplementation "com.nhaarman:mockito-kotlin-kt1.1:$mockitoKotlinVersion"
+
+    // UI testing
     androidTestImplementation("com.android.support.test.espresso:espresso-core:$espressoVersion", {
         exclude group: "com.android.support", module: "support-annotations"
     })
@@ -89,7 +91,8 @@ dependencies {
     androidTestImplementation "com.android.support.test.espresso:espresso-intents:$espressoSupportVersion"
     // add this for webview testing support
     androidTestImplementation "com.android.support.test.espresso:espresso-web:$espressoSupportVersion"
-
+    // Mock server
+    androidTestImplementation"com.squareup.okhttp3:mockwebserver:$mockWebServerVersion"
 
     // Tracking
     implementation('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
@@ -144,8 +147,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
 
     // Images
-    implementation "com.github.bumptech.glide:glide:$glideVersion"
-    kapt "com.github.bumptech.glide:compiler:$glideVersion"
+    implementation "com.squareup.picasso:picasso:$picassoVersion"
 }
 
 apply plugin: 'com.google.gms.google-services'

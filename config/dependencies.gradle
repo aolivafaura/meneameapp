@@ -10,7 +10,6 @@ ext {
     architectureComponentsVersion = '1.1.1'
     stethoVersion = '1.5.0'
     okhttpVersion = '3.10.0'
-    glideVersion = '4.4.0'
     junitVersion = '4.12'
     espressoVersion = '2.2.2'
     espressoRunnersVersion = '1.0.1'
@@ -22,4 +21,6 @@ ext {
     ktxVersion = '0.3'
     mockitoKotlinVersion = '1.5.0'
     kotlinReflect = '1.2.0'
+    mockWebServerVersion = '3.10.0'
+    picassoVersion = "2.71828"
 }

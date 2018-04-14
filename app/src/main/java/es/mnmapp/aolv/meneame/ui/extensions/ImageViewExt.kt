@@ -2,7 +2,7 @@ package es.mnmapp.aolv.meneame.ui.extensions
 
 import android.webkit.URLUtil
 import android.widget.ImageView
-import com.bumptech.glide.Glide
+import com.squareup.picasso.Picasso
 
 /**
  * Created by antonio on 10/29/17.
@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 fun ImageView.loadUrl(url: String?) {
     url?.let {
         if (URLUtil.isValidUrl(url)) {
-            Glide.with(this.context).load(url).into(this)
+            Picasso.get().load(url).into(this)
         }
     }
 }
