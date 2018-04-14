@@ -124,10 +124,7 @@ dependencies {
     implementation "org.koin:koin-android-architecture:$koinVersion"
     testImplementation "org.koin:koin-test:$koinVersion"
 
-    // Canary leaks
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
-    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
-    testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+    // Logger
     implementation "com.jakewharton.timber:timber:$timberVersion"
 
     // Architecture components
