@@ -1,5 +1,6 @@
 package es.mnmapp.aolv.meneame
 
+import android.annotation.SuppressLint
 import android.app.Application
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.core.CrashlyticsCore
@@ -14,6 +15,7 @@ import timber.log.Timber.DebugTree
  * Created by antoniojoseoliva on 20/07/2017.
  */
 
+@SuppressLint("Registered")
 open class MnmApp : Application() {
 
     override fun onCreate() {

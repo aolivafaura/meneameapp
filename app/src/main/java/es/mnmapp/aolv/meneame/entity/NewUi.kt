@@ -26,6 +26,7 @@ data class NewUi(val id: Long?, val url: String?, val title: String?, val thumb:
     }
 
     companion object {
+        @Suppress("unused")
         @JvmField
         val CREATOR: Parcelable.Creator<NewUi> = object : Parcelable.Creator<NewUi> {
             override fun createFromParcel(source: Parcel): NewUi = NewUi(source)

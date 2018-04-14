@@ -6,6 +6,7 @@ import com.facebook.stetho.Stetho
  * Created by antoniojoseoliva on 20/07/2017.
  */
 
+@Suppress("unused")
 class MnmDebugApp : MnmApp() {
 
     override fun onCreate() {

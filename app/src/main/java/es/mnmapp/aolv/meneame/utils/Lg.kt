@@ -8,7 +8,7 @@ import timber.log.Timber
  * Created by antoniojoseoliva on 04/08/2017.
  */
 
-class Lg(val analitycsLogger: AnalitycsLogger) {
+class Lg(private val analitycsLogger: AnalitycsLogger) {
 
     fun d(message: String?) {
         Timber.d(message)

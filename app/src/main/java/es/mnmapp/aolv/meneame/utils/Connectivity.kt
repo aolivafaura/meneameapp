@@ -12,19 +12,7 @@ import android.telephony.TelephonyManager
 class Connectivity(val context: Context) {
 
     /**
-     * Get the network info
-     * @param context
-     * *
-     * @return
-     */
-    fun getNetworkInfo(): NetworkInfo? {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        return cm.activeNetworkInfo
-    }
-
-    /**
      * Check if there is any connectivity
-     * @param context
      * *
      * @return
      */
@@ -34,9 +22,6 @@ class Connectivity(val context: Context) {
 
     /**
      * Check if there is any connectivity to a Wifi network
-     * @param context
-     * *
-     * @param type
      * *
      * @return
      */
@@ -47,9 +32,6 @@ class Connectivity(val context: Context) {
 
     /**
      * Check if there is any connectivity to a mobile network
-     * @param context
-     * *
-     * @param type
      * *
      * @return
      */
@@ -60,7 +42,6 @@ class Connectivity(val context: Context) {
 
     /**
      * Check if there is fast connectivity
-     * @param context
      * *
      * @return
      */
@@ -77,7 +58,7 @@ class Connectivity(val context: Context) {
      * *
      * @return
      */
-    fun isConnectionFast(type: Int, subType: Int): Boolean {
+    private fun isConnectionFast(type: Int, subType: Int): Boolean {
         if (type == ConnectivityManager.TYPE_MOBILE) {
             val fastConnections = arrayOf(TelephonyManager.NETWORK_TYPE_EVDO_0, // ~ 400-1000 kbps
                     TelephonyManager.NETWORK_TYPE_EVDO_A, // ~ 600-1400 kbps
@@ -93,5 +74,15 @@ class Connectivity(val context: Context) {
             return subType in fastConnections
         }
         return type == ConnectivityManager.TYPE_WIFI
+    }
+
+    /**
+     * Get the network info
+     * *
+     * @return
+     */
+    private fun getNetworkInfo(): NetworkInfo? {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return cm.activeNetworkInfo
     }
 }
