@@ -1,13 +1,13 @@
 ext {
-    firebaseVersion = '11.8.0'
-    supportVersion = '27.1.0'
+    firebaseVersion = '12.0.1'
+    supportVersion = '27.1.1'
     constraintLayoutVersion = '1.0.2'
     rxAndroidVersion = '2.0.1'
     rxJavaVersion = '2.1.7'
     koinVersion = '0.9.1'
     leakCanaryVersion = '1.5.1'
     timberVersion = '4.5.1'
-    architectureComponentsVersion = '1.1.0'
+    architectureComponentsVersion = '1.1.1'
     stethoVersion = '1.5.0'
     okhttpVersion = '3.10.0'
     glideVersion = '4.4.0'
@@ -19,7 +19,7 @@ ext {
     rxKotlinVersion = "2.2.0"
     mockito = '2.0.2-beta'
     koinVersion = '0.9.1'
-    ktxVersion = '0.2'
+    ktxVersion = '0.3'
     mockitoKotlinVersion = '1.5.0'
     kotlinReflect = '1.2.0'
 }
