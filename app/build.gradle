@@ -9,14 +9,14 @@ apply from: '../config/dependencies.gradle'
 
 android {
 
-    /*signingConfigs {
+    signingConfigs {
         release {
-            keyAlias prodKeyStoreAlias
-            keyPassword prodKeyStoreKeyPass
-            storeFile file('../mnmaolvdprod.keystore')
-            storePassword prodKeyStorePass
+            keyAlias 'test'
+            keyPassword '12345678'
+            storeFile file('../testprodflavor.keystore')
+            storePassword '12345678'
         }
-    }*/
+    }
 
     compileSdkVersion rootProject.compileSdkVersion
     defaultConfig {
@@ -38,8 +38,8 @@ android {
             debuggable false
             minifyEnabled true
             useProguard true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            // signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
 
         debug {
@@ -70,7 +70,7 @@ android {
 
 android.variantFilter { variant ->
     // Exclude devRelease compilation (it make no sense)
-    if(variant.buildType.name == 'release' && variant.getFlavors().get(0).name == 'dev') {
+    if(variant.buildType.name == 'release' && (variant.getFlavors().get(0).name == 'dev')) {
         variant.setIgnore(true)
     }
 }
@@ -93,16 +93,22 @@ dependencies {
     androidTestImplementation "com.android.support.test.espresso:espresso-web:$espressoSupportVersion"
     // Mock server
     androidTestImplementation"com.squareup.okhttp3:mockwebserver:$mockWebServerVersion"
+    // Idling resources. Used on mock flavor
+    androidTestImplementation "com.android.support.test.espresso.idling:idling-concurrent:$espressoSupportVersion"
+
+
+    // Gson
+    implementation "com.google.code.gson:gson:$gsonVersion"
 
     // Tracking
-    implementation('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+    implementation("com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion") {
         transitive = true
     }
     releaseImplementation "com.google.firebase:firebase-core:$firebaseVersion"
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinReflect"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    //implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinReflect"
 
     // KTX
     implementation "androidx.core:core-ktx:$ktxVersion"
@@ -112,15 +118,18 @@ dependencies {
     implementation project(path: ':domain')
 
     // Support
+    //noinspection GradleCompatible
     implementation "com.android.support:appcompat-v7:$supportVersion"
     implementation "com.android.support:design:$supportVersion"
-    implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
     implementation "com.android.support:recyclerview-v7:$supportVersion"
     implementation "com.android.support:support-vector-drawable:$supportVersion"
 
+    // Constraint layout
+    implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+
     // Rx
-    compileOnly "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
-    compileOnly "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
 
     // Koin
     implementation "org.koin:koin-android:$koinVersion"
