@@ -20,12 +20,12 @@ interface MeneameService {
      * Companion object to create the MeneameService
      */
     companion object Factory {
-        fun create(httpClient: OkHttpClient): MeneameService {
+        fun create(httpClient: OkHttpClient, baseUrl: String): MeneameService {
             val retrofit = Retrofit.Builder()
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(httpClient)
-                    .baseUrl("https://www.meneame.net/api/")
+                    .baseUrl(baseUrl)
                     .build()
 
             return retrofit.create(MeneameService::class.java)

@@ -13,6 +13,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
+
 /**
  * Created by antonio on 3/25/18.
  */
@@ -30,7 +31,7 @@ class NewsListViewModelTest {
     lateinit var newsListViewModel: NewsListViewModel
 
     @Before
-    fun before(){
+    fun before() {
         newsListViewModel = NewsListViewModel(getPopularNews)
     }
 

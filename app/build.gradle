@@ -66,6 +66,10 @@ android {
             dimension "default"
         }
     }
+
+    testOptions {
+        animationsDisabled = true
+    }
 }
 
 android.variantFilter { variant ->
@@ -92,10 +96,14 @@ dependencies {
     // add this for webview testing support
     androidTestImplementation "com.android.support.test.espresso:espresso-web:$espressoSupportVersion"
     // Mock server
-    androidTestImplementation"com.squareup.okhttp3:mockwebserver:$mockWebServerVersion"
-    // Idling resources. Used on mock flavor
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServerVersion"
+    // Additional UI actions
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$espressoSupportVersion"
+    // Idling resources
     androidTestImplementation "com.android.support.test.espresso.idling:idling-concurrent:$espressoSupportVersion"
 
+    // Production code android testing
+    compile "com.android.support.test.espresso:espresso-idling-resource:$espressoSupportVersion"
 
     // Gson
     implementation "com.google.code.gson:gson:$gsonVersion"

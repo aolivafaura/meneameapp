@@ -7,6 +7,7 @@ import android.view.View
 import es.mnmapp.aolv.meneame.R
 import es.mnmapp.aolv.meneame.entity.NewUi
 import es.mnmapp.aolv.meneame.ui.BaseFragment
+import es.mnmapp.aolv.meneame.ui.BaseViewModel
 import es.mnmapp.aolv.meneame.ui.view.common.ViewState
 import es.mnmapp.aolv.meneame.ui.view.main.MainViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -55,6 +56,8 @@ class NewsListFragment : BaseFragment() {
 
         outState.putParcelableArrayList(BUNDLE_KEY_ITEMS, ArrayList(newsListViewModel.news.value))
     }
+
+    override fun getViewModels(): List<BaseViewModel> = listOf(mainViewModel, newsListViewModel)
 
     private fun onRefreshAction() = { newsListViewModel.loadNews() }
 

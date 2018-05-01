@@ -7,5 +7,6 @@ package es.mnmapp.aolv.meneame.di
 fun getKoinModules() = listOf(
         appModule,
         repositoryModule,
-        mainActivityModule
+        mainActivityModule,
+        testingModule
 )

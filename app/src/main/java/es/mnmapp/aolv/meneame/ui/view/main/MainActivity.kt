@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import es.mnmapp.aolv.meneame.entity.NewUi
 import es.mnmapp.aolv.meneame.ui.BaseActivity
+import es.mnmapp.aolv.meneame.ui.BaseViewModel
 import es.mnmapp.aolv.meneame.ui.view.main.fragment.NewsListFragment
 import es.mnmapp.aolv.meneame.ui.view.webview.WebViewActivity
 import org.koin.android.architecture.ext.viewModel
@@ -27,4 +28,6 @@ class MainActivity : BaseActivity() {
             startActivity(WebViewActivity.createIntent(this, it!!.url!!, it.title!!))
         })
     }
+
+    override fun getViewModels(): List<BaseViewModel> = listOf(mainViewModel)
 }

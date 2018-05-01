@@ -1,14 +1,14 @@
 package es.mnmapp.aolv.meneame.ui.view.main
 
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
 import es.mnmapp.aolv.meneame.entity.NewUi
+import es.mnmapp.aolv.meneame.ui.BaseViewModel
 
 /**
  * Created by antoniojoseoliva on 25/07/2017.
  */
 
-class MainViewModel : ViewModel() {
+class MainViewModel : BaseViewModel() {
 
     val selectedNew = MutableLiveData<NewUi>()
 
