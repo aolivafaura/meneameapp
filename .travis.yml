@@ -64,13 +64,6 @@ before_script:
 script:
   - "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
 
-after_failure:
-  - wget http://imgur.com/tools/imgurbash.sh
-  - chmod a+x imgurbash.sh
-  - adb shell screencap -p | sed 's/\r$//' &gt; screen.png
-  - ./imgurbash.sh screen.png
-  - pandoc builder/build/reports/tests/index.html -t plain | sed -n '/^Failed tests/,/default-package/p'
-
 before_deploy:
   - cp $TRAVIS_BUILD_DIR/.keystore $HOME
   - cd app/build/outputs/apk/
