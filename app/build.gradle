@@ -8,7 +8,6 @@ apply from: '../jacoco.gradle'
 apply from: '../config/dependencies.gradle'
 
 android {
-
     signingConfigs {
         release {
             keyAlias 'test'
@@ -33,6 +32,7 @@ android {
                 fabricApiKey: fabricApiKey
         ]
     }
+
     buildTypes {
         release {
             debuggable false
@@ -69,6 +69,10 @@ android {
 
     testOptions {
         animationsDisabled = true
+    }
+
+    lintOptions {
+        abortOnError false
     }
 }
 
