@@ -3,9 +3,10 @@ sudo: false
 jdk: oraclejdk8
 
 env:
-  matrix:
-  - ANDROID_TARGET=android-19 ANDROID_ABI=armeabi-v7a
-  - ANDROID_TARGET=android-25 ANDROID_ABI=armeabi-v7a
+  # TODO UI test on CI
+  #matrix:
+  #- ANDROID_TARGET=android-19 ANDROID_ABI=armeabi-v7a
+  #- ANDROID_TARGET=android-25 ANDROID_ABI=armeabi-v7a
   global:
   - ANDROID_API=27
   - EMULATOR_API=27
@@ -26,9 +27,9 @@ cache:
 
 android:
   components:
-  - tools-26.1.1
-  - platform-tools-27-0.1
-  - build-tools-27.0.0
+  - tools-27.0.3
+  - platform-tools-27-0.3
+  - build-tools-27.0.3
   - android-27
   - add-on
   - extra
@@ -50,27 +51,30 @@ before_install:
   - ./gradlew dependencies || true
 
 before_script:
-  - chmod +x gradlew      #Grant permissions
+  #Grant permissions
+  - chmod +x gradlew
   - echo "y" | android update sdk -a --no-ui --filter android-27
   - $ANDROID_HOME/tools/bin/sdkmanager tools
+  # Print tools info
   - cat $ANDROID_HOME/platform-tools/source.properties | grep Pkg.Revision
   - cat $ANDROID_HOME/tools/source.properties | grep Pkg.Revision
-  - sdkmanager "system-images;$ANDROID_TARGET;google_apis;$ANDROID_ABI"
-  - echo no | $ANDROID_HOME/tools/bin/avdmanager create avd -n test -k "system-images;$ANDROID_TARGET;google_apis;$ANDROID_ABI"
-  - $ANDROID_HOME/tools/emulator -avd test -no-skin -no-window &    #Start emulator
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
+  # TODO run UI test on CI
+  #- sdkmanager "system-images;$ANDROID_TARGET;google_apis;$ANDROID_ABI"
+  #- echo no | $ANDROID_HOME/tools/bin/avdmanager create avd -n test -k "system-images;$ANDROID_TARGET;google_apis;$ANDROID_ABI"
+  #- $ANDROID_HOME/tools/emulator -avd test -no-skin -no-window &    #Start emulator
+  #- android-wait-for-emulator
+  #- adb shell input keyevent 82 &
 
 script:
-  - "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
+  - "./gradlew clean build check -PdisablePreDex --stacktrace"
 
 before_deploy:
   - cp $TRAVIS_BUILD_DIR/.keystore $HOME
-  - cd app/build/outputs/apk/
-  - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/mnmaolvdprod.keystore -storepass $storepass -keypass $keypass app-release-unsigned.apk production
+  - cd app/build/outputs/apk/prod/release
+  - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/mnmaolvdprod.keystore -storepass $storepass -keypass $keypass app-prod-release-unsigned.apk production
   # Verification
-  - jarsigner -verify app-release-unsigned.apk
-  - "${ANDROID_HOME}/build-tools/26.0.1/zipalign -v 4 app-release-unsigned.apk aolvmeneame.apk"
+  - jarsigner -verify app-prod-release-unsigned.apk.apk
+  - "${ANDROID_HOME}/build-tools/27.0.3/zipalign -v 4 app-prod-release-unsigned.apk aolvmeneame.apk"
 
 deploy:
   provider: releases
