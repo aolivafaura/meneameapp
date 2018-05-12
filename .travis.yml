@@ -83,7 +83,7 @@ deploy:
   on:
     repo: aolivafaura/meneameapp
     all_branches: true
-    tags: true
+    tags: false
     jdk: oraclejdk8
   api_key:
     secure: "LTaz8+md1HZWusW4NxZCtWnOfvKo7gDxQMXOJKc8ORgX8onWJrW+7muxo0ci/Br8Rw60A/VCmhZ6gpQWwLSKWjrX7+V/45kpXrUXY6TWf4FDc832ji9d+UrSDF9hStaYitV5707VwWNvlxvw9nRmvh0LrLjFGa9O22c5DnWfGBiPdy6ieygOYPeKBPZhDl9TDeng7lPSxx+aq5II50okM/QFLZxNekEuXNmJRWjBXgvC4fv170+e0am3uHmCdMouOhgJKOgfQog6tTJOSVgsou64Nnl1OZ37T07prKzkY2Y3O+G9hDj5QEPO8oalL0JhSqDgvxh8ncO9Dg2376orj5QaGsIpYzzYAyjblr3bIT1pu9iD/FXkBaRBTtPUvciqNrKJDlXJHYbZB2soCCxX3z5mF9pGXR7tdrsAJfT+6HS/DlWQWA5AVQTeOiwAUp1ukxu6Ld0JTiKzZPKhot+tem1gih3O7H1qPcan9LooPlNUd+opBhJazXK/Oj9GAAsvzSSOIQ69KeLWMDl4R93bYTnxRyaKTihj3auCnFlB3EAzI9WPhdd6btxOBLaeVrgAa0bLDH2YC9/PKg5WcKzkusUWmrS1wPtrJC/SZwKo52AjSuTcu7TEpB36tAqRanYzUegoN6Bhy1CukE8VmbnkDold7xLMOS/qe37CdytlUek="
