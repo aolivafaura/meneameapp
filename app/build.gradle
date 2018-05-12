@@ -120,7 +120,6 @@ dependencies {
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    //implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinReflect"
 
     // KTX
     implementation "androidx.core:core-ktx:$ktxVersion"
