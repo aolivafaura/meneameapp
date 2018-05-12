@@ -82,6 +82,7 @@ deploy:
   skip_cleanup: true
   on:
     repo: aolivafaura/meneameapp
+    all_branches: true
     tags: true
     jdk: oraclejdk8
   api_key:
