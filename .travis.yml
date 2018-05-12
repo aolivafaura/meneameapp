@@ -71,6 +71,7 @@ script:
 before_deploy:
   - cp $TRAVIS_BUILD_DIR/mnmaolvdprod.keystore $HOME/mnmaolvdprod.keystore
   - cd app/build/outputs/apk/prod/release
+  - ls
   - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/mnmaolvdprod.keystore -storepass $storepass -keypass $keypass app-prod-release-unsigned.apk production
   # Verification
   - jarsigner -verify app-prod-release-unsigned.apk.apk
