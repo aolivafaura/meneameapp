@@ -74,7 +74,7 @@ before_deploy:
   - ls
   - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/mnmaolvdprod.keystore -storepass $storepass -keypass $keypass app-prod-release-unsigned.apk production
   # Verification
-  - jarsigner -verify app-prod-release-unsigned.apk.apk
+  - jarsigner -verify app-prod-release-unsigned.apk
   - "${ANDROID_HOME}/build-tools/27.0.3/zipalign -v 4 app-prod-release-unsigned.apk aolvmeneame.apk"
 
 deploy:
