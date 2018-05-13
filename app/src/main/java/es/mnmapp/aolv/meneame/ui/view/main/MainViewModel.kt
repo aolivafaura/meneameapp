@@ -15,4 +15,8 @@ class MainViewModel : ViewModel() {
     fun onNewSelected(selectedNew: NewUi) {
         this.selectedNew.value = selectedNew
     }
+
+    fun clearSelectedNew() {
+        selectedNew.value = null
+    }
 }

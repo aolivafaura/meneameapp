@@ -12,6 +12,7 @@ import es.mnmapp.aolv.meneame.ui.view.main.MainViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.architecture.ext.sharedViewModel
 import org.koin.android.architecture.ext.viewModel
+import timber.log.Timber
 
 
 /**
@@ -23,11 +24,17 @@ class NewsListFragment : BaseFragment() {
     private val mainViewModel by sharedViewModel<MainViewModel>()
     private val newsListViewModel by viewModel<NewsListViewModel>()
 
+    private lateinit var listAdapter: NewsAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         observeNews()
         observeViewState()
+
+        if (newsListViewModel.news.value == null) {
+            newsListViewModel.fetchNews()
+        }
     }
 
     override fun getFragmentLayout() = R.layout.fragment_main
@@ -36,12 +43,6 @@ class NewsListFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
-
-        if (newsListViewModel.news.value != null) {
-            updateList(newsListViewModel.news.value!!)
-        } else {
-            newsListViewModel.fetchNews()
-        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -60,37 +61,31 @@ class NewsListFragment : BaseFragment() {
         swiperefresh.setOnRefreshListener(onRefreshAction())
 
         rvListNews.layoutManager = LinearLayoutManager(this.context)
+        listAdapter = NewsAdapter()
+        listAdapter.observeItemClick().subscribe({ onListItemClick(it) }, {})
+        rvListNews.adapter = listAdapter
     }
 
     private fun observeNews() {
         newsListViewModel.news.observe(this, Observer<List<NewUi>> {
+            Timber.d("observeNews: $it")
             it?.let { updateList(it) }
         })
     }
 
     private fun updateList(news: List<NewUi>) {
-        if (rvListNews.adapter == null) {
-            initAdapter(news)
-        } else {
-            (rvListNews.adapter as NewsAdapter).updateList(news)
-        }
+        listAdapter.updateList(news)
     }
 
     private fun observeViewState() {
         newsListViewModel.state.observe(this, Observer<ViewState> {
+            Timber.d("observeViewState: $it")
             when (it) {
                 ViewState.Refreshing -> swiperefresh.isRefreshing = true
                 ViewState.Idle -> swiperefresh.isRefreshing = false
                 else -> swiperefresh.isRefreshing = false
             }
         })
-    }
-
-    private fun initAdapter(items: List<NewUi>) {
-        rvListNews.adapter = NewsAdapter(items)
-        (rvListNews.adapter as NewsAdapter)
-                .observeItemClick()
-                .subscribe({ onListItemClick(it) }, {})
     }
 
     companion object Factory {

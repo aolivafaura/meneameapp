@@ -25,6 +25,8 @@ class MainActivity : BaseActivity() {
     private fun observeSelectedNew() {
         mainViewModel.selectedNew.observe(this, Observer<NewUi> {
             startActivity(WebViewActivity.createIntent(this, it!!.url!!, it.title!!))
+            // Once we have reacted to change, clear selected item
+            mainViewModel.clearSelectedNew()
         })
     }
 }
