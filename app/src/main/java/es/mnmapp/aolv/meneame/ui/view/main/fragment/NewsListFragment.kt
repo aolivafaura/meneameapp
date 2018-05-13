@@ -12,7 +12,6 @@ import es.mnmapp.aolv.meneame.ui.view.main.MainViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.architecture.ext.sharedViewModel
 import org.koin.android.architecture.ext.viewModel
-import timber.log.Timber
 
 
 /**
@@ -41,14 +40,7 @@ class NewsListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initViews()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-        outState.putParcelableArrayList(BUNDLE_KEY_ITEMS, ArrayList(newsListViewModel.news.value))
     }
 
     private fun onRefreshAction() = { newsListViewModel.fetchNews() }
@@ -68,7 +60,6 @@ class NewsListFragment : BaseFragment() {
 
     private fun observeNews() {
         newsListViewModel.news.observe(this, Observer<List<NewUi>> {
-            Timber.d("observeNews: $it")
             it?.let { updateList(it) }
         })
     }
@@ -79,7 +70,6 @@ class NewsListFragment : BaseFragment() {
 
     private fun observeViewState() {
         newsListViewModel.state.observe(this, Observer<ViewState> {
-            Timber.d("observeViewState: $it")
             when (it) {
                 ViewState.Refreshing -> swiperefresh.isRefreshing = true
                 ViewState.Idle -> swiperefresh.isRefreshing = false
@@ -89,7 +79,6 @@ class NewsListFragment : BaseFragment() {
     }
 
     companion object Factory {
-        private const val BUNDLE_KEY_ITEMS = "MainFragmentItemsKey"
         fun newInstance() = NewsListFragment()
     }
 }
