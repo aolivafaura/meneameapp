@@ -13,15 +13,15 @@ import es.mnmapp.aolv.meneame.ui.view.common.ViewState
 
 class NewsListViewModel(private val getPopularNews: GetPopularNews) : ViewModel() {
 
-    val news = MutableLiveData<MutableList<NewUi>>()
+    val news = MutableLiveData<List<NewUi>>()
     val state = MutableLiveData<ViewState>()
 
-    fun loadNews() {
+    fun fetchNews() {
         state.value = ViewState.Refreshing
         getPopularNews.execute(Unit,
                 {
                     state.value = ViewState.Idle
-                    news.value = it.map { fromNewToNewUi(it) }.toMutableList()
+                    news.value = it.map { fromNewToNewUi(it) }
                 },
                 {
                     state.value = ViewState.Idle

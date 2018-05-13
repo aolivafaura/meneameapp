@@ -18,7 +18,7 @@ import io.reactivex.subjects.PublishSubject
  * Created by antoniojoseoliva on 02/08/2017.
  */
 
-class NewsAdapter(private var aNews: MutableList<NewUi>) : RecyclerView.Adapter<NewsAdapter.Holder>() {
+class NewsAdapter(private var news: List<NewUi>) : RecyclerView.Adapter<NewsAdapter.Holder>() {
 
     init {
         setHasStableIds(true)
@@ -32,22 +32,18 @@ class NewsAdapter(private var aNews: MutableList<NewUi>) : RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val new = aNews[position]
+        val new = news[position]
         holder.image.loadUrl(new.thumb)
         holder.title.text = new.title
-        holder.itemView.setOnClickListener { onClickItem.onNext(aNews[position]) }
+        holder.itemView.setOnClickListener { onClickItem.onNext(news[position]) }
     }
 
-    override fun getItemId(position: Int) = aNews[position].id ?: 0L
+    override fun getItemId(position: Int) = news[position].id ?: 0L
 
-    override fun getItemCount() = aNews.size
+    override fun getItemCount() = news.size
 
-    fun updateList(news: MutableList<NewUi>) {
-        this.aNews.apply {
-            clear()
-            addAll(news)
-        }
-
+    fun updateList(news: List<NewUi>) {
+        this.news = news
         notifyDataSetChanged()
     }
 

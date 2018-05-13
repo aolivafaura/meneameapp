@@ -27,12 +27,17 @@ allprojects {
     }
 }
 
+def versionMajor = 0
+def versionMinor = 0
+def versionPatch = 1
+def versionDev = 1
+
 ext {
     compileSdkVersion = 27
     minSdkVersion = 19
     targetSdkVersion = 27
-    versionCode = 1
-    versionName = "1.0"
+    versionCode = versionMajor * 100000 + versionMinor * 1000 + versionPatch + 100 * versionDev
+    versionName = "${versionMajor}.${versionMinor}.${versionPatch}${if (versionDev != 0) ".$versionDev" else ""}"
     applicationId = "es.mnmapp.aolv.meneame"
 }
 

@@ -37,7 +37,11 @@ class NewsListFragment : BaseFragment() {
 
         initViews()
 
-        newsListViewModel.loadNews()
+        if (newsListViewModel.news.value != null) {
+            updateList(newsListViewModel.news.value!!)
+        } else {
+            newsListViewModel.fetchNews()
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -46,7 +50,7 @@ class NewsListFragment : BaseFragment() {
         outState.putParcelableArrayList(BUNDLE_KEY_ITEMS, ArrayList(newsListViewModel.news.value))
     }
 
-    private fun onRefreshAction() = { newsListViewModel.loadNews() }
+    private fun onRefreshAction() = { newsListViewModel.fetchNews() }
 
     private fun onListItemClick(newUi: NewUi) {
         mainViewModel.onNewSelected(newUi)
@@ -59,15 +63,17 @@ class NewsListFragment : BaseFragment() {
     }
 
     private fun observeNews() {
-        newsListViewModel.news.observe(this, Observer<MutableList<NewUi>> {
-            it?.let {
-                if (rvListNews.adapter == null) {
-                    initAdapter(it)
-                } else {
-                    (rvListNews.adapter as NewsAdapter).updateList(it)
-                }
-            }
+        newsListViewModel.news.observe(this, Observer<List<NewUi>> {
+            it?.let { updateList(it) }
         })
+    }
+
+    private fun updateList(news: List<NewUi>) {
+        if (rvListNews.adapter == null) {
+            initAdapter(news)
+        } else {
+            (rvListNews.adapter as NewsAdapter).updateList(news)
+        }
     }
 
     private fun observeViewState() {
@@ -80,17 +86,11 @@ class NewsListFragment : BaseFragment() {
         })
     }
 
-    private fun initAdapter(items: MutableList<NewUi>) {
+    private fun initAdapter(items: List<NewUi>) {
         rvListNews.adapter = NewsAdapter(items)
         (rvListNews.adapter as NewsAdapter)
                 .observeItemClick()
-                .subscribe(
-                        {
-                            onListItemClick(it)
-                        },
-                        {
-                        }
-                )
+                .subscribe({ onListItemClick(it) }, {})
     }
 
     companion object Factory {

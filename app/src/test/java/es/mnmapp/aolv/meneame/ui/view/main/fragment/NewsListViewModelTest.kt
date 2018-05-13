@@ -39,7 +39,7 @@ class NewsListViewModelTest {
 
     @Test
     fun `When news are loaded for first time, then popular news are retrieved`() {
-        newsListViewModel.loadNews()
+        newsListViewModel.fetchNews()
 
         verify(getPopularNews, times(1)).execute(any(), any(), any(), any())
     }
