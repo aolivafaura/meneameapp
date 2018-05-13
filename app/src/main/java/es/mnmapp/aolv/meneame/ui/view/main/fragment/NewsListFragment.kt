@@ -53,10 +53,11 @@ class NewsListFragment : BaseFragment() {
         swiperefresh.setOnRefreshListener(onRefreshAction())
 
         rvListNews.layoutManager = LinearLayoutManager(this.context)
-        listAdapter = NewsAdapter()
-        listAdapter.observeItemClick()
-                .subscribe({ onListItemClick(it) }, {})
-                .let { addDisposable(it) }
+        listAdapter = NewsAdapter().apply {
+            observeItemClick()
+                    .subscribe({ onListItemClick(it) }, {})
+                    .let { addDisposable(it) }
+        }
         rvListNews.adapter = listAdapter
     }
 

@@ -21,15 +21,15 @@ abstract class BaseFragment : Fragment() {
         return inflater.inflate(getFragmentLayout(), container, false)
     }
 
+    override fun onDestroy() {
+        disposables.clear()
+        super.onDestroy()
+    }
+
     @LayoutRes
     abstract fun getFragmentLayout(): Int
 
     protected fun addDisposable(disposable: Disposable) {
         disposables.add(disposable)
-    }
-
-    override fun onDestroy() {
-        disposables.clear()
-        super.onDestroy()
     }
 }
