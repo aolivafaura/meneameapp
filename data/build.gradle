@@ -41,4 +41,7 @@ dependencies {
     // Testing
     testImplementation "junit:junit:$junitVersion"
     testImplementation "com.nhaarman:mockito-kotlin-kt1.1:$mockitoKotlinVersion"
+
+    // Production code android testing
+    implementation "com.android.support.test.espresso:espresso-idling-resource:$espressoSupportVersion"
 }

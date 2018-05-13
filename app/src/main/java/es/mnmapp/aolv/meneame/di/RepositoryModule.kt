@@ -17,5 +17,5 @@ val repositoryModule = applicationContext {
     bean { getNetworkInterceptors(get()) }
     bean { createOkHttpClient(get(), get()) }
     bean { createMeneameService(get(), EndpointUrls.baseUrl) }
-    bean { NewsCloudRepo(get())}
+    bean { NewsCloudRepo(get(), get())}
 }

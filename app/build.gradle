@@ -107,7 +107,7 @@ dependencies {
     androidTestImplementation "com.android.support.test.espresso.idling:idling-concurrent:$espressoSupportVersion"
 
     // Production code android testing
-    compile "com.android.support.test.espresso:espresso-idling-resource:$espressoSupportVersion"
+    implementation "com.android.support.test.espresso:espresso-idling-resource:$espressoSupportVersion"
 
     // Gson
     implementation "com.google.code.gson:gson:$gsonVersion"

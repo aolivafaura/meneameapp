@@ -1,4 +1,4 @@
-package es.mnmapp.aolv.meneame.testing
+package es.mnmapp.aolv.data.testing
 
 import android.support.test.espresso.IdlingResource
 import java.util.concurrent.atomic.AtomicBoolean

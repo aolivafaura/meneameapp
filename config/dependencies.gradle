@@ -1,5 +1,5 @@
 ext {
-    firebaseVersion = '15.0.0'
+    firebaseVersion = '15.0.2'
     supportVersion = '27.1.1'
     constraintLayoutVersion = '1.1.0'
     rxAndroidVersion = '2.0.1'

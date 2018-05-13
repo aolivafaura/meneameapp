@@ -7,7 +7,6 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import es.mnmapp.aolv.meneame.R
 import es.mnmapp.aolv.meneame.ui.BaseFragment
-import es.mnmapp.aolv.meneame.ui.BaseViewModel
 import es.mnmapp.aolv.meneame.ui.extensions.fadeOut
 import kotlinx.android.synthetic.main.web_view_fragment.*
 
@@ -16,8 +15,6 @@ import kotlinx.android.synthetic.main.web_view_fragment.*
  */
 
 class WebViewFragment : BaseFragment() {
-
-    override fun getViewModels(): List<BaseViewModel> = emptyList()
 
     override fun getFragmentLayout() = R.layout.web_view_fragment
 

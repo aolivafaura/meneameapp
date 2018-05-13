@@ -7,7 +7,6 @@ import android.view.View
 import es.mnmapp.aolv.meneame.R
 import es.mnmapp.aolv.meneame.entity.NewUi
 import es.mnmapp.aolv.meneame.ui.BaseFragment
-import es.mnmapp.aolv.meneame.ui.BaseViewModel
 import es.mnmapp.aolv.meneame.ui.view.common.ViewState
 import es.mnmapp.aolv.meneame.ui.view.main.MainViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -38,17 +37,7 @@ class NewsListFragment : BaseFragment() {
 
         initViews()
 
-        rvListNews.scrollState
-
-        if (savedInstanceState?.containsKey(BUNDLE_KEY_ITEMS) == true) {
-            if (rvListNews.adapter == null) {
-                initAdapter(savedInstanceState.getParcelableArrayList(BUNDLE_KEY_ITEMS))
-            } else {
-                (rvListNews.adapter as NewsAdapter).updateList(savedInstanceState.getParcelableArrayList(BUNDLE_KEY_ITEMS))
-            }
-        } else {
-            newsListViewModel.loadNews()
-        }
+        newsListViewModel.loadNews()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -56,8 +45,6 @@ class NewsListFragment : BaseFragment() {
 
         outState.putParcelableArrayList(BUNDLE_KEY_ITEMS, ArrayList(newsListViewModel.news.value))
     }
-
-    override fun getViewModels(): List<BaseViewModel> = listOf(mainViewModel, newsListViewModel)
 
     private fun onRefreshAction() = { newsListViewModel.loadNews() }
 
