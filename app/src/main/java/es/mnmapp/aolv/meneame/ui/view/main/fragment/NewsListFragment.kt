@@ -54,7 +54,9 @@ class NewsListFragment : BaseFragment() {
 
         rvListNews.layoutManager = LinearLayoutManager(this.context)
         listAdapter = NewsAdapter()
-        listAdapter.observeItemClick().subscribe({ onListItemClick(it) }, {})
+        listAdapter.observeItemClick()
+                .subscribe({ onListItemClick(it) }, {})
+                .let { addDisposable(it) }
         rvListNews.adapter = listAdapter
     }
 
