@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme">
 
         <!-- Activity -->
-        <activity android:name=".ui.view.main.MainActivity">
+        <activity android:name=".ui.view.newslist.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
