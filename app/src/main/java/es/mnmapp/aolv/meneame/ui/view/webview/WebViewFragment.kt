@@ -1,4 +1,4 @@
-package es.mnmapp.aolv.meneame.ui.view.webview.fragment
+package es.mnmapp.aolv.meneame.ui.view.webview
 
 import android.annotation.SuppressLint
 import android.os.Bundle
