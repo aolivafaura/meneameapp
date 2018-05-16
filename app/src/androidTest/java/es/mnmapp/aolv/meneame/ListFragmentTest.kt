@@ -17,7 +17,7 @@ import es.mnmapp.aolv.meneame.constants.EndpointUrls
 import es.mnmapp.aolv.meneame.mockdispatcher.MockResponsesDispatcher
 import es.mnmapp.aolv.meneame.pageobjects.ListPageObject
 import es.mnmapp.aolv.meneame.ui.BaseActivity
-import es.mnmapp.aolv.meneame.ui.view.newslist.MainActivity
+import es.mnmapp.aolv.meneame.ui.view.MainActivity
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before

@@ -3,7 +3,7 @@ package es.mnmapp.aolv.meneame.ui
 import android.os.Bundle
 import es.mnmapp.aolv.meneame.entity.NewUi
 import es.mnmapp.aolv.meneame.ui.extensions.initFragment
-import es.mnmapp.aolv.meneame.ui.view.newslist.fragment.NewsListFragment
+import es.mnmapp.aolv.meneame.ui.view.newslist.NewsListFragment
 import es.mnmapp.aolv.meneame.ui.view.webview.fragment.WebViewFragment
 
 class Navigation {

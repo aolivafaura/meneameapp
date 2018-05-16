@@ -4,8 +4,8 @@ import es.mnmapp.aolv.data.repository.NewsDataRepo
 import es.mnmapp.aolv.domain.repository.NewsRepo
 import es.mnmapp.aolv.domain.usecase.GetPopularNews
 import es.mnmapp.aolv.meneame.ui.Navigation
-import es.mnmapp.aolv.meneame.ui.view.newslist.NavigationViewModel
-import es.mnmapp.aolv.meneame.ui.view.newslist.fragment.NewsListViewModel
+import es.mnmapp.aolv.meneame.ui.view.NavigationViewModel
+import es.mnmapp.aolv.meneame.ui.view.newslist.NewsListViewModel
 import org.koin.android.architecture.ext.viewModel
 import org.koin.dsl.module.applicationContext
 
