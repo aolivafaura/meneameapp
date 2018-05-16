@@ -3,6 +3,9 @@ package es.mnmapp.aolv.meneame.ui.extensions
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
+import android.webkit.URLUtil
+import android.widget.ImageView
+import com.squareup.picasso.Picasso
 
 /**
  * Created by antonio on 10/28/17.
@@ -39,4 +42,12 @@ fun View.fade(duration: Long, fromAlpha: Float, toAlpha: Float) {
         }
     })
     startAnimation(animation)
+}
+
+fun ImageView.loadUrl(url: String?) {
+    url?.let {
+        if (URLUtil.isValidUrl(url)) {
+            Picasso.get().load(url).into(this)
+        }
+    }
 }

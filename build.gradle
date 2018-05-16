@@ -34,7 +34,7 @@ def versionDev = 1
 
 ext {
     compileSdkVersion = 27
-    minSdkVersion = 19
+    minSdkVersion = 21
     targetSdkVersion = 27
     versionCode = versionMajor * 100000 + versionMinor * 1000 + versionPatch + 100 * versionDev
     versionName = "${versionMajor}.${versionMinor}.${versionPatch}${if (versionDev != 0) ".$versionDev" else ""}"

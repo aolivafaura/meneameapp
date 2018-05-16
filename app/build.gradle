@@ -39,7 +39,8 @@ android {
             minifyEnabled true
             useProguard true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            /*signingConfig signingConfigs.release*/ // Uncomment to local test signed version with test keystore
+            /*signingConfig signingConfigs.release*/
+            // Uncomment to local test signed version with test keystore
         }
 
         debug {
@@ -78,7 +79,7 @@ android {
 
 android.variantFilter { variant ->
     // Exclude devRelease compilation (it make no sense)
-    if(variant.buildType.name == 'release' && (variant.getFlavors().get(0).name == 'dev')) {
+    if (variant.buildType.name == 'release' && (variant.getFlavors().get(0).name == 'dev')) {
         variant.setIgnore(true)
     }
 }

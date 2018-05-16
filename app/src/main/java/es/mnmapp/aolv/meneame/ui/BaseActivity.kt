@@ -15,11 +15,4 @@ abstract class BaseActivity : AppCompatActivity() {
         setContentView(R.layout.activity_base_mobile)
         super.onCreate(savedInstanceState)
     }
-
-    protected fun setFragment(fragment: BaseFragment) {
-        supportFragmentManager
-                .beginTransaction()
-                .add(R.id.container, fragment)
-                .commitAllowingStateLoss()
-    }
 }

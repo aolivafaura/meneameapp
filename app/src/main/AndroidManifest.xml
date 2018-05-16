@@ -24,10 +24,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.view.webview.WebViewActivity"
-            android:parentActivityName=".ui.view.main.MainActivity" />
-
         <!-- Fabric -->
         <meta-data
             android:name="io.fabric.ApiKey"

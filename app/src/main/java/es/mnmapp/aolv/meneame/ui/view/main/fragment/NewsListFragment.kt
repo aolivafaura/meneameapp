@@ -6,9 +6,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import es.mnmapp.aolv.meneame.R
 import es.mnmapp.aolv.meneame.entity.NewUi
+import es.mnmapp.aolv.meneame.ui.BaseActivity
 import es.mnmapp.aolv.meneame.ui.BaseFragment
 import es.mnmapp.aolv.meneame.ui.view.common.ViewState
-import es.mnmapp.aolv.meneame.ui.view.main.MainViewModel
+import es.mnmapp.aolv.meneame.ui.view.main.NavigationViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.architecture.ext.sharedViewModel
 import org.koin.android.architecture.ext.viewModel
@@ -20,7 +21,7 @@ import org.koin.android.architecture.ext.viewModel
 
 class NewsListFragment : BaseFragment() {
 
-    private val mainViewModel by sharedViewModel<MainViewModel>()
+    private val navigationViewModel by sharedViewModel<NavigationViewModel>()
     private val newsListViewModel by viewModel<NewsListViewModel>()
 
     private lateinit var listAdapter: NewsAdapter
@@ -40,25 +41,24 @@ class NewsListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews()
+        initList()
+        setSwipeListener()
     }
 
     private fun onRefreshAction() = { newsListViewModel.fetchNews() }
 
-    private fun onListItemClick(newUi: NewUi) {
-        mainViewModel.onNewSelected(newUi)
-    }
-
-    private fun initViews() {
-        swiperefresh.setOnRefreshListener(onRefreshAction())
+    private fun initList() {
+        val listener = { newUi: NewUi, _: View ->
+            navigationViewModel.navigateToNewsDetail(activity as BaseActivity, newUi)
+        }
 
         rvListNews.layoutManager = LinearLayoutManager(this.context)
-        listAdapter = NewsAdapter().apply {
-            observeItemClick()
-                    .subscribe({ onListItemClick(it) }, {})
-                    .let { addDisposable(it) }
-        }
+        listAdapter = NewsAdapter().apply { onClickItem = listener }
         rvListNews.adapter = listAdapter
+    }
+
+    private fun setSwipeListener() {
+        swiperefresh.setOnRefreshListener(onRefreshAction())
     }
 
     private fun observeNews() {
@@ -79,9 +79,5 @@ class NewsListFragment : BaseFragment() {
                 else -> swiperefresh.isRefreshing = false
             }
         })
-    }
-
-    companion object Factory {
-        fun newInstance() = NewsListFragment()
     }
 }
