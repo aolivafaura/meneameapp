@@ -8,8 +8,8 @@ import es.mnmapp.aolv.meneame.R
 import es.mnmapp.aolv.meneame.entity.NewUi
 import es.mnmapp.aolv.meneame.ui.BaseActivity
 import es.mnmapp.aolv.meneame.ui.BaseFragment
-import es.mnmapp.aolv.meneame.ui.view.common.ViewState
 import es.mnmapp.aolv.meneame.ui.view.NavigationViewModel
+import es.mnmapp.aolv.meneame.ui.view.common.ViewState
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.architecture.ext.sharedViewModel
 import org.koin.android.architecture.ext.viewModel
@@ -38,6 +38,8 @@ class NewsListFragment : BaseFragment() {
     }
 
     override fun getFragmentLayout() = R.layout.fragment_main
+
+    override fun getAnalyticsName() = "NewsList"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

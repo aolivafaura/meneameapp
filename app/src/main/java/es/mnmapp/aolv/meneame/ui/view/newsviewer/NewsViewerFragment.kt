@@ -23,6 +23,8 @@ class NewsViewerFragment : BaseFragment() {
 
     override fun getFragmentLayout() = R.layout.web_view_fragment
 
+    override fun getAnalyticsName() = "NewsViewer"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
