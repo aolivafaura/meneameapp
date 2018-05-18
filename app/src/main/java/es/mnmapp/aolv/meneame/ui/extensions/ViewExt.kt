@@ -35,10 +35,10 @@ fun View.fade(duration: Long, fromAlpha: Float, toAlpha: Float) {
         }
 
         override fun onAnimationStart(animation: Animation?) {
+            visibility = if (toAlpha == 0f) View.INVISIBLE else View.VISIBLE
         }
 
         override fun onAnimationEnd(animation: Animation?) {
-            visibility = if (toAlpha == 0f) View.INVISIBLE else View.VISIBLE
         }
     })
     startAnimation(animation)

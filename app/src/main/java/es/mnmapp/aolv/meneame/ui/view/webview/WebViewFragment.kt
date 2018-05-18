@@ -3,6 +3,7 @@ package es.mnmapp.aolv.meneame.ui.view.webview
 import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
 import android.os.Bundle
+import android.support.v4.widget.NestedScrollView
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -56,7 +57,7 @@ class WebViewFragment : BaseFragment() {
         wvContainer.settings.javaScriptEnabled = true
         wvContainer.settings.setSupportZoom(true)
 
-        wvContainer.onScrollChangeListener = {
+        nestedScrollWebView.setOnScrollChangeListener { _: NestedScrollView?, _: Int, _: Int, _: Int, _: Int ->
             when (progressBar.visibility) {
                 View.VISIBLE -> progressBar.fadeOut()
             }
