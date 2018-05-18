@@ -9,8 +9,11 @@ import io.reactivex.Scheduler
  * Created by antoniojoseoliva on 09/07/2017.
  */
 
-class GetPopularNews(postExecutionThread: Scheduler, workerThread: Scheduler, private val newsRepo: NewsRepo)
-    : UseCase<List<New>, Unit>(postExecutionThread, workerThread) {
+class GetPopularNews(
+        postExecutionThread: Scheduler,
+        workerThread: Scheduler,
+        private val newsRepo: NewsRepo
+) : UseCase<List<New>, Unit>(postExecutionThread, workerThread) {
 
     override fun buildUseCaseObservable(params: Unit): Flowable<List<New>> = newsRepo.getPopular()
 }

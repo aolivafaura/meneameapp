@@ -7,7 +7,8 @@ import io.reactivex.disposables.CompositeDisposable
 /**
  * Created by antoniojoseoliva on 08/07/2017.
  */
-abstract class UseCase<T, in Params>(private val postExecutionThread: Scheduler, private val workerThread: Scheduler) {
+abstract class UseCase<T, in Params>(private val postExecutionThread: Scheduler,
+                                     private val workerThread: Scheduler) {
 
     private val disposables: CompositeDisposable = CompositeDisposable()
 
