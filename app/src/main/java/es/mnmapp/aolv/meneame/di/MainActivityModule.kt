@@ -26,7 +26,7 @@ val mainActivityModule = applicationContext {
         bean { GetPopularNews(get("uiThread"), get("workerThread"), get()) }
 
         context("newsViewer") {
-            viewModel { NewsViewerViewModel() }
+            viewModel { NewsViewerViewModel(get()) }
         }
     }
 }

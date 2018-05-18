@@ -1,10 +1,7 @@
 package es.mnmapp.aolv.meneame.ui.view.newslist.fragment
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.argumentCaptor
-import com.nhaarman.mockito_kotlin.times
-import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.*
 import es.mnmapp.aolv.domain.entity.New
 import es.mnmapp.aolv.domain.usecase.GetPopularNews
 import es.mnmapp.aolv.meneame.ui.view.newslist.NewsListViewModel
@@ -13,15 +10,11 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
-import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.junit.MockitoJUnitRunner
 
 
 /**
  * Created by antonio on 3/25/18.
  */
-@RunWith(MockitoJUnitRunner::class)
 class NewsListViewModelTest {
 
     // Bypass main thread on MutableLiveData objects
@@ -29,8 +22,7 @@ class NewsListViewModelTest {
     @JvmField
     var rule: TestRule = InstantTaskExecutorRule()
 
-    @Mock
-    lateinit var getPopularNews: GetPopularNews
+    var getPopularNews = mock<GetPopularNews>()
     lateinit var newsListViewModel: NewsListViewModel
 
     @Before

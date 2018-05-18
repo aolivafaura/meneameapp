@@ -3,6 +3,7 @@ package es.mnmapp.aolv.meneame.di
 import es.mnmapp.aolv.meneame.loggers.AnalitycsLogger
 import es.mnmapp.aolv.meneame.loggers.Logger
 import es.mnmapp.aolv.meneame.utils.Connectivity
+import es.mnmapp.aolv.meneame.utils.Validator
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -18,4 +19,5 @@ val appModule = applicationContext {
     bean { Connectivity(get()) }
     bean { Logger() }
     bean { AnalitycsLogger(get()) }
+    bean { Validator }
 }
