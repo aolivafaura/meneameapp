@@ -9,7 +9,7 @@ apply from: '../config/dependencies.gradle'
 
 android {
     signingConfigs {
-        release {
+        minifiedDebug {
             keyAlias 'test'
             keyPassword '12345678'
             storeFile file('../testprodflavor.keystore')
@@ -39,13 +39,18 @@ android {
             minifyEnabled true
             useProguard true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            /*signingConfig signingConfigs.release*/
-            // Uncomment to local test signed version with test keystore
         }
 
         debug {
             debuggable true
             ext.enableCrashlytics = false
+        }
+
+        minifiedDebug {
+            initWith(release)
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.minifiedDebug
         }
     }
 
@@ -78,8 +83,18 @@ android {
 }
 
 android.variantFilter { variant ->
-    // Exclude devRelease compilation (it make no sense)
+    // Exclude devRelease compilation
     if (variant.buildType.name == 'release' && (variant.getFlavors().get(0).name == 'dev')) {
+        variant.setIgnore(true)
+    }
+
+    // Exclude prodDebug compilation
+    if (variant.buildType.name == 'debug' && (variant.getFlavors().get(0).name == 'prod')) {
+        variant.setIgnore(true)
+    }
+
+    // Exclude prodMinifiedDebug compilation
+    if (variant.buildType.name == 'minifiedDebug' && (variant.getFlavors().get(0).name == 'dev')) {
         variant.setIgnore(true)
     }
 }
