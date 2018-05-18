@@ -11,15 +11,15 @@ import io.reactivex.Flowable
  * Created by antoniojoseoliva on 19/07/2017.
  */
 
-class NewsCloudRepo(private val idlingResource: SimpleIdlingResource,
-                    private val meneameService: MeneameService) : NewsRepo {
+class NewsCloudRepo(
+        private val idlingResource: SimpleIdlingResource,
+        private val meneameService: MeneameService
+) : NewsRepo {
 
     override fun getPopular(): Flowable<List<New>> {
         idlingResource.setIdleState(false)
 
-        val options = HashMap<String, String>().apply {
-            put("popular", "true")
-        }
+        val options = HashMap<String, String>().apply { put("popular", "true") }
         return meneameService.getMeneos(options).map {
             idlingResource.setIdleState(true)
             it.objects.map { fromNewEntityToNew(it) }
@@ -29,9 +29,7 @@ class NewsCloudRepo(private val idlingResource: SimpleIdlingResource,
     override fun getTopVisited(): Flowable<List<New>> {
         idlingResource.setIdleState(false)
 
-        val options = HashMap<String, String>().apply {
-            put("top_visited", "true")
-        }
+        val options = HashMap<String, String>().apply { put("top_visited", "true") }
         return meneameService.getMeneos(options).map {
             idlingResource.setIdleState(true)
             it.objects.map { fromNewEntityToNew(it) }
