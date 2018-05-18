@@ -1,4 +1,4 @@
-package es.mnmapp.aolv.meneame.ui.view.webview
+package es.mnmapp.aolv.meneame.ui.view.newsviewer
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
@@ -17,9 +17,9 @@ import org.koin.android.ext.android.inject
  * Created by antonio on 11/1/17.
  */
 
-class WebViewFragment : BaseFragment() {
+class NewsViewerFragment : BaseFragment() {
 
-    private val webViewViewModel by inject<WebViewViewModel>()
+    private val webViewViewModel by inject<NewsViewerViewModel>()
 
     override fun getFragmentLayout() = R.layout.web_view_fragment
 

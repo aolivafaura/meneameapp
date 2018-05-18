@@ -6,7 +6,7 @@ import es.mnmapp.aolv.domain.usecase.GetPopularNews
 import es.mnmapp.aolv.meneame.ui.Navigation
 import es.mnmapp.aolv.meneame.ui.view.NavigationViewModel
 import es.mnmapp.aolv.meneame.ui.view.newslist.NewsListViewModel
-import es.mnmapp.aolv.meneame.ui.view.webview.WebViewViewModel
+import es.mnmapp.aolv.meneame.ui.view.newsviewer.NewsViewerViewModel
 import org.koin.android.architecture.ext.viewModel
 import org.koin.dsl.module.applicationContext
 
@@ -26,7 +26,7 @@ val mainActivityModule = applicationContext {
         bean { GetPopularNews(get("uiThread"), get("workerThread"), get()) }
 
         context("webView") {
-            viewModel { WebViewViewModel() }
+            viewModel { NewsViewerViewModel() }
         }
     }
 }
