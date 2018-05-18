@@ -20,7 +20,6 @@ class NewsListViewModel(private val getPopularNews: GetPopularNews) : ViewModel(
     // ViewModel overrides -----
     override fun onCleared() {
         super.onCleared()
-
         getPopularNews.clear()
     }
 
@@ -41,9 +40,6 @@ class NewsListViewModel(private val getPopularNews: GetPopularNews) : ViewModel(
     // Inner classes -----
     enum class ViewState {
         Idle,
-        Refreshing,
-        Recreated,
-        ScrollingUp,
-        ScrollingDown
+        Refreshing
     }
 }
