@@ -11,6 +11,7 @@ import es.mnmapp.aolv.meneame.R
 
 abstract class BaseActivity : AppCompatActivity() {
 
+    // Activity overrides -----
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_base_mobile)
         super.onCreate(savedInstanceState)

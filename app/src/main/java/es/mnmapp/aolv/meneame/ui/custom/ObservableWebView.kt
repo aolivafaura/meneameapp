@@ -9,15 +9,13 @@ import android.webkit.WebView
  * Created by antonio on 10/28/17.
  */
 
-class ObservableWebView : WebView {
+class ObservableWebView @JvmOverloads constructor(
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0
+) : WebView(context, attrs, defStyleAttr) {
 
     var onScrollChangeListener: (() -> Unit)? = null
-
-    constructor(context: Context) : super(context)
-
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
-
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     override fun onScrollChanged(scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int) {
         super.onScrollChanged(scrollX, scrollY, oldScrollX, oldScrollY)

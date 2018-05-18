@@ -7,7 +7,12 @@ import android.os.Parcelable
  * Created by antoniojoseoliva on 21/07/2017.
  */
 
-data class NewUi(val id: Long?, val url: String?, val title: String?, val thumb: String?) : Parcelable {
+data class NewUi(
+        val id: Long?,
+        val url: String?,
+        val title: String?,
+        val thumb: String?
+) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readValue(Long::class.java.classLoader) as Long?,

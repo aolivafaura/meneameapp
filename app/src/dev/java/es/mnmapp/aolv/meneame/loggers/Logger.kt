@@ -8,10 +8,12 @@ import timber.log.Timber
 
 class Logger {
 
+    // Initializer -----
     init {
         Timber.plant(Timber.DebugTree())
     }
 
+    // Class methods -----
     fun d(message: String?) {
         Timber.d(message)
     }

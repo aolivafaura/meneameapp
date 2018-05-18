@@ -17,16 +17,18 @@ import org.koin.android.ext.android.inject
 
 abstract class BaseFragment : Fragment() {
 
+    // Fields -----
     private val analitycsLogger by inject<AnalitycsLogger>()
-
     private val disposables = CompositeDisposable()
 
+    // Fragment overrides -----
     override fun onResume() {
         super.onResume()
         analitycsLogger.setCurrentScreen(activity as BaseActivity, getAnalyticsName())
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(getFragmentLayout(), container, false)
     }
 
@@ -35,11 +37,13 @@ abstract class BaseFragment : Fragment() {
         super.onDestroy()
     }
 
+    // Abstract methods -----
     @LayoutRes
     abstract fun getFragmentLayout(): Int
 
     abstract fun getAnalyticsName(): String
 
+    // Protected methods -----
     protected fun addDisposable(disposable: Disposable) {
         disposables.add(disposable)
     }

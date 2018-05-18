@@ -9,6 +9,7 @@ import com.facebook.stetho.Stetho
 @Suppress("unused")
 class MnmDebugApp : MnmApp() {
 
+    // Application overrides -----
     override fun onCreate() {
         super.onCreate()
 

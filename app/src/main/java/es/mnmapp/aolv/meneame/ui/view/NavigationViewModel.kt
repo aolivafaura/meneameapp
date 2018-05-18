@@ -11,6 +11,7 @@ import es.mnmapp.aolv.meneame.ui.Navigation
 
 class NavigationViewModel(private val navigation: Navigation) : ViewModel() {
 
+    // Class methods -----
     fun navigateToNewsList(activity: BaseActivity) {
         navigation.navigateToNewsList(activity)
     }

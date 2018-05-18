@@ -6,9 +6,11 @@ import android.webkit.URLUtil
 
 class NewsViewerViewModel : ViewModel() {
 
+    // Fields -----
     val url = MutableLiveData<String?>()
     val title = MutableLiveData<String>()
 
+    // Class methods -----
     fun setUrl(url: String?) {
         this.url.value = if (URLUtil.isValidUrl(url)) url else null
     }

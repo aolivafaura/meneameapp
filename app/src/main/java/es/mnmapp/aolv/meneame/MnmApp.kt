@@ -15,6 +15,7 @@ import org.koin.android.ext.android.startKoin
 @SuppressLint("Registered")
 open class MnmApp : Application() {
 
+    // Application overrides -----
     override fun onCreate() {
         super.onCreate()
 

@@ -11,6 +11,7 @@ import es.mnmapp.aolv.meneame.ui.BaseActivity
 
 class AnalitycsLogger(val context: Context) {
 
+    // Class methods -----
     fun logEvent(name: String, params: Map<String, String>?) {
         val bundle = Bundle()
         params?.let {

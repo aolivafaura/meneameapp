@@ -8,6 +8,7 @@ import es.mnmapp.aolv.meneame.ui.view.newsviewer.NewsViewerFragment
 
 class Navigation {
 
+    // Class methods -----
     fun navigateToNewsList(activity: BaseActivity) {
         activity.initFragment(NewsListFragment(), addToBackStack = true)
     }
@@ -19,7 +20,6 @@ class Navigation {
         }
 
         val fragment = NewsViewerFragment().apply { arguments = bundle }
-
         activity.initFragment(fragment, addToBackStack = true)
     }
 }

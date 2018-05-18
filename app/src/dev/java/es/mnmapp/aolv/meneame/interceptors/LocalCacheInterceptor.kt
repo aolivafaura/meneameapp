@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
  * Created by antonio on 11/1/17.
  */
 
-class LocalCacheInterceptor(val connectivity: Connectivity) : Interceptor {
+class LocalCacheInterceptor(private val connectivity: Connectivity) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain?): Response {
         val cacheBuilder = CacheControl.Builder()

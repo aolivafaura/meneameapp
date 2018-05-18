@@ -25,7 +25,7 @@ val mainActivityModule = applicationContext {
         bean { NewsDataRepo(get()) as NewsRepo }
         bean { GetPopularNews(get("uiThread"), get("workerThread"), get()) }
 
-        context("webView") {
+        context("newsViewer") {
             viewModel { NewsViewerViewModel() }
         }
     }

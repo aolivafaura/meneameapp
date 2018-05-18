@@ -9,7 +9,6 @@ import es.mnmapp.aolv.meneame.entity.NewUi
 import es.mnmapp.aolv.meneame.ui.BaseActivity
 import es.mnmapp.aolv.meneame.ui.BaseFragment
 import es.mnmapp.aolv.meneame.ui.view.NavigationViewModel
-import es.mnmapp.aolv.meneame.ui.view.common.ViewState
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.architecture.ext.sharedViewModel
 import org.koin.android.architecture.ext.viewModel
@@ -21,11 +20,14 @@ import org.koin.android.architecture.ext.viewModel
 
 class NewsListFragment : BaseFragment() {
 
+    // Fields -----
     private val navigationViewModel by sharedViewModel<NavigationViewModel>()
     private val newsListViewModel by viewModel<NewsListViewModel>()
 
+    // Variables -----
     private lateinit var listAdapter: NewsAdapter
 
+    // Fragment overrides -----
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,17 +39,31 @@ class NewsListFragment : BaseFragment() {
         }
     }
 
-    override fun getFragmentLayout() = R.layout.fragment_main
+    private fun observeNews() {
+        fun updateList(news: List<NewUi>) {
+            listAdapter.updateList(news)
+        }
 
-    override fun getAnalyticsName() = "NewsList"
+        newsListViewModel.news.observe(this, Observer<List<NewUi>> {
+            it?.let { updateList(it) }
+        })
+    }
+
+    private fun observeViewState() {
+        newsListViewModel.state.observe(this, Observer<NewsListViewModel.ViewState> {
+            when (it) {
+                NewsListViewModel.ViewState.Refreshing -> swiperefresh.isRefreshing = true
+                NewsListViewModel.ViewState.Idle -> swiperefresh.isRefreshing = false
+                else -> swiperefresh.isRefreshing = false
+            }
+        })
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initList()
         setSwipeListener()
     }
-
-    private fun onRefreshAction() = { newsListViewModel.fetchNews() }
 
     private fun initList() {
         val listener = { newUi: NewUi, _: View ->
@@ -60,26 +76,11 @@ class NewsListFragment : BaseFragment() {
     }
 
     private fun setSwipeListener() {
-        swiperefresh.setOnRefreshListener(onRefreshAction())
+        swiperefresh.setOnRefreshListener({ newsListViewModel.fetchNews() })
     }
 
-    private fun observeNews() {
-        newsListViewModel.news.observe(this, Observer<List<NewUi>> {
-            it?.let { updateList(it) }
-        })
-    }
+    // BaseFragment overrides -----
+    override fun getFragmentLayout() = R.layout.fragment_main
 
-    private fun updateList(news: List<NewUi>) {
-        listAdapter.updateList(news)
-    }
-
-    private fun observeViewState() {
-        newsListViewModel.state.observe(this, Observer<ViewState> {
-            when (it) {
-                ViewState.Refreshing -> swiperefresh.isRefreshing = true
-                ViewState.Idle -> swiperefresh.isRefreshing = false
-                else -> swiperefresh.isRefreshing = false
-            }
-        })
-    }
+    override fun getAnalyticsName() = "NewsList"
 }

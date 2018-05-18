@@ -19,12 +19,15 @@ import es.mnmapp.aolv.meneame.ui.extensions.loadUrl
 
 class NewsAdapter : ListAdapter<NewUi, NewsAdapter.Holder>(NewDiffCallback()) {
 
+    // Variables -----
+    var onClickItem: ((NewUi, TextView) -> Unit) = { _, _ -> }
+
+    // Initializer -----
     init {
         setHasStableIds(true)
     }
 
-    var onClickItem: ((NewUi, TextView) -> Unit) = { _, _ -> }
-
+    // ListAdapter overrides -----
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return Holder(layoutInflater.inflate(R.layout.row_meneo, parent, false))
@@ -37,10 +40,12 @@ class NewsAdapter : ListAdapter<NewUi, NewsAdapter.Holder>(NewDiffCallback()) {
 
     override fun getItemId(position: Int) = getItem(position).id ?: 0L
 
+    // Class methods -----
     fun updateList(news: List<NewUi>) {
         submitList(news)
     }
 
+    // Inner classes
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image = itemView.findViewById<ImageView>(R.id.iv_row_meneo)!!
         val title = itemView.findViewById<TextView>(R.id.tv_meneo_row_title)!!
@@ -51,7 +56,7 @@ class NewsAdapter : ListAdapter<NewUi, NewsAdapter.Holder>(NewDiffCallback()) {
         }
     }
 
-    class NewDiffCallback : DiffUtil.ItemCallback<NewUi>() {
+    private class NewDiffCallback : DiffUtil.ItemCallback<NewUi>() {
         override fun areItemsTheSame(oldItem: NewUi?, newItem: NewUi?): Boolean = oldItem?.id == newItem?.id
         override fun areContentsTheSame(oldItem: NewUi?, newItem: NewUi?): Boolean = oldItem?.id == newItem?.id
     }

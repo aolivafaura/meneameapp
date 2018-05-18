@@ -19,25 +19,14 @@ import org.koin.android.ext.android.inject
 
 class NewsViewerFragment : BaseFragment() {
 
+    // Fields -----
     private val webViewViewModel by inject<NewsViewerViewModel>()
 
-    override fun getFragmentLayout() = R.layout.web_view_fragment
-
-    override fun getAnalyticsName() = "NewsViewer"
-
+    // Fragment overrides -----
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initObservers()
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        setUpWebView()
-
-        webViewViewModel.setTitle(arguments?.getString(KEY_TITLE))
-        webViewViewModel.setUrl(arguments?.getString(KEY_URL))
     }
 
     private fun initObservers() {
@@ -54,6 +43,15 @@ class NewsViewerFragment : BaseFragment() {
         })
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setUpWebView()
+
+        webViewViewModel.setTitle(arguments?.getString(KEY_TITLE))
+        webViewViewModel.setUrl(arguments?.getString(KEY_URL))
+    }
+
     @SuppressLint("SetJavaScriptEnabled")
     private fun setUpWebView() {
         wvContainer.settings.javaScriptEnabled = true
@@ -64,7 +62,6 @@ class NewsViewerFragment : BaseFragment() {
                 View.VISIBLE -> progressBar.fadeOut()
             }
         }
-
         wvContainer.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView, url: String) {
                 when (progressBar?.visibility) {
@@ -74,6 +71,12 @@ class NewsViewerFragment : BaseFragment() {
         }
     }
 
+    // BaseFragment overrides -----
+    override fun getFragmentLayout() = R.layout.web_view_fragment
+
+    override fun getAnalyticsName() = "NewsViewer"
+
+    // Companion object -----
     companion object {
         const val KEY_URL = "webViewFragmentKeyUrl"
         const val KEY_TITLE = "webViewFragmentKeyTitle"

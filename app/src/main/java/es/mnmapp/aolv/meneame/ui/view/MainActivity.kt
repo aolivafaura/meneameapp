@@ -6,8 +6,10 @@ import org.koin.android.architecture.ext.viewModel
 
 class MainActivity : BaseActivity() {
 
+    // Fields -----
     private val mainViewModel by viewModel<NavigationViewModel>()
 
+    // Activity overrides -----
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
