@@ -2,7 +2,6 @@ package es.mnmapp.aolv.meneame.ui.view.newslist.fragment
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
 import es.mnmapp.aolv.domain.usecase.GetPopularNews
@@ -29,13 +28,11 @@ class NewsListViewModelTest {
 
     @Mock
     lateinit var getPopularNews: GetPopularNews
-
     lateinit var newsListViewModel: NewsListViewModel
 
     @Before
     fun before() {
         newsListViewModel = NewsListViewModel(getPopularNews)
-        newsListViewModel.simpleIdlingResource = mock()
     }
 
     @Test
