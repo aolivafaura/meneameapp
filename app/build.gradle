@@ -16,7 +16,6 @@ android {
             storePassword '12345678'
         }
     }
-
     compileSdkVersion rootProject.compileSdkVersion
     defaultConfig {
         applicationId rootProject.applicationId
@@ -27,12 +26,10 @@ android {
         testInstrumentationRunner "es.mnmapp.aolv.meneame.TestRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
-
         manifestPlaceholders = [
                 fabricApiKey: fabricApiKey
         ]
     }
-
     buildTypes {
         release {
             debuggable false
@@ -40,12 +37,10 @@ android {
             useProguard true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-
         debug {
             debuggable true
             ext.enableCrashlytics = false
         }
-
         minifiedDebug {
             initWith(release)
             minifyEnabled true
@@ -53,30 +48,27 @@ android {
             signingConfig signingConfigs.minifiedDebug
         }
     }
-
     dexOptions {
         preDexLibraries true
         maxProcessCount 8
     }
-
     flavorDimensions "default"
-
     productFlavors {
         dev {
             dimension "default"
             versionNameSuffix "-dvlp"
             applicationIdSuffix '.dvlp'
         }
-
         prod {
             dimension "default"
         }
     }
-
     testOptions {
         animationsDisabled = true
+        unitTests {
+            includeAndroidResources = true
+        }
     }
-
     lintOptions {
         abortOnError false
     }
@@ -87,12 +79,10 @@ android.variantFilter { variant ->
     if (variant.buildType.name == 'release' && (variant.getFlavors().get(0).name == 'dev')) {
         variant.setIgnore(true)
     }
-
     // Exclude prodDebug compilation
     if (variant.buildType.name == 'debug' && (variant.getFlavors().get(0).name == 'prod')) {
         variant.setIgnore(true)
     }
-
     // Exclude prodMinifiedDebug compilation
     if (variant.buildType.name == 'minifiedDebug' && (variant.getFlavors().get(0).name == 'dev')) {
         variant.setIgnore(true)
@@ -100,9 +90,16 @@ android.variantFilter { variant ->
 }
 
 dependencies {
+    // Modules
+    implementation project(path: ':data')
+    implementation project(path: ':domain')
+
     // Unit testing
     testImplementation "junit:junit:$junitVersion"
     testImplementation "com.nhaarman:mockito-kotlin-kt1.1:$mockitoKotlinVersion"
+
+    // Roboelectric
+    testImplementation "org.robolectric:robolectric:$roboelectricVersion"
 
     // UI testing
     androidTestImplementation("com.android.support.test.espresso:espresso-core:$espressoVersion", {
@@ -139,10 +136,6 @@ dependencies {
 
     // KTX
     implementation "androidx.core:core-ktx:$ktxVersion"
-
-    // Modules
-    implementation project(path: ':data')
-    implementation project(path: ':domain')
 
     // Support
     //noinspection GradleCompatible

@@ -1,4 +1,4 @@
-package es.mnmapp.aolv.meneame.ui.view.newslist.fragment
+package es.mnmapp.aolv.meneame.ui.view.newslist
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import com.nhaarman.mockito_kotlin.*
