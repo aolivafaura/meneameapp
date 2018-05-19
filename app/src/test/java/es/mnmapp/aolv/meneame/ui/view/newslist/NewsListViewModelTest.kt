@@ -4,7 +4,7 @@ import android.arch.core.executor.testing.InstantTaskExecutorRule
 import com.nhaarman.mockito_kotlin.*
 import es.mnmapp.aolv.domain.entity.New
 import es.mnmapp.aolv.domain.usecase.GetPopularNews
-import es.mnmapp.aolv.meneame.ui.view.newslist.NewsListViewModel
+import es.mnmapp.aolv.meneame.entity.mapper.fromNewToNewUi
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -24,6 +24,8 @@ class NewsListViewModelTest {
 
     var getPopularNews = mock<GetPopularNews>()
     lateinit var newsListViewModel: NewsListViewModel
+
+    private val newsList = listOf(New(1L, "url", "title", "thumb"))
 
     @Before
     fun before() {
@@ -50,6 +52,16 @@ class NewsListViewModelTest {
         verify(getPopularNews, times(1)).execute(any(), successCaptor.capture(), any(), any())
         successCaptor.firstValue.invoke(emptyList())
         assertEquals(NewsListViewModel.ViewState.Idle, newsListViewModel.state.value)
+    }
+
+    @Test
+    fun `Given news being fetched, when successful response, then news list is mapped`() {
+        val successCaptor = argumentCaptor<(List<New>) -> Unit>()
+
+        newsListViewModel.fetchNews()
+        verify(getPopularNews, times(1)).execute(any(), successCaptor.capture(), any(), any())
+        successCaptor.firstValue.invoke(newsList)
+        assertEquals(newsList.map { fromNewToNewUi(it) }, newsListViewModel.news.value)
     }
 
     @Test
