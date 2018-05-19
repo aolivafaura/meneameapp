@@ -1,7 +1,6 @@
 package es.mnmapp.aolv.meneame.ui
 
 import android.os.Bundle
-import es.mnmapp.aolv.meneame.entity.NewUi
 import es.mnmapp.aolv.meneame.ui.extensions.initFragment
 import es.mnmapp.aolv.meneame.ui.view.newslist.NewsListFragment
 import es.mnmapp.aolv.meneame.ui.view.newsviewer.NewsViewerFragment
@@ -13,10 +12,10 @@ class Navigation {
         activity.initFragment(NewsListFragment(), addToBackStack = true)
     }
 
-    fun navigateToNewsDetail(activity: BaseActivity, newUi: NewUi) {
+    fun navigateToNewsDetail(activity: BaseActivity, url: String?, title: String?) {
         val bundle = Bundle().apply {
-            putString(NewsViewerFragment.KEY_URL, newUi.url)
-            putString(NewsViewerFragment.KEY_TITLE, newUi.title)
+            putString(NewsViewerFragment.KEY_URL, url)
+            putString(NewsViewerFragment.KEY_TITLE, title)
         }
 
         val fragment = NewsViewerFragment().apply { arguments = bundle }

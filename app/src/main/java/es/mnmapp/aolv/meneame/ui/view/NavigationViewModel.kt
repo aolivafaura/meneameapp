@@ -17,6 +17,6 @@ class NavigationViewModel(private val navigation: Navigation) : ViewModel() {
     }
 
     fun navigateToNewsDetail(activity: BaseActivity, newUi: NewUi) {
-        navigation.navigateToNewsDetail(activity, newUi)
+        navigation.navigateToNewsDetail(activity, newUi.url, newUi.title)
     }
 }

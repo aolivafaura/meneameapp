@@ -1,6 +1,9 @@
 package es.mnmapp.aolv.meneame
 
+import android.os.Build
 import com.facebook.stetho.Stetho
+
+
 
 /**
  * Created by antoniojoseoliva on 20/07/2017.
@@ -13,10 +16,14 @@ class MnmDebugApp : MnmApp() {
     override fun onCreate() {
         super.onCreate()
 
-        initStetho()
+        if (isNotUnitTestingRun()) {
+            initStetho()
+        }
     }
 
     private fun initStetho() {
         Stetho.initializeWithDefaults(this)
     }
+
+    private fun isNotUnitTestingRun() = "robolectric" != Build.FINGERPRINT
 }

@@ -8,7 +8,9 @@ import es.mnmapp.aolv.meneame.R
 fun AppCompatActivity.initFragment(fragment: Fragment,
                                    sharedView: View? = null,
                                    addToBackStack: Boolean? = false) {
-    val transaction = this.supportFragmentManager.beginTransaction().add(R.id.container, fragment)
+    val transaction = this.supportFragmentManager
+            .beginTransaction()
+            .add(R.id.container, fragment, fragment.javaClass.simpleName)
 
     sharedView?.let {
         transaction.addSharedElement(it, sharedView.transitionName)
