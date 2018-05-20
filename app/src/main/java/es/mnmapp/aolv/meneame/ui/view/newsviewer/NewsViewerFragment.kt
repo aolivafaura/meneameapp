@@ -32,7 +32,7 @@ class NewsViewerFragment : BaseFragment() {
     private fun initObservers() {
         webViewViewModel.url.observe(this, Observer {
             if (it != null) {
-                wvContainer.loadUrl(it)
+                webViewContainer.loadUrl(it)
             } else {
                 activity?.supportFragmentManager?.popBackStack()
             }
@@ -54,15 +54,15 @@ class NewsViewerFragment : BaseFragment() {
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun setUpWebView() {
-        wvContainer.settings.javaScriptEnabled = true
-        wvContainer.settings.setSupportZoom(true)
+        webViewContainer.settings.javaScriptEnabled = true
+        webViewContainer.settings.setSupportZoom(true)
 
         nestedScrollWebView.setOnScrollChangeListener { _: NestedScrollView?, _: Int, _: Int, _: Int, _: Int ->
             when (progressBar.visibility) {
                 View.VISIBLE -> progressBar.fadeOut()
             }
         }
-        wvContainer.webViewClient = object : WebViewClient() {
+        webViewContainer.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView, url: String) {
                 when (progressBar?.visibility) {
                     View.VISIBLE -> progressBar.fadeOut()
