@@ -1,24 +1,19 @@
 package es.mnmapp.aolv.data.repository
 
+import com.nhaarman.mockito_kotlin.mock
 import es.mnmapp.aolv.data.repository.cloud.NewsCloudRepo
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.Mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
-import org.mockito.junit.MockitoJUnitRunner
 
 /**
  * Created by antonio on 3/26/18.
  */
-@RunWith(MockitoJUnitRunner::class)
 class NewsDataRepoTest {
 
-    @Mock
-    lateinit var newsCloudRepo: NewsCloudRepo
-
-    lateinit var newsDataRepo: NewsDataRepo
+    private val newsCloudRepo = mock<NewsCloudRepo>()
+    private lateinit var newsDataRepo: NewsDataRepo
 
     @Before
     fun before(){
@@ -28,7 +23,12 @@ class NewsDataRepoTest {
     @Test
     fun `When popular news are requested, then popular news are retrieved from cloud`() {
         newsDataRepo.getPopular()
-
         verify(newsCloudRepo, times(1)).getPopular()
+    }
+
+    @Test
+    fun `When top visited news are requested, then popular news are retrieved from cloud`() {
+        newsDataRepo.getPopular()
+        verify(newsCloudRepo, times(1)).getTopVisited()
     }
 }

@@ -15,8 +15,8 @@ abstract class UseCase<T, in Params>(private val postExecutionThread: Scheduler,
     internal abstract fun buildUseCaseObservable(params: Params): Flowable<T>
 
     fun execute(params: Params,
-                onNext: ((T) -> Unit),
-                onError: ((Throwable) -> Unit),
+                onNext: ((T) -> Unit)? = {},
+                onError: ((Throwable) -> Unit)? = {},
                 onComplete: (() -> Unit)? = {}) {
 
         this.buildUseCaseObservable(params)

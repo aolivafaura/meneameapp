@@ -14,7 +14,7 @@ import retrofit2.http.QueryMap
 interface MeneameService {
 
     @GET("list.php")
-    fun getMeneos(@QueryMap options: Map<String, String>): Flowable<MeneoApiResult>
+    fun getMeneos(@QueryMap options: Map<String, String>): Flowable<MeneoApiResultDto>
 
     /**
      * Companion object to create the MeneameService

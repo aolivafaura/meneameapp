@@ -16,20 +16,14 @@ class NewsCloudRepo(
         private val meneameService: MeneameService
 ) : NewsRepo {
 
-    override fun getPopular(): Flowable<List<New>> {
+    override fun getPopular() = getFromCloud("popular")
+
+    override fun getTopVisited() = getFromCloud("top_visited")
+
+    private fun getFromCloud(category: String): Flowable<List<New>> {
         idlingResource.setIdleState(false)
 
-        val options = HashMap<String, String>().apply { put("popular", "true") }
-        return meneameService.getMeneos(options).map {
-            idlingResource.setIdleState(true)
-            it.objects.map { fromNewEntityToNew(it) }
-        }
-    }
-
-    override fun getTopVisited(): Flowable<List<New>> {
-        idlingResource.setIdleState(false)
-
-        val options = HashMap<String, String>().apply { put("top_visited", "true") }
+        val options = HashMap<String, String>().apply { put(category, "true") }
         return meneameService.getMeneos(options).map {
             idlingResource.setIdleState(true)
             it.objects.map { fromNewEntityToNew(it) }
