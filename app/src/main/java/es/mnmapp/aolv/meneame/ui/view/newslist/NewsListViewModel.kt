@@ -4,8 +4,8 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import es.mnmapp.aolv.domain.entity.New
 import es.mnmapp.aolv.domain.usecase.GetPopularNews
-import es.mnmapp.aolv.meneame.entity.NewUi
-import es.mnmapp.aolv.meneame.entity.mapper.fromNewToNewUi
+import es.mnmapp.aolv.meneame.entity.NewCellUi
+import es.mnmapp.aolv.meneame.entity.mapper.fromNewToNewCellUi
 
 /**
  * Created by antonio on 2/24/18.
@@ -14,7 +14,7 @@ import es.mnmapp.aolv.meneame.entity.mapper.fromNewToNewUi
 class NewsListViewModel(private val getPopularNews: GetPopularNews) : ViewModel() {
 
     // Fields -----
-    val news = MutableLiveData<List<NewUi>>()
+    val news = MutableLiveData<List<NewCellUi>>()
     val state = MutableLiveData<ViewState>()
 
     // ViewModel overrides -----
@@ -27,7 +27,7 @@ class NewsListViewModel(private val getPopularNews: GetPopularNews) : ViewModel(
     fun fetchNews() {
         val successHandler: ((List<New>) -> Unit) = {
             state.value = ViewState.Idle
-            news.value = it.map { fromNewToNewUi(it) }
+            news.value = it.map { fromNewToNewCellUi(it) }
         }
         val errorHandler: ((Throwable) -> Unit) = {
             state.value = ViewState.Idle

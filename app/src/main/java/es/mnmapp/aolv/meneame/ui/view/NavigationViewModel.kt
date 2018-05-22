@@ -1,7 +1,7 @@
 package es.mnmapp.aolv.meneame.ui.view
 
 import android.arch.lifecycle.ViewModel
-import es.mnmapp.aolv.meneame.entity.NewUi
+import es.mnmapp.aolv.meneame.entity.NewCellUi
 import es.mnmapp.aolv.meneame.ui.BaseActivity
 import es.mnmapp.aolv.meneame.ui.Navigation
 
@@ -16,7 +16,7 @@ class NavigationViewModel(private val navigation: Navigation) : ViewModel() {
         navigation.navigateToNewsList(activity)
     }
 
-    fun navigateToNewsDetail(activity: BaseActivity, newUi: NewUi) {
-        navigation.navigateToNewsDetail(activity, newUi.url, newUi.title)
+    fun navigateToNewsDetail(activity: BaseActivity, newCellUi: NewCellUi) {
+        navigation.navigateToNewsDetail(activity, newCellUi.url, newCellUi.title)
     }
 }

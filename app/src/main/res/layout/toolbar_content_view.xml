@@ -14,7 +14,7 @@
         android:layout_toStartOf="@+id/shareWithMnm"
         android:ellipsize="end"
         android:lines="1"
-        tools:text="The new title awesome. Very large title is needed. C'mon." />
+        tools:text="The newCell title awesome. Very large title is needed. C'mon." />
 
     <ImageButton
         android:id="@+id/shareWithMnm"

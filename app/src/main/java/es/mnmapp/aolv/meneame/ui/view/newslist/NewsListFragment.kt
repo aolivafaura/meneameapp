@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import es.mnmapp.aolv.meneame.R
-import es.mnmapp.aolv.meneame.entity.NewUi
+import es.mnmapp.aolv.meneame.entity.NewCellUi
 import es.mnmapp.aolv.meneame.ui.BaseActivity
 import es.mnmapp.aolv.meneame.ui.BaseFragment
 import es.mnmapp.aolv.meneame.ui.view.NavigationViewModel
@@ -40,11 +40,11 @@ class NewsListFragment : BaseFragment() {
     }
 
     private fun observeNews() {
-        fun updateList(news: List<NewUi>) {
+        fun updateList(news: List<NewCellUi>) {
             listAdapter.updateList(news)
         }
 
-        newsListViewModel.news.observe(this, Observer<List<NewUi>> {
+        newsListViewModel.news.observe(this, Observer<List<NewCellUi>> {
             it?.let { updateList(it) }
         })
     }
@@ -66,8 +66,8 @@ class NewsListFragment : BaseFragment() {
     }
 
     private fun initList() {
-        val listener = { newUi: NewUi, _: View ->
-            navigationViewModel.navigateToNewsDetail(activity as BaseActivity, newUi)
+        val listener = { newCellUi: NewCellUi, _: View ->
+            navigationViewModel.navigateToNewsDetail(activity as BaseActivity, newCellUi)
         }
 
         rvListNews.layoutManager = LinearLayoutManager(this.context)

@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import es.mnmapp.aolv.meneame.R
-import es.mnmapp.aolv.meneame.entity.NewUi
+import es.mnmapp.aolv.meneame.entity.NewCellUi
 import es.mnmapp.aolv.meneame.ui.extensions.loadUrl
 
 
@@ -17,10 +17,10 @@ import es.mnmapp.aolv.meneame.ui.extensions.loadUrl
  * Created by antoniojoseoliva on 02/08/2017.
  */
 
-class NewsAdapter : ListAdapter<NewUi, NewsAdapter.Holder>(NewDiffCallback()) {
+class NewsAdapter : ListAdapter<NewCellUi, NewsAdapter.Holder>(NewDiffCallback()) {
 
     // Variables -----
-    var onClickItem: ((NewUi, TextView) -> Unit) = { _, _ -> }
+    var onClickItem: ((NewCellUi, TextView) -> Unit) = { _, _ -> }
 
     // Initializer -----
     init {
@@ -41,7 +41,7 @@ class NewsAdapter : ListAdapter<NewUi, NewsAdapter.Holder>(NewDiffCallback()) {
     override fun getItemId(position: Int) = getItem(position).id ?: 0L
 
     // Class methods -----
-    fun updateList(news: List<NewUi>) {
+    fun updateList(news: List<NewCellUi>) {
         submitList(news)
     }
 
@@ -50,14 +50,14 @@ class NewsAdapter : ListAdapter<NewUi, NewsAdapter.Holder>(NewDiffCallback()) {
         val image = itemView.findViewById<ImageView>(R.id.iv_row_meneo)!!
         val title = itemView.findViewById<TextView>(R.id.tv_meneo_row_title)!!
 
-        fun bind(new: NewUi) {
-            image.loadUrl(new.thumb)
-            title.text = new.title
+        fun bind(newCell: NewCellUi) {
+            image.loadUrl(newCell.thumb)
+            title.text = newCell.title
         }
     }
 
-    private class NewDiffCallback : DiffUtil.ItemCallback<NewUi>() {
-        override fun areItemsTheSame(oldItem: NewUi?, newItem: NewUi?): Boolean = oldItem?.id == newItem?.id
-        override fun areContentsTheSame(oldItem: NewUi?, newItem: NewUi?): Boolean = oldItem?.id == newItem?.id
+    private class NewDiffCallback : DiffUtil.ItemCallback<NewCellUi>() {
+        override fun areItemsTheSame(oldItem: NewCellUi?, newCellItem: NewCellUi?): Boolean = oldItem?.id == newCellItem?.id
+        override fun areContentsTheSame(oldItem: NewCellUi?, newCellItem: NewCellUi?): Boolean = oldItem?.id == newCellItem?.id
     }
 }

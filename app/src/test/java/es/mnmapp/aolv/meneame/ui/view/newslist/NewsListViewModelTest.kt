@@ -4,7 +4,7 @@ import android.arch.core.executor.testing.InstantTaskExecutorRule
 import com.nhaarman.mockito_kotlin.*
 import es.mnmapp.aolv.domain.entity.New
 import es.mnmapp.aolv.domain.usecase.GetPopularNews
-import es.mnmapp.aolv.meneame.entity.mapper.fromNewToNewUi
+import es.mnmapp.aolv.meneame.entity.mapper.fromNewToNewCellUi
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -61,7 +61,7 @@ class NewsListViewModelTest {
         newsListViewModel.fetchNews()
         verify(getPopularNews, times(1)).execute(any(), successCaptor.capture(), any(), any())
         successCaptor.firstValue.invoke(newsList)
-        assertEquals(newsList.map { fromNewToNewUi(it) }, newsListViewModel.news.value)
+        assertEquals(newsList.map { fromNewToNewCellUi(it) }, newsListViewModel.news.value)
     }
 
     @Test
