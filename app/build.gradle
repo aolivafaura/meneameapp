@@ -133,6 +133,9 @@ dependencies {
     }
     releaseImplementation "com.google.firebase:firebase-core:$firebaseVersion"
 
+    // Firestore
+    implementation "com.google.firebase:firebase-firestore:$firebaseVersion"
+
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
