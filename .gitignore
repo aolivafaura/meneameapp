@@ -12,6 +12,6 @@ gradle.properties
 fabric.properties
 props.gradle
 mnmaolvdprod.keystore
-app/src/prod/google-services.json
+google-services.json
 dig
 sec.tar
