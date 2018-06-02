@@ -1,6 +1,6 @@
 package es.mnmapp.aolv.meneame.di
 
-import es.mnmapp.aolv.data.repository.NewsDataRepo
+import es.mnmapp.aolv.data.repository.news.NewsDataRepo
 import es.mnmapp.aolv.domain.repository.NewsRepo
 import es.mnmapp.aolv.domain.usecase.GetPopularNews
 import es.mnmapp.aolv.meneame.ui.Navigation

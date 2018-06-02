@@ -1,7 +1,8 @@
 package es.mnmapp.aolv.data.repository
 
 import com.nhaarman.mockito_kotlin.mock
-import es.mnmapp.aolv.data.repository.cloud.NewsCloudRepo
+import es.mnmapp.aolv.data.repository.news.NewsDataRepo
+import es.mnmapp.aolv.data.repository.news.cloud.NewsCloudRepo
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.times

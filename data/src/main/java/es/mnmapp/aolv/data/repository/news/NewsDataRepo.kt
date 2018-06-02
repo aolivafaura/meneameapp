@@ -1,6 +1,6 @@
-package es.mnmapp.aolv.data.repository
+package es.mnmapp.aolv.data.repository.news
 
-import es.mnmapp.aolv.data.repository.cloud.NewsCloudRepo
+import es.mnmapp.aolv.data.repository.news.cloud.NewsCloudRepo
 import es.mnmapp.aolv.domain.entity.New
 import es.mnmapp.aolv.domain.repository.NewsRepo
 import io.reactivex.Flowable

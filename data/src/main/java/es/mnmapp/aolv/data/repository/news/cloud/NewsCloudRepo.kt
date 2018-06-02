@@ -1,4 +1,4 @@
-package es.mnmapp.aolv.data.repository.cloud
+package es.mnmapp.aolv.data.repository.news.cloud
 
 import es.mnmapp.aolv.data.entity.mapper.fromNewEntityToNew
 import es.mnmapp.aolv.data.net.MeneameService

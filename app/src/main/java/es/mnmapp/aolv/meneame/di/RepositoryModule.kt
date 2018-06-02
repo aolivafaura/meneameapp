@@ -1,6 +1,6 @@
 package es.mnmapp.aolv.meneame.di
 
-import es.mnmapp.aolv.data.repository.cloud.NewsCloudRepo
+import es.mnmapp.aolv.data.repository.news.cloud.NewsCloudRepo
 import es.mnmapp.aolv.meneame.constants.EndpointUrls
 import es.mnmapp.aolv.meneame.di.repositoryproviders.createCacheDirectory
 import es.mnmapp.aolv.meneame.di.repositoryproviders.createMeneameService
@@ -17,5 +17,5 @@ val repositoryModule = applicationContext {
     bean { getNetworkInterceptors(get()) }
     bean { createOkHttpClient(get(), get()) }
     bean { createMeneameService(get(), EndpointUrls.baseUrl) }
-    bean { NewsCloudRepo(get(), get())}
+    bean { NewsCloudRepo(get(), get()) }
 }
