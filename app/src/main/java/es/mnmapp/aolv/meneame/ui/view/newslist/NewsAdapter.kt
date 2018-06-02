@@ -10,6 +10,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import es.mnmapp.aolv.meneame.R
 import es.mnmapp.aolv.meneame.entity.NewCellUi
+import es.mnmapp.aolv.meneame.ui.extensions.getColorsSet
+import es.mnmapp.aolv.meneame.ui.extensions.loadLogo
 import es.mnmapp.aolv.meneame.ui.extensions.loadUrl
 
 
@@ -38,21 +40,35 @@ class NewsAdapter : ListAdapter<NewCellUi, NewsAdapter.Holder>(NewDiffCallback()
         holder.itemView.setOnClickListener { onClickItem.invoke(getItem(position), holder.title) }
     }
 
-    override fun getItemId(position: Int) = getItem(position).id ?: 0L
+    override fun getItemId(position: Int) = getItem(position).id
 
     // Class methods -----
     fun updateList(news: List<NewCellUi>) {
         submitList(news)
     }
 
-    // Inner classes
+    // Inner classes -----
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val image = itemView.findViewById<ImageView>(R.id.iv_row_meneo)!!
-        val title = itemView.findViewById<TextView>(R.id.tv_meneo_row_title)!!
+
+        val title = itemView.findViewById<TextView>(R.id.tvDescription)!!
+        private val image = itemView.findViewById<ImageView>(R.id.ivRelatedImage)!!
+        private val source = itemView.findViewById<TextView>(R.id.tvSource)!!
+        private val sourceLogo = itemView.findViewById<ImageView>(R.id.ivSourceLogo)!!
+        private val backgroundView = itemView.findViewById<View>(R.id.backgroundView)!!
 
         fun bind(newCell: NewCellUi) {
-            image.loadUrl(newCell.thumb)
+            val loadImageCallback: (() -> Unit) = {
+                image.getColorsSet { titleColor, descriptionColor ->
+                    title.setTextColor(titleColor)
+                    source.setTextColor(titleColor)
+                    backgroundView.setBackgroundColor(descriptionColor)
+                    backgroundView.requestLayout()
+                }
+            }
+            image.loadUrl(newCell.thumb, loadImageCallback)
+            sourceLogo.loadLogo(newCell.source)
             title.text = newCell.title
+            source.text = newCell.source
         }
     }
 

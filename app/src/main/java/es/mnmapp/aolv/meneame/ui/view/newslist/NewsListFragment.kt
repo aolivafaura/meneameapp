@@ -70,7 +70,8 @@ class NewsListFragment : BaseFragment() {
             navigationViewModel.navigateToNewsDetail(activity as BaseActivity, newCellUi)
         }
 
-        rvListNews.layoutManager = LinearLayoutManager(this.context)
+        val linearLayoutManager = LinearLayoutManager(this.context)
+        rvListNews.layoutManager = linearLayoutManager
         listAdapter = NewsAdapter().apply { onClickItem = listener }
         rvListNews.adapter = listAdapter
     }

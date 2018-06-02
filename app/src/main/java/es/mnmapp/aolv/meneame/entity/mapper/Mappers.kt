@@ -11,6 +11,7 @@ fun fromNewToNewCellUi(new: New) = NewCellUi(
         new.id,
         new.url,
         new.title,
+        new.from,
         new.thumb,
         new.positiveVotes,
         new.negativeVotes,

@@ -8,7 +8,6 @@
         android:font="@font/googlesans_regular"
         android:fontStyle="normal"
         android:fontWeight="400"
-
         app:font="@font/googlesans_regular"
         app:fontStyle="normal"
         app:fontWeight="400"
@@ -19,7 +18,6 @@
         android:font="@font/googlesans_italic"
         android:fontStyle="italic"
         android:fontWeight="400"
-
         app:font="@font/googlesans_italic"
         app:fontStyle="italic"
         app:fontWeight="400"
@@ -30,7 +28,6 @@
         android:font="@font/googlesans_bold"
         android:fontStyle="normal"
         android:fontWeight="700"
-
         app:font="@font/googlesans_bold"
         app:fontStyle="normal"
         app:fontWeight="700"
@@ -41,7 +38,6 @@
         android:font="@font/googlesans_bolditalic"
         android:fontStyle="italic"
         android:fontWeight="700"
-
         app:font="@font/googlesans_bolditalic"
         app:fontStyle="italic"
         app:fontWeight="700"

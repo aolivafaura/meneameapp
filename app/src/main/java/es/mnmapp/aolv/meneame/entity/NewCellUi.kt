@@ -8,6 +8,7 @@ data class NewCellUi(
         val id: Long,
         val url: String,
         val title: String,
+        val source: String,
         val thumb: String,
         val positiveVotes: Int,
         val negativeVotes: Int,
