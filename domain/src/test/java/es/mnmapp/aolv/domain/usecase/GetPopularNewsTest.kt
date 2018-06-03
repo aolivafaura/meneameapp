@@ -5,7 +5,7 @@ import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import es.mnmapp.aolv.domain.entity.New
-import es.mnmapp.aolv.domain.repository.NewsRepo
+import es.mnmapp.aolv.domain.repository.NewsRepository
 import io.reactivex.Flowable
 import io.reactivex.schedulers.TestScheduler
 import org.junit.Before
@@ -14,7 +14,7 @@ import org.junit.Test
 class GetPopularNewsTest {
 
     private val scheduler = TestScheduler()
-    private val newsRepo = mock<NewsRepo>()
+    private val newsRepo = mock<NewsRepository>()
 
     private val newsList = listOf(
             New(1L, "url", "title", "thumb"),

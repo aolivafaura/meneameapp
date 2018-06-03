@@ -1,4 +1,4 @@
-package es.mnmapp.aolv.data.net
+package es.mnmapp.aolv.data.repository.news.datasource.cloud
 
 import io.reactivex.Flowable
 import okhttp3.OkHttpClient

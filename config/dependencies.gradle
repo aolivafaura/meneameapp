@@ -7,6 +7,7 @@ ext {
     koinVersion = '0.9.1'
     timberVersion = '4.5.1'
     architectureComponentsVersion = '1.1.1'
+    roomVersion = '1.1.0'
     stethoVersion = '1.5.0'
     okhttpVersion = '3.10.0'
     junitVersion = '4.12'
@@ -24,4 +25,5 @@ ext {
     crashlyticsVersion = "2.9.1@aar"
     gsonVersion = "2.7"
     roboelectricVersion = "3.8"
+    apacheCommonsVersion = "3.6"
 }

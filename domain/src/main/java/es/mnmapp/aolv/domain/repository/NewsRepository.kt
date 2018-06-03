@@ -6,7 +6,7 @@ import io.reactivex.Flowable
 /**
  * Created by antoniojoseoliva on 19/07/2017.
  */
-interface NewsRepo {
+interface NewsRepository {
 
     fun getPopular(): Flowable<List<New>>
 

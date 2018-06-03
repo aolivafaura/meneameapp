@@ -13,7 +13,7 @@ import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
-import es.mnmapp.aolv.meneame.constants.EndpointUrls
+import es.mnmapp.aolv.data.EndpointUrls
 import es.mnmapp.aolv.meneame.mockdispatcher.MockResponsesDispatcher
 import es.mnmapp.aolv.meneame.pageobjects.ListPageObject
 import es.mnmapp.aolv.meneame.ui.BaseActivity

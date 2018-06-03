@@ -1,4 +1,4 @@
-package es.mnmapp.aolv.meneame.constants
+package es.mnmapp.aolv.data
 
 object EndpointUrls {
 

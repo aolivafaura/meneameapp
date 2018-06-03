@@ -124,17 +124,11 @@ dependencies {
     // Production code android testing
     implementation "com.android.support.test.espresso:espresso-idling-resource:$espressoSupportVersion"
 
-    // Gson
-    implementation "com.google.code.gson:gson:$gsonVersion"
-
     // Tracking
     implementation("com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion") {
         transitive = true
     }
     releaseImplementation "com.google.firebase:firebase-core:$firebaseVersion"
-
-    // Firestore
-    implementation "com.google.firebase:firebase-firestore:$firebaseVersion"
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -180,7 +174,6 @@ dependencies {
     }
 
     // Network
-    compileOnly "com.squareup.okhttp3:okhttp:$okhttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
 
     // Images

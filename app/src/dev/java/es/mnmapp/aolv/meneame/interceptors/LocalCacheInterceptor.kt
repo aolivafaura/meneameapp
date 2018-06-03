@@ -25,7 +25,7 @@ class LocalCacheInterceptor(private val connectivity: Connectivity) : Intercepto
 
         val response = chain.proceed(request)
         return if (connectivity.isConnected()) {
-            val maxAge = 30 // Cache lifetime: 30 seconds
+            val maxAge = 2 // Cache lifetime: 30 seconds
             response.newBuilder().header("Cache-Control",
                     "public, max-age=" + maxAge).build()
         }

@@ -1,4 +1,4 @@
-package es.mnmapp.aolv.data.net
+package es.mnmapp.aolv.data.repository.news.datasource.cloud
 
 import es.mnmapp.aolv.data.entity.NewDto
 

@@ -74,6 +74,8 @@ class NewsAdapter : ListAdapter<NewCellUi, NewsAdapter.Holder>(NewDiffCallback()
 
     private class NewDiffCallback : DiffUtil.ItemCallback<NewCellUi>() {
         override fun areItemsTheSame(oldItem: NewCellUi?, newCellItem: NewCellUi?): Boolean = oldItem?.id == newCellItem?.id
-        override fun areContentsTheSame(oldItem: NewCellUi?, newCellItem: NewCellUi?): Boolean = oldItem?.id == newCellItem?.id
+        override fun areContentsTheSame(oldItem: NewCellUi?, newCellItem: NewCellUi?): Boolean {
+            return oldItem?.id == newCellItem?.id && oldItem?.thumb == newCellItem?.thumb
+        }
     }
 }

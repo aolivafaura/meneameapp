@@ -11,7 +11,7 @@ import android.widget.ImageView
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import es.mnmapp.aolv.meneame.R
-import es.mnmapp.aolv.meneame.constants.EndpointUrls
+import es.mnmapp.aolv.data.EndpointUrls
 import es.mnmapp.aolv.meneame.utils.*
 
 

@@ -1,6 +1,7 @@
 package es.mnmapp.aolv.data.entity
 
 import com.google.gson.annotations.SerializedName
+import es.mnmapp.aolv.domain.entity.New
 
 /**
  * Created by antoniojoseoliva on 21/07/2017.
@@ -25,3 +26,19 @@ data class NewDto(@SerializedName("id") val id: Long?,
                   @SerializedName("date") val date: Long?,
                   @SerializedName("content") val content: String?,
                   @SerializedName("thumb") val thumb: String?)
+
+fun mapToNew(newDto: NewDto) = New(
+        newDto.id ?: 0L,
+        newDto.url ?: "",
+        newDto.title ?: "",
+        newDto.sub ?: "",
+        newDto.thumb ?: "",
+        newDto.from ?: "",
+        newDto.votes ?: -1,
+        newDto.negatives ?: -1,
+        newDto.karma ?: -1,
+        newDto.comments ?: -1,
+        newDto.sentDate ?: -1L,
+        newDto.date ?: -1L,
+        newDto.tags ?: ""
+)

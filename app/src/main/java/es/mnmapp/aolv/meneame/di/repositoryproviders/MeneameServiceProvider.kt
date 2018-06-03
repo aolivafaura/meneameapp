@@ -1,6 +1,6 @@
 package es.mnmapp.aolv.meneame.di.repositoryproviders
 
-import es.mnmapp.aolv.data.net.MeneameService
+import es.mnmapp.aolv.data.repository.news.datasource.cloud.MeneameService
 import okhttp3.OkHttpClient
 
 fun createMeneameService(okHttpClient: OkHttpClient, baseUrl: String)

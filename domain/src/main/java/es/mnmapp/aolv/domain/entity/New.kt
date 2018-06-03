@@ -7,6 +7,7 @@ package es.mnmapp.aolv.domain.entity
 data class New(val id: Long,
                val url: String,
                val title: String,
+               val category: String,
                val thumb: String,
                val from: String,
                val positiveVotes: Int,

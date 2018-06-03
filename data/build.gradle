@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply from: '../config/dependencies.gradle'
 
 android {
@@ -16,7 +17,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-
         minifiedDebug{
             initWith(release)
         }
@@ -35,20 +35,25 @@ dependencies {
         exclude group: "com.squareup.okhttp3"
     }
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    api "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    api "com.squareup.okhttp3:okhttp:$okhttpVersion"
 
     // Firestore
-    implementation "com.google.firebase:firebase-firestore:$firebaseVersion"
+    api "com.google.firebase:firebase-firestore:$firebaseVersion"
 
     // Rx
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+
+    // Room
+    api "android.arch.persistence.room:runtime:$roomVersion"
+    kapt "android.arch.persistence.room:compiler:$roomVersion"
+    api "android.arch.persistence.room:rxjava2:$roomVersion"
 
     // Testing
     testImplementation "junit:junit:$junitVersion"
     testImplementation "com.nhaarman:mockito-kotlin-kt1.1:$mockitoKotlinVersion"
 
     // Production code android testing
-    implementation "com.android.support.test.espresso:espresso-idling-resource:$espressoSupportVersion"
+    api "com.android.support.test.espresso:espresso-idling-resource:$espressoSupportVersion"
 }

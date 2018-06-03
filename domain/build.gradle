@@ -13,6 +13,9 @@ dependencies {
     // Rx
     implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+
+    // Apache commons
+    implementation "org.apache.commons:commons-lang3:$apacheCommonsVersion"
 }
 
 sourceCompatibility = "1.8"
