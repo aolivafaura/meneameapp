@@ -6,4 +6,6 @@ import io.reactivex.Single
 interface PlaceholdersRepository {
 
     fun getPlaceholders(): Single<List<Placeholder>>
+
+    fun getLogosForSources(vararg source: String): Single<Map<String, String>>
 }

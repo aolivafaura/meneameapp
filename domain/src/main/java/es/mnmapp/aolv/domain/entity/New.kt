@@ -16,4 +16,5 @@ data class New(val id: Long,
                val comments: Int,
                val sendDate: Long,
                val date: Long,
-               val tags: String)
+               val tags: String,
+               var logoUrl: String? = "")

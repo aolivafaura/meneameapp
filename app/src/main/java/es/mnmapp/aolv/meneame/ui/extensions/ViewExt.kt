@@ -70,17 +70,6 @@ fun ImageView.loadUrl(url: String?,
     } ?: setImageResource(0)
 }
 
-fun ImageView.loadLogo(url: String?) {
-    url?.let {
-        val logoUrl = "${EndpointUrls.logoApiUrl}$url"
-        if (URLUtil.isValidUrl(logoUrl)) {
-            Picasso.get().load(logoUrl).into(this)
-        } else {
-            setImageResource(0)
-        }
-    } ?: setImageResource(0)
-}
-
 fun ImageView.getColorsSet(callback: ((titleColor: Int, backgroundColor: Int) -> Unit)) {
     fun handlePaletteSwatch(paletteSwatch: Palette.Swatch) {
         val titleColor = getComplementaryColor(paletteSwatch.titleTextColor)

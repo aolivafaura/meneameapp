@@ -1,5 +1,6 @@
 package es.mnmapp.aolv.data.repository.placeholders
 
+import es.mnmapp.aolv.data.EndpointUrls
 import es.mnmapp.aolv.data.entity.PlaceholderEntity
 import es.mnmapp.aolv.data.entity.mapToPlaceholder
 import es.mnmapp.aolv.data.repository.placeholders.datasource.cloud.PlaceholdersCloudDataSource
@@ -8,6 +9,7 @@ import es.mnmapp.aolv.domain.entity.Placeholder
 import es.mnmapp.aolv.domain.repository.PlaceholdersRepository
 import io.reactivex.Single
 import io.reactivex.internal.operators.completable.CompletableCreate
+import io.reactivex.internal.operators.single.SingleCreate
 import io.reactivex.internal.operators.single.SingleJust
 import io.reactivex.schedulers.Schedulers
 
@@ -31,6 +33,9 @@ class PlaceholdersDataRepository(
                 .flatMap { handleLocalSuccess(it) }
                 .map { it.map { mapToPlaceholder(it) } }
     }
+
+    override fun getLogosForSources(vararg source: String): Single<Map<String, String>> =
+            Single.just(source.map { it to "${EndpointUrls.logoApiUrl}$it" }.toMap())
 
     private fun insertOnDatabase(list: List<PlaceholderEntity>) {
         CompletableCreate { placeholdersLocalDataSource.insertAll(*list.toTypedArray()) }

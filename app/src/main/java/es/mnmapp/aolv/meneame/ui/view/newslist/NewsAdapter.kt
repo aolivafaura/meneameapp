@@ -11,7 +11,6 @@ import android.widget.TextView
 import es.mnmapp.aolv.meneame.R
 import es.mnmapp.aolv.meneame.entity.NewCellUi
 import es.mnmapp.aolv.meneame.ui.extensions.getColorsSet
-import es.mnmapp.aolv.meneame.ui.extensions.loadLogo
 import es.mnmapp.aolv.meneame.ui.extensions.loadUrl
 
 
@@ -66,7 +65,7 @@ class NewsAdapter : ListAdapter<NewCellUi, NewsAdapter.Holder>(NewDiffCallback()
                 }
             }
             image.loadUrl(newCell.thumb, loadImageCallback)
-            sourceLogo.loadLogo(newCell.source)
+            sourceLogo.loadUrl(newCell.logoUrl)
             title.text = newCell.title
             source.text = newCell.source
         }
@@ -75,7 +74,9 @@ class NewsAdapter : ListAdapter<NewCellUi, NewsAdapter.Holder>(NewDiffCallback()
     private class NewDiffCallback : DiffUtil.ItemCallback<NewCellUi>() {
         override fun areItemsTheSame(oldItem: NewCellUi?, newCellItem: NewCellUi?): Boolean = oldItem?.id == newCellItem?.id
         override fun areContentsTheSame(oldItem: NewCellUi?, newCellItem: NewCellUi?): Boolean {
-            return oldItem?.id == newCellItem?.id && oldItem?.thumb == newCellItem?.thumb
+            return oldItem?.id == newCellItem?.id
+                    && oldItem?.thumb == newCellItem?.thumb
+                    && oldItem?.logoUrl == newCellItem?.logoUrl
         }
     }
 }

@@ -3,7 +3,7 @@ package es.mnmapp.aolv.meneame.ui.view.newslist
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import com.nhaarman.mockito_kotlin.*
 import es.mnmapp.aolv.domain.entity.New
-import es.mnmapp.aolv.domain.usecase.GetPopularNews
+import es.mnmapp.aolv.domain.usecase.GetNews
 import es.mnmapp.aolv.meneame.entity.mapper.fromNewToNewCellUi
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -22,7 +22,7 @@ class NewsListViewModelTest {
     @JvmField
     var rule: TestRule = InstantTaskExecutorRule()
 
-    var getPopularNews = mock<GetPopularNews>()
+    var getPopularNews = mock<GetNews>()
     lateinit var newsListViewModel: NewsListViewModel
 
     private val newsList = listOf(New(1L, "url", "title", "thumb"))

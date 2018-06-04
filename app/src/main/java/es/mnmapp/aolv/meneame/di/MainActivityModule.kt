@@ -7,7 +7,7 @@ import es.mnmapp.aolv.data.repository.placeholders.datasource.cloud.Placeholders
 import es.mnmapp.aolv.data.repository.placeholders.datasource.local.PlaceholdersLocalDataSource
 import es.mnmapp.aolv.domain.repository.NewsRepository
 import es.mnmapp.aolv.domain.repository.PlaceholdersRepository
-import es.mnmapp.aolv.domain.usecase.GetPopularNews
+import es.mnmapp.aolv.domain.usecase.GetNews
 import es.mnmapp.aolv.meneame.ui.Navigation
 import es.mnmapp.aolv.meneame.ui.view.NavigationViewModel
 import es.mnmapp.aolv.meneame.ui.view.newslist.NewsListViewModel
@@ -34,7 +34,7 @@ val mainActivityModule = applicationContext {
         bean { PlaceholdersCloudDataSource(get(), get()) }
         bean { PlaceholdersLocalDataSource(get(), get("placeholdersDb")) }
 
-        bean { GetPopularNews(get("uiThread"), get("workerThread"), get(), get()) }
+        bean { GetNews(get("uiThread"), get("workerThread"), get(), get()) }
 
         context("newsViewer") {
             viewModel { NewsViewerViewModel(get()) }
