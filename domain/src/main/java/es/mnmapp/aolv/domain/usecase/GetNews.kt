@@ -1,6 +1,7 @@
 package es.mnmapp.aolv.domain.usecase
 
 import es.mnmapp.aolv.domain.entity.New
+import es.mnmapp.aolv.domain.entity.Section
 import es.mnmapp.aolv.domain.repository.NewsRepository
 import es.mnmapp.aolv.domain.repository.PlaceholdersRepository
 import io.reactivex.BackpressureStrategy
@@ -19,21 +20,29 @@ class GetNews(
         private val workerThread: Scheduler,
         private val newsRepository: NewsRepository,
         private val placeholdersRepository: PlaceholdersRepository
-) : UseCase<List<New>, Unit>(postExecutionThread, workerThread) {
+) : UseCase<List<New>, Section>(postExecutionThread, workerThread) {
 
-    override fun buildUseCaseObservable(params: Unit): Flowable<List<New>> {
+    override fun buildUseCaseObservable(params: Section): Flowable<List<New>> {
         return FlowableCreate({ emitter ->
-            newsRepository.getPopular().subscribe(
+            getTheGoodCall(params).subscribe(
                     {
                         emitter.onNext(it)
                         enrichInformation(it, emitter)
                     },
                     {
-
+                        emitter.tryOnError(it)
                     }
             )
         }, BackpressureStrategy.LATEST)
     }
+
+    private fun getTheGoodCall(section: Section) =
+            when (section) {
+                Section.Breaking,
+                Section.Hot,
+                Section.TopVisited -> newsRepository.getTopVisited()
+                Section.Popular -> newsRepository.getPopular()
+            }
 
     private fun enrichInformation(originalList: List<New>, emitter: FlowableEmitter<List<New>>) {
         enrichWithLogos(originalList, emitter)

@@ -18,3 +18,7 @@ data class New(val id: Long,
                val date: Long,
                val tags: String,
                var logoUrl: String? = "")
+
+enum class Section {
+    Breaking, Hot, Popular, TopVisited
+}

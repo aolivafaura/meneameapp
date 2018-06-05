@@ -3,6 +3,7 @@ package es.mnmapp.aolv.meneame.ui.view.newslist
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import es.mnmapp.aolv.domain.entity.New
+import es.mnmapp.aolv.domain.entity.Section
 import es.mnmapp.aolv.domain.usecase.GetNews
 import es.mnmapp.aolv.meneame.entity.NewCellUi
 import es.mnmapp.aolv.meneame.entity.fromNewToNewCellUi
@@ -34,7 +35,7 @@ class NewsListViewModel(private val getNews: GetNews) : ViewModel() {
 		}
 
 		state.value = ViewState.Refreshing
-		getNews.execute(Unit, successHandler, errorHandler)
+		getNews.execute(Section.Popular, successHandler, errorHandler)
 	}
 
 	// Inner classes -----
