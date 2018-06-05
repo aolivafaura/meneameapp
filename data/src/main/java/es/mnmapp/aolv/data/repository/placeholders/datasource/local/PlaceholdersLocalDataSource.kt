@@ -1,5 +1,6 @@
 package es.mnmapp.aolv.data.repository.placeholders.datasource.local
 
+import android.arch.persistence.room.Transaction
 import es.mnmapp.aolv.data.entity.PlaceholderEntity
 import es.mnmapp.aolv.data.testing.SimpleIdlingResource
 import io.reactivex.Single
@@ -15,7 +16,11 @@ class PlaceholdersLocalDataSource(private val idlingResource: SimpleIdlingResour
         }
     }
 
+    @Transaction
     fun insertAll(vararg placeholderEntity: PlaceholderEntity) =
-            placeholdersRoomDao
-                    .insertAll(*placeholderEntity.map { mapFromPlaceholderEntity(it) }.toTypedArray())
+            placeholdersRoomDao.insertAll(
+                    *placeholderEntity.
+                            map { mapFromPlaceholderEntity(it) }
+                            .toTypedArray()
+            )
 }

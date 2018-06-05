@@ -26,6 +26,7 @@ android {
 dependencies {
     // Modules
     implementation project(path: ':domain')
+    implementation project(path: ':logger')
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

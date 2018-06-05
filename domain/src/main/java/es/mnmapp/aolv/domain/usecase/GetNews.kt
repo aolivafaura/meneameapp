@@ -15,67 +15,68 @@ import org.apache.commons.lang3.StringUtils
  */
 
 class GetNews(
-		private val postExecutionThread: Scheduler,
-		private val workerThread: Scheduler,
-		private val newsRepository: NewsRepository,
-		private val placeholdersRepository: PlaceholdersRepository
+        private val postExecutionThread: Scheduler,
+        private val workerThread: Scheduler,
+        private val newsRepository: NewsRepository,
+        private val placeholdersRepository: PlaceholdersRepository
 ) : UseCase<List<New>, Unit>(postExecutionThread, workerThread) {
 
-	override fun buildUseCaseObservable(params: Unit): Flowable<List<New>> {
-		return FlowableCreate({ emitter ->
-			newsRepository.getPopular().subscribe(
-					{
-						enrichInformation(it, emitter)
-					},
-					{
+    override fun buildUseCaseObservable(params: Unit): Flowable<List<New>> {
+        return FlowableCreate({ emitter ->
+            newsRepository.getPopular().subscribe(
+                    {
+                        emitter.onNext(it)
+                        enrichInformation(it, emitter)
+                    },
+                    {
 
-					}
-			)
-		}, BackpressureStrategy.LATEST)
-	}
+                    }
+            )
+        }, BackpressureStrategy.LATEST)
+    }
 
-	private fun enrichInformation(originalList: List<New>, emitter: FlowableEmitter<List<New>>) {
-		enrichWithLogos(originalList, emitter)
-	}
+    private fun enrichInformation(originalList: List<New>, emitter: FlowableEmitter<List<New>>) {
+        enrichWithLogos(originalList, emitter)
+    }
 
-	private fun enrichWithLogos(originalList: List<New>, emitter: FlowableEmitter<List<New>>) {
-		placeholdersRepository.getLogosForSources(*originalList.map { it.from }.toTypedArray())
-				.subscribeOn(workerThread)
-				.observeOn(postExecutionThread)
-				.subscribe { logosMap, _ ->
-					val listToEmit = mutableListOf<New>()
-					originalList.forEach {
-						listToEmit.add(it.copy(logoUrl = logosMap[it.from] ?: ""))
-					}
+    private fun enrichWithLogos(originalList: List<New>, emitter: FlowableEmitter<List<New>>) {
+        placeholdersRepository.getLogosForSources(*originalList.map { it.from }.toTypedArray())
+                .subscribeOn(workerThread)
+                .observeOn(postExecutionThread)
+                .subscribe { logosMap, _ ->
+                    val listToEmit = mutableListOf<New>()
+                    originalList.forEach {
+                        listToEmit.add(it.copy(logoUrl = logosMap[it.from] ?: ""))
+                    }
 
-					enrichWithPlaceholders(listToEmit, emitter)
-				}
-	}
+                    enrichWithPlaceholders(listToEmit, emitter)
+                }
+    }
 
-	private fun enrichWithPlaceholders(originalList: List<New>, emitter: FlowableEmitter<List<New>>) {
-		if (originalList.any { it.thumb.isBlank() }) {
-			placeholdersRepository.getPlaceholders()
-					.subscribeOn(workerThread)
-					.observeOn(postExecutionThread)
-					.subscribe { list, _ ->
-						val categoriesMap = list.map { it.category to it }.toMap()
-						val listToEmit = mutableListOf<New>()
+    private fun enrichWithPlaceholders(originalList: List<New>, emitter: FlowableEmitter<List<New>>) {
+        if (originalList.any { it.thumb.isBlank() }) {
+            placeholdersRepository.getPlaceholders()
+                    .subscribeOn(workerThread)
+                    .observeOn(postExecutionThread)
+                    .subscribe { list, _ ->
+                        val categoriesMap = list.map { it.category to it }.toMap()
+                        val listToEmit = mutableListOf<New>()
 
-						originalList.forEach {
-							val imageUrl = if (it.thumb.isBlank()) {
-								categoriesMap[normalizeCategory(it.category)]?.url ?: ""
-							} else {
-								it.thumb
-							}
-							listToEmit.add(it.copy(thumb = imageUrl))
-						}
+                        originalList.forEach {
+                            val imageUrl = if (it.thumb.isBlank()) {
+                                categoriesMap[normalizeCategory(it.category)]?.url ?: ""
+                            } else {
+                                it.thumb
+                            }
+                            listToEmit.add(it.copy(thumb = imageUrl))
+                        }
 
-						emitter.onNext(listToEmit)
-					}
-		} else {
-			emitter.onNext(originalList)
-		}
-	}
+                        emitter.onNext(listToEmit)
+                    }
+        } else {
+            emitter.onNext(originalList)
+        }
+    }
 
-	private fun normalizeCategory(category: String) = StringUtils.stripAccents(category).toLowerCase()
+    private fun normalizeCategory(category: String) = StringUtils.stripAccents(category).toLowerCase()
 }

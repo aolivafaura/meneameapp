@@ -8,10 +8,7 @@ import es.mnmapp.aolv.data.repository.placeholders.datasource.local.Placeholders
 import es.mnmapp.aolv.domain.entity.Placeholder
 import es.mnmapp.aolv.domain.repository.PlaceholdersRepository
 import io.reactivex.Single
-import io.reactivex.internal.operators.completable.CompletableCreate
-import io.reactivex.internal.operators.single.SingleCreate
 import io.reactivex.internal.operators.single.SingleJust
-import io.reactivex.schedulers.Schedulers
 
 
 class PlaceholdersDataRepository(
@@ -20,7 +17,7 @@ class PlaceholdersDataRepository(
 ) : PlaceholdersRepository {
 
     override fun getPlaceholders(): Single<List<Placeholder>> {
-        fun handleLocalSuccess(list: List<PlaceholderEntity>) =
+        fun handleLocalResponse(list: List<PlaceholderEntity>) =
                 if (list.isNotEmpty()) {
                     SingleJust(list)
                 } else {
@@ -30,7 +27,7 @@ class PlaceholdersDataRepository(
                 }
 
         return placeholdersLocalDataSource.getAll()
-                .flatMap { handleLocalSuccess(it) }
+                .flatMap { handleLocalResponse(it) }
                 .map { it.map { mapToPlaceholder(it) } }
     }
 
@@ -38,8 +35,6 @@ class PlaceholdersDataRepository(
             Single.just(source.map { it to "${EndpointUrls.logoApiUrl}$it" }.toMap())
 
     private fun insertOnDatabase(list: List<PlaceholderEntity>) {
-        CompletableCreate { placeholdersLocalDataSource.insertAll(*list.toTypedArray()) }
-                .subscribeOn(Schedulers.io())
-                .subscribe()
+        placeholdersLocalDataSource.insertAll(*list.toTypedArray())
     }
 }
