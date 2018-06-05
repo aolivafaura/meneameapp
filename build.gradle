@@ -41,6 +41,12 @@ ext {
     applicationId = "es.mnmapp.aolv.meneame"
 }
 
+configurations {
+    devDebugCompile
+    prodMinifiedDebugCompile
+    prodReleaseCompile
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

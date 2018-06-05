@@ -94,6 +94,7 @@ dependencies {
     // Modules
     implementation project(path: ':data')
     implementation project(path: ':domain')
+    implementation project(path: ':logger')
 
     // Unit testing
     testImplementation "junit:junit:$junitVersion"
@@ -124,12 +125,6 @@ dependencies {
     // Production code android testing
     implementation "com.android.support.test.espresso:espresso-idling-resource:$espressoSupportVersion"
 
-    // Tracking
-    implementation("com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion") {
-        transitive = true
-    }
-    releaseImplementation "com.google.firebase:firebase-core:$firebaseVersion"
-
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
@@ -158,9 +153,6 @@ dependencies {
     implementation "org.koin:koin-android-architecture:$koinVersion"
     testImplementation "org.koin:koin-test:$koinVersion"
 
-    // Logger
-    implementation "com.jakewharton.timber:timber:$timberVersion"
-
     // Architecture components
     implementation "android.arch.lifecycle:runtime:$architectureComponentsVersion"
     implementation "android.arch.lifecycle:extensions:$architectureComponentsVersion"
@@ -178,6 +170,12 @@ dependencies {
 
     // Images
     implementation "com.squareup.picasso:picasso:$picassoVersion"
+
+    // Tracking
+    compileOnly "com.google.firebase:firebase-core:$firebaseVersion"
+    compileOnly("com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion") {
+        transitive = true
+    }
 }
 
 apply plugin: 'com.google.gms.google-services'

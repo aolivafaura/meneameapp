@@ -25,7 +25,6 @@ class GetNews(
 		return FlowableCreate({ emitter ->
 			newsRepository.getPopular().subscribe(
 					{
-						emitter.onNext(it)
 						enrichInformation(it, emitter)
 					},
 					{
