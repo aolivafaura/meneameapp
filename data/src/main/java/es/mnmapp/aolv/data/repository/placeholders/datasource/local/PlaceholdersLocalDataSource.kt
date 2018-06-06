@@ -4,6 +4,8 @@ import android.arch.persistence.room.Transaction
 import es.mnmapp.aolv.data.entity.PlaceholderEntity
 import es.mnmapp.aolv.data.testing.SimpleIdlingResource
 import io.reactivex.Single
+import io.reactivex.internal.operators.completable.CompletableCreate
+import io.reactivex.schedulers.Schedulers
 
 class PlaceholdersLocalDataSource(private val idlingResource: SimpleIdlingResource,
                                   private val placeholdersRoomDao: PlaceholdersRoomDao) {
@@ -17,10 +19,9 @@ class PlaceholdersLocalDataSource(private val idlingResource: SimpleIdlingResour
     }
 
     @Transaction
-    fun insertAll(vararg placeholderEntity: PlaceholderEntity) =
-            placeholdersRoomDao.insertAll(
-                    *placeholderEntity.
-                            map { mapFromPlaceholderEntity(it) }
-                            .toTypedArray()
-            )
+    fun insertAll(vararg placeholderEntity: PlaceholderEntity) {
+        CompletableCreate {
+            placeholdersRoomDao.insertAll(*placeholderEntity.map { mapFromPlaceholderEntity(it) }.toTypedArray())
+        }.subscribeOn(Schedulers.io()).subscribe()
+    }
 }

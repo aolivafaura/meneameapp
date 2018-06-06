@@ -26,7 +26,6 @@ class GetNews(
         return FlowableCreate({ emitter ->
             getTheGoodCall(params).subscribe(
                     {
-                        emitter.onNext(it)
                         enrichInformation(it, emitter)
                     },
                     {
