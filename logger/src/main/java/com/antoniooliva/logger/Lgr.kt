@@ -103,7 +103,7 @@ class Lgr private constructor(context: Context) : ContextWrapper(context) {
         }
 
         @Synchronized
-        fun getInstance(): Lgr =
+        fun get(): Lgr =
                 selfInstance?.let { it }
                         ?: throw IllegalStateException("Lgr must be initialized first")
     }

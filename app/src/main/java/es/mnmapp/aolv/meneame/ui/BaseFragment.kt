@@ -22,7 +22,7 @@ abstract class BaseFragment : Fragment() {
     // Fragment overrides -----
     override fun onResume() {
         super.onResume()
-        Lgr.getInstance().setCurrentScreen(activity!!, getAnalyticsName())
+        Lgr.get().setCurrentScreen(activity!!, getAnalyticsName())
     }
 
     override fun onCreateView(inflater: LayoutInflater,
