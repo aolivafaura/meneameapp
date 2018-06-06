@@ -1,20 +1,20 @@
-package es.mnmapp.aolv.data.repository.placeholders
+package es.mnmapp.aolv.data.repository.images
 
 import es.mnmapp.aolv.data.EndpointUrls
 import es.mnmapp.aolv.data.entity.PlaceholderEntity
 import es.mnmapp.aolv.data.entity.mapToPlaceholder
-import es.mnmapp.aolv.data.repository.placeholders.datasource.cloud.PlaceholdersCloudDataSource
-import es.mnmapp.aolv.data.repository.placeholders.datasource.local.PlaceholdersLocalDataSource
+import es.mnmapp.aolv.data.repository.images.datasource.cloud.PlaceholdersCloudDataSource
+import es.mnmapp.aolv.data.repository.images.datasource.local.PlaceholdersLocalDataSource
 import es.mnmapp.aolv.domain.entity.Placeholder
-import es.mnmapp.aolv.domain.repository.PlaceholdersRepository
+import es.mnmapp.aolv.domain.repository.ImagesRepository
 import io.reactivex.Single
 import io.reactivex.internal.operators.single.SingleJust
 
 
-class PlaceholdersDataRepository(
+class ImagesDataRepository(
         private val placeholdersCloudDataSource: PlaceholdersCloudDataSource,
         private val placeholdersLocalDataSource: PlaceholdersLocalDataSource
-) : PlaceholdersRepository {
+) : ImagesRepository {
 
     override fun getPlaceholders(): Single<List<Placeholder>> {
         fun handleLocalResponse(list: List<PlaceholderEntity>) =

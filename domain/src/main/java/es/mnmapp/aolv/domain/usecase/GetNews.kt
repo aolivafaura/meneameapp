@@ -3,7 +3,7 @@ package es.mnmapp.aolv.domain.usecase
 import es.mnmapp.aolv.domain.entity.New
 import es.mnmapp.aolv.domain.entity.Section
 import es.mnmapp.aolv.domain.repository.NewsRepository
-import es.mnmapp.aolv.domain.repository.PlaceholdersRepository
+import es.mnmapp.aolv.domain.repository.ImagesRepository
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.FlowableEmitter
@@ -19,7 +19,7 @@ class GetNews(
         private val postExecutionThread: Scheduler,
         private val workerThread: Scheduler,
         private val newsRepository: NewsRepository,
-        private val placeholdersRepository: PlaceholdersRepository
+        private val imagesRepository: ImagesRepository
 ) : UseCase<List<New>, Section>(postExecutionThread, workerThread) {
 
     override fun buildUseCaseObservable(params: Section): Flowable<List<New>> {
@@ -48,7 +48,7 @@ class GetNews(
     }
 
     private fun enrichWithLogos(originalList: List<New>, emitter: FlowableEmitter<List<New>>) {
-        placeholdersRepository.getLogosForSources(*originalList.map { it.from }.toTypedArray())
+        imagesRepository.getLogosForSources(*originalList.map { it.from }.toTypedArray())
                 .subscribeOn(workerThread)
                 .observeOn(postExecutionThread)
                 .subscribe { logosMap, _ ->
@@ -63,7 +63,7 @@ class GetNews(
 
     private fun enrichWithPlaceholders(originalList: List<New>, emitter: FlowableEmitter<List<New>>) {
         if (originalList.any { it.thumb.isBlank() }) {
-            placeholdersRepository.getPlaceholders()
+            imagesRepository.getPlaceholders()
                     .subscribeOn(workerThread)
                     .observeOn(postExecutionThread)
                     .subscribe { list, _ ->

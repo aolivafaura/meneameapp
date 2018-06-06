@@ -2,8 +2,8 @@ package es.mnmapp.aolv.data.database
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
-import es.mnmapp.aolv.data.repository.placeholders.datasource.local.PlaceholderRoom
-import es.mnmapp.aolv.data.repository.placeholders.datasource.local.PlaceholdersRoomDao
+import es.mnmapp.aolv.data.repository.images.datasource.local.PlaceholderRoom
+import es.mnmapp.aolv.data.repository.images.datasource.local.PlaceholdersRoomDao
 
 
 @Database(entities = [(

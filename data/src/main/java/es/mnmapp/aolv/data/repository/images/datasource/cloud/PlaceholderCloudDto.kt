@@ -1,4 +1,4 @@
-package es.mnmapp.aolv.data.repository.placeholders.datasource.cloud
+package es.mnmapp.aolv.data.repository.images.datasource.cloud
 
 import com.google.firebase.firestore.DocumentSnapshot
 import es.mnmapp.aolv.data.constants.*

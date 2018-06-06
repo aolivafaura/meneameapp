@@ -1,4 +1,4 @@
-package es.mnmapp.aolv.data.repository.placeholders.datasource.local
+package es.mnmapp.aolv.data.repository.images.datasource.local
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
