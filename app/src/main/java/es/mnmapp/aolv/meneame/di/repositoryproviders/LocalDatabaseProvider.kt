@@ -4,5 +4,7 @@ import android.arch.persistence.room.Room
 import android.content.Context
 import es.mnmapp.aolv.data.database.LocalDatabase
 
-fun createLocalDatabase(context: Context) =
-        Room.databaseBuilder(context, LocalDatabase::class.java, "local").build()
+const val LOCAL_DATABASE_NAME = "local"
+
+fun createLocalDatabase(context: Context): LocalDatabase =
+        Room.databaseBuilder(context, LocalDatabase::class.java, LOCAL_DATABASE_NAME).build()

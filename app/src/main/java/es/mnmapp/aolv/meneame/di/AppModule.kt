@@ -12,8 +12,11 @@ import org.koin.dsl.module.applicationContext
  */
 
 val appModule = applicationContext {
-    bean("uiThread") { AndroidSchedulers.mainThread() as Scheduler }
+    // Schedulers
+    bean<Scheduler>("uiThread") { AndroidSchedulers.mainThread() }
     bean("workerThread") { Schedulers.io() }
+    // Connectivity
     bean { Connectivity(get()) }
+    // Validations
     bean { Validator }
 }

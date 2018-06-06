@@ -11,7 +11,6 @@ import java.util.concurrent.TimeUnit
  */
 
 fun createOkHttpClient(httpCacheDirectory: File, interceptors: ArrayList<Interceptor>): OkHttpClient {
-
     val cacheSize = 10L * 1024 * 1024 // 10 MiB
     val cache = Cache(httpCacheDirectory, cacheSize)
 

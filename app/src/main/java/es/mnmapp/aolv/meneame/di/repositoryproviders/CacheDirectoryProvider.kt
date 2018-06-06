@@ -6,4 +6,6 @@ import java.io.File
  * Created by antonio on 3/11/18.
  */
 
-fun createCacheDirectory(file: File) = File(file, "responses")
+private const val CACHE_FILE_NAME = "responses"
+
+fun createCacheDirectory(file: File): File = File(file, CACHE_FILE_NAME)
