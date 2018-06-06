@@ -40,7 +40,7 @@ val mainActivityModule = applicationContext {
     viewModel { NavigationViewModel(get()) }
 
     context(KOIN_CONTEXT_LIST_VIEW) {
-        viewModel { NewsListViewModel(get()) }
+        viewModel { NewsListViewModel(get(), get()) }
 
         // News data repository
         bean { NewsCloudDataSource(get(), get()) }
@@ -66,7 +66,7 @@ val mainActivityModule = applicationContext {
         bean { GetNews(get(KOIN_BEAN_UI_THREAD), get(KOIN_BEAN_WORKER_THREAD), get(), get(), get()) }
 
         context(KOIN_CONTEXT_NEWS_DETAIL_VIEW) {
-            viewModel { NewsViewerViewModel(get()) }
+            viewModel { NewsViewerViewModel(get(), get()) }
         }
     }
 }

@@ -4,7 +4,9 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.Toast
 import es.mnmapp.aolv.meneame.R
+import es.mnmapp.aolv.meneame.connectivity.Connectivity
 import es.mnmapp.aolv.meneame.entity.NewCellUi
 import es.mnmapp.aolv.meneame.ui.BaseActivity
 import es.mnmapp.aolv.meneame.ui.BaseFragment
@@ -33,6 +35,7 @@ class NewsListFragment : BaseFragment() {
 
         observeNews()
         observeViewState()
+        observeConnectivity()
 
         if (newsListViewModel.news.value == null) {
             newsListViewModel.fetchNews()
@@ -55,6 +58,15 @@ class NewsListFragment : BaseFragment() {
                 NewsListViewModel.ViewState.Refreshing -> swiperefresh.isRefreshing = true
                 NewsListViewModel.ViewState.Idle -> swiperefresh.isRefreshing = false
                 else -> swiperefresh.isRefreshing = false
+            }
+        })
+    }
+
+    private fun observeConnectivity() {
+        newsListViewModel.connectivityState.observe(this, Observer<Connectivity.State> {
+            when (it) {
+                Connectivity.State.Connected -> Toast.makeText(context, "CONNECTED", Toast.LENGTH_LONG).show()
+                Connectivity.State.Disconnected -> Toast.makeText(context, "DISCONNECTED", Toast.LENGTH_LONG).show()
             }
         })
     }

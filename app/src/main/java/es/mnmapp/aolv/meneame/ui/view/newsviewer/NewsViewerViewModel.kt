@@ -2,9 +2,13 @@ package es.mnmapp.aolv.meneame.ui.view.newsviewer
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import es.mnmapp.aolv.meneame.connectivity.Connectivity
 import es.mnmapp.aolv.meneame.utils.Validator
 
-class NewsViewerViewModel(private val validator: Validator) : ViewModel() {
+class NewsViewerViewModel(
+        private val validator: Validator,
+        private val connectivity: Connectivity
+) : ViewModel() {
 
     // Fields -----
     val url = MutableLiveData<String?>()

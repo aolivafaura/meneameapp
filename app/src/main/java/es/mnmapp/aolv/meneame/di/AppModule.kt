@@ -1,6 +1,6 @@
 package es.mnmapp.aolv.meneame.di
 
-import es.mnmapp.aolv.meneame.utils.Connectivity
+import es.mnmapp.aolv.meneame.connectivity.Connectivity
 import es.mnmapp.aolv.meneame.utils.Validator
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers

@@ -5,42 +5,64 @@ import android.arch.lifecycle.ViewModel
 import es.mnmapp.aolv.domain.entity.New
 import es.mnmapp.aolv.domain.entity.Section
 import es.mnmapp.aolv.domain.usecase.GetNews
+import es.mnmapp.aolv.meneame.connectivity.Connectivity
 import es.mnmapp.aolv.meneame.entity.NewCellUi
 import es.mnmapp.aolv.meneame.entity.fromNewToNewCellUi
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 
 /**
  * Created by antonio on 2/24/18.
  */
 
-class NewsListViewModel(private val getNews: GetNews) : ViewModel() {
+class NewsListViewModel(
+        private val getNews: GetNews,
+        private val connectivity: Connectivity
+) : ViewModel() {
 
-	// Fields -----
-	val news = MutableLiveData<List<NewCellUi>>()
-	val state = MutableLiveData<ViewState>()
+    // Fields -----
+    val news = MutableLiveData<List<NewCellUi>>()
+    val state = MutableLiveData<ViewState>()
+    val connectivityState = MutableLiveData<Connectivity.State>()
 
-	// ViewModel overrides -----
-	override fun onCleared() {
-		super.onCleared()
-		getNews.clear()
-	}
+    private val disposables = CompositeDisposable()
 
-	// Class methods -----
-	fun fetchNews() {
-		val successHandler: ((List<New>) -> Unit) = {
-			state.value = ViewState.Idle
-			news.value = it.map { fromNewToNewCellUi(it) }
-		}
-		val errorHandler: ((Throwable) -> Unit) = {
-			state.value = ViewState.Idle
-		}
+    // Initialization -----
+    init {
+        observeConnectivity()
+    }
 
-		state.value = ViewState.Refreshing
-		getNews.execute(Section.Popular, successHandler, errorHandler)
-	}
+    private fun observeConnectivity() {
+        connectivity.observeConnectivity()
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { connectivityState.value = it }
+                ?.let { disposables.addAll(it) }
+    }
 
-	// Inner classes -----
-	enum class ViewState {
-		Idle,
-		Refreshing
-	}
+    // ViewModel overrides -----
+    override fun onCleared() {
+        super.onCleared()
+        getNews.clear()
+    }
+
+    // Class methods -----
+    fun fetchNews() {
+        val successHandler: ((List<New>) -> Unit) = {
+            state.value = ViewState.Idle
+            news.value = it.map { fromNewToNewCellUi(it) }
+        }
+        val errorHandler: ((Throwable) -> Unit) = {
+            state.value = ViewState.Idle
+        }
+
+        state.value = ViewState.Refreshing
+        getNews.execute(Section.Popular, successHandler, errorHandler)
+    }
+
+    // Inner classes -----
+    enum class ViewState {
+        Idle,
+        Refreshing
+    }
 }
