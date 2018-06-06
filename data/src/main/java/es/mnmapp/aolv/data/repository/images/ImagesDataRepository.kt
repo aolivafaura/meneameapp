@@ -7,6 +7,7 @@ import es.mnmapp.aolv.data.repository.images.datasource.cloud.PlaceholdersCloudD
 import es.mnmapp.aolv.data.repository.images.datasource.local.PlaceholdersLocalDataSource
 import es.mnmapp.aolv.domain.entity.Placeholder
 import es.mnmapp.aolv.domain.repository.ImagesRepository
+import es.mnmapp.aolv.domain.repository.ScreenDensity
 import io.reactivex.Single
 import io.reactivex.internal.operators.single.SingleJust
 
@@ -16,12 +17,12 @@ class ImagesDataRepository(
         private val placeholdersLocalDataSource: PlaceholdersLocalDataSource
 ) : ImagesRepository {
 
-    override fun getPlaceholders(): Single<List<Placeholder>> {
+    override fun getPlaceholders(density: ScreenDensity): Single<List<Placeholder>> {
         fun handleLocalResponse(list: List<PlaceholderEntity>) =
                 if (list.isNotEmpty()) {
                     SingleJust(list)
                 } else {
-                    placeholdersCloudDataSource.getPlaceholders()
+                    placeholdersCloudDataSource.getPlaceholders(density)
                             .doOnSuccess { insertOnDatabase(it) }
                             .onErrorReturn { list }
                 }

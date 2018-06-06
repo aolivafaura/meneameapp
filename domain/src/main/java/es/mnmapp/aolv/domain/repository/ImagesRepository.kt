@@ -5,7 +5,7 @@ import io.reactivex.Single
 
 interface ImagesRepository {
 
-    fun getPlaceholders(): Single<List<Placeholder>>
+    fun getPlaceholders(density: ScreenDensity): Single<List<Placeholder>>
 
     fun getLogosForSources(vararg source: String): Single<Map<String, String>>
 }

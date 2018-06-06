@@ -2,6 +2,7 @@ package es.mnmapp.aolv.domain.usecase
 
 import es.mnmapp.aolv.domain.entity.New
 import es.mnmapp.aolv.domain.entity.Section
+import es.mnmapp.aolv.domain.repository.DeviceRepository
 import es.mnmapp.aolv.domain.repository.NewsRepository
 import es.mnmapp.aolv.domain.repository.ImagesRepository
 import io.reactivex.BackpressureStrategy
@@ -19,7 +20,8 @@ class GetNews(
         private val postExecutionThread: Scheduler,
         private val workerThread: Scheduler,
         private val newsRepository: NewsRepository,
-        private val imagesRepository: ImagesRepository
+        private val imagesRepository: ImagesRepository,
+        private val deviceRepository: DeviceRepository
 ) : UseCase<List<New>, Section>(postExecutionThread, workerThread) {
 
     override fun buildUseCaseObservable(params: Section): Flowable<List<New>> {
@@ -63,7 +65,7 @@ class GetNews(
 
     private fun enrichWithPlaceholders(originalList: List<New>, emitter: FlowableEmitter<List<New>>) {
         if (originalList.any { it.thumb.isBlank() }) {
-            imagesRepository.getPlaceholders()
+            imagesRepository.getPlaceholders(deviceRepository.getScreenDensity())
                     .subscribeOn(workerThread)
                     .observeOn(postExecutionThread)
                     .subscribe { list, _ ->

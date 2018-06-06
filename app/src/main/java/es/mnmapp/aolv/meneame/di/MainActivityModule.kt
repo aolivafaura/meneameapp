@@ -1,12 +1,14 @@
 package es.mnmapp.aolv.meneame.di
 
-import es.mnmapp.aolv.data.repository.news.NewsDataRepository
-import es.mnmapp.aolv.data.repository.news.datasource.cloud.NewsCloudDataSource
+import es.mnmapp.aolv.data.repository.device.DeviceDataRepository
 import es.mnmapp.aolv.data.repository.images.ImagesDataRepository
 import es.mnmapp.aolv.data.repository.images.datasource.cloud.PlaceholdersCloudDataSource
 import es.mnmapp.aolv.data.repository.images.datasource.local.PlaceholdersLocalDataSource
-import es.mnmapp.aolv.domain.repository.NewsRepository
+import es.mnmapp.aolv.data.repository.news.NewsDataRepository
+import es.mnmapp.aolv.data.repository.news.datasource.cloud.NewsCloudDataSource
+import es.mnmapp.aolv.domain.repository.DeviceRepository
 import es.mnmapp.aolv.domain.repository.ImagesRepository
+import es.mnmapp.aolv.domain.repository.NewsRepository
 import es.mnmapp.aolv.domain.usecase.GetNews
 import es.mnmapp.aolv.meneame.ui.Navigation
 import es.mnmapp.aolv.meneame.ui.view.NavigationViewModel
@@ -34,7 +36,9 @@ val mainActivityModule = applicationContext {
         bean { PlaceholdersCloudDataSource(get(), get()) }
         bean { PlaceholdersLocalDataSource(get(), get("placeholdersDb")) }
 
-        bean { GetNews(get("uiThread"), get("workerThread"), get(), get()) }
+        bean<DeviceRepository> { DeviceDataRepository(get("screenDensity"), get("screenSize")) }
+
+        bean { GetNews(get("uiThread"), get("workerThread"), get(), get(), get()) }
 
         context("newsViewer") {
             viewModel { NewsViewerViewModel(get()) }

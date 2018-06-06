@@ -3,6 +3,7 @@ package es.mnmapp.aolv.data.repository.images.datasource.cloud
 import com.google.firebase.firestore.DocumentSnapshot
 import es.mnmapp.aolv.data.constants.*
 import es.mnmapp.aolv.data.entity.PlaceholderEntity
+import es.mnmapp.aolv.domain.repository.ScreenDensity
 
 data class PlaceholderCloudDto(val category: String,
                                val urls: PlaceholderUrls)
@@ -27,8 +28,12 @@ private fun mapToPlaceholderUrls(urls: Map<String, String>) =
                 urls[FIREBASE_PLACEHOLDERS_URL_SMALL] ?: ""
         )
 
-fun mapToPlaceholderEntity(placeholderCloudDto: PlaceholderCloudDto) =
+fun mapToPlaceholderEntity(placeholderCloudDto: PlaceholderCloudDto, screenDensity: ScreenDensity) =
         PlaceholderEntity(
                 placeholderCloudDto.category,
-                placeholderCloudDto.urls.regular
+                when (screenDensity) {
+                    ScreenDensity.Low -> placeholderCloudDto.urls.small
+                    ScreenDensity.Medium -> placeholderCloudDto.urls.regular
+                    ScreenDensity.Large -> placeholderCloudDto.urls.full
+                }
         )
