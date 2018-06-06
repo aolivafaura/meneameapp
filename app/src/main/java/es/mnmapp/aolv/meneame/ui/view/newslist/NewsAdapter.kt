@@ -61,7 +61,6 @@ class NewsAdapter : ListAdapter<NewCellUi, NewsAdapter.Holder>(NewDiffCallback()
                     title.setTextColor(titleColor)
                     source.setTextColor(titleColor)
                     backgroundView.setBackgroundColor(descriptionColor)
-                    backgroundView.requestLayout()
                 }
             }
             image.loadUrl(newCell.thumb, loadImageCallback)

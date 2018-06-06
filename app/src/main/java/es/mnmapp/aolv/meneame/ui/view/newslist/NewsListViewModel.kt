@@ -44,6 +44,7 @@ class NewsListViewModel(
     override fun onCleared() {
         super.onCleared()
         getNews.clear()
+        disposables.clear()
     }
 
     // Class methods -----
@@ -61,8 +62,5 @@ class NewsListViewModel(
     }
 
     // Inner classes -----
-    enum class ViewState {
-        Idle,
-        Refreshing
-    }
+    enum class ViewState { Idle, Refreshing }
 }
