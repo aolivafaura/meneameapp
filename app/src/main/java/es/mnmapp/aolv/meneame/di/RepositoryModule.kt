@@ -2,9 +2,10 @@ package es.mnmapp.aolv.meneame.di
 
 import com.google.firebase.firestore.FirebaseFirestore
 import es.mnmapp.aolv.data.EndpointUrls
-import es.mnmapp.aolv.meneame.di.repositoryproviders.createCacheDirectory
-import es.mnmapp.aolv.meneame.di.repositoryproviders.createMeneameService
-import es.mnmapp.aolv.meneame.di.repositoryproviders.createOkHttpClient
+import es.mnmapp.aolv.meneame.di.repositoryproviders.provideCacheDirectory
+import es.mnmapp.aolv.meneame.di.repositoryproviders.provideMeneameService
+import es.mnmapp.aolv.meneame.di.repositoryproviders.provideHttpClient
+import es.mnmapp.aolv.meneame.di.repositoryproviders.providesLocalDatabase
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module.applicationContext
 
@@ -14,9 +15,10 @@ import org.koin.dsl.module.applicationContext
  */
 
 val repositoryModule = applicationContext {
-    bean { createCacheDirectory(androidApplication().baseContext.cacheDir) }
+    bean { provideCacheDirectory(androidApplication().baseContext.cacheDir) }
     bean { getNetworkInterceptors(get()) }
-    bean { createOkHttpClient(get(), get()) }
-    bean { createMeneameService(get(), EndpointUrls.baseUrl) }
+    bean { provideHttpClient(get(), get()) }
+    bean { provideMeneameService(get(), EndpointUrls.baseUrl) }
     bean { FirebaseFirestore.getInstance() }
+    bean { providesLocalDatabase(androidApplication().baseContext) }
 }

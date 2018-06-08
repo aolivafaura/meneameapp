@@ -1,6 +1,7 @@
 package es.mnmapp.aolv.meneame.di
 
 import android.content.res.Configuration
+import es.mnmapp.aolv.data.database.LocalDatabase
 import es.mnmapp.aolv.data.repository.device.DeviceDataRepository
 import es.mnmapp.aolv.data.repository.images.ImagesDataRepository
 import es.mnmapp.aolv.data.repository.images.datasource.cloud.PlaceholdersCloudDataSource
@@ -11,7 +12,6 @@ import es.mnmapp.aolv.domain.repository.DeviceRepository
 import es.mnmapp.aolv.domain.repository.ImagesRepository
 import es.mnmapp.aolv.domain.repository.NewsRepository
 import es.mnmapp.aolv.domain.usecase.GetNews
-import es.mnmapp.aolv.meneame.di.repositoryproviders.createLocalDatabase
 import es.mnmapp.aolv.meneame.ui.Navigation
 import es.mnmapp.aolv.meneame.ui.view.NavigationViewModel
 import es.mnmapp.aolv.meneame.ui.view.newslist.NewsListViewModel
@@ -48,7 +48,7 @@ val mainActivityModule = applicationContext {
 
         // Images repository
         bean { PlaceholdersCloudDataSource(get(), get()) }
-        bean(KOIN_BEAN_PLACEHOLDER_DB) { createLocalDatabase(androidApplication()).placeholdersDao() }
+        bean(KOIN_BEAN_PLACEHOLDER_DB) { get<LocalDatabase>().placeholdersDao() }
         bean { PlaceholdersLocalDataSource(get(), get(KOIN_BEAN_PLACEHOLDER_DB)) }
         bean<ImagesRepository> { ImagesDataRepository(get(), get()) }
 
