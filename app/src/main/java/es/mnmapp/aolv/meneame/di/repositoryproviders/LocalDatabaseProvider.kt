@@ -20,7 +20,6 @@ import android.arch.persistence.room.Room
 import android.content.Context
 import es.mnmapp.aolv.data.database.LocalDatabase
 
-
 private const val LOCAL_DATABASE_NAME = "local"
 
 /**

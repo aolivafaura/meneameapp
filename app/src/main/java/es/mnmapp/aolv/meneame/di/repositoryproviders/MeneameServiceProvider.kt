@@ -19,7 +19,6 @@ package es.mnmapp.aolv.meneame.di.repositoryproviders
 import es.mnmapp.aolv.data.repository.news.datasource.cloud.MeneameService
 import okhttp3.OkHttpClient
 
-
 /**
  * Creates and provides meneame cloud service
  *

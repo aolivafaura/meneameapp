@@ -22,7 +22,6 @@ import okhttp3.OkHttpClient
 import java.io.File
 import java.util.concurrent.TimeUnit
 
-
 private const val NETWORK_READ_TIMEOUT = 20_000L // 20 seconds
 private const val NETWORK_WRITE_TIMEOUT = 20_000L // 20 seconds
 private const val NETWORK_CONNECT_TIMEOUT = 10_000L // 10 seconds
@@ -38,14 +37,14 @@ private const val CACHE_SIZE = 10L * 1024 * 1024 // 10 Mb
  * @return built http client
  */
 fun provideHttpClient(
-        httpCacheDirectory: File,
-        interceptors: ArrayList<Interceptor>
+    httpCacheDirectory: File,
+    interceptors: ArrayList<Interceptor>
 ): OkHttpClient {
     val builder = OkHttpClient.Builder()
-            .readTimeout(NETWORK_READ_TIMEOUT, TimeUnit.MILLISECONDS)
-            .writeTimeout(NETWORK_WRITE_TIMEOUT, TimeUnit.MILLISECONDS)
-            .connectTimeout(NETWORK_CONNECT_TIMEOUT, TimeUnit.MILLISECONDS)
-            .cache(Cache(httpCacheDirectory, CACHE_SIZE))
+        .readTimeout(NETWORK_READ_TIMEOUT, TimeUnit.MILLISECONDS)
+        .writeTimeout(NETWORK_WRITE_TIMEOUT, TimeUnit.MILLISECONDS)
+        .connectTimeout(NETWORK_CONNECT_TIMEOUT, TimeUnit.MILLISECONDS)
+        .cache(Cache(httpCacheDirectory, CACHE_SIZE))
 
     for (interceptor in interceptors) {
         builder.addNetworkInterceptor(interceptor)

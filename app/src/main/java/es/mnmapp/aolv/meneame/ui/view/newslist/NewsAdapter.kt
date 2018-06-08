@@ -1,3 +1,19 @@
+/*
+ *     Copyright 2018 @ https://github.com/aolivafaura/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *          http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package es.mnmapp.aolv.meneame.ui.view.newslist
 
 import android.support.v7.recyclerview.extensions.ListAdapter
@@ -10,25 +26,26 @@ import android.widget.ImageView
 import android.widget.TextView
 import es.mnmapp.aolv.meneame.R
 import es.mnmapp.aolv.meneame.entity.NewCellUi
-import es.mnmapp.aolv.meneame.ui.extensions.getColorsSet
-import es.mnmapp.aolv.meneame.ui.extensions.loadUrl
-
+import es.mnmapp.aolv.meneame.extensions.getColorsSet
+import es.mnmapp.aolv.meneame.extensions.loadUrl
 
 /**
- * Created by antoniojoseoliva on 02/08/2017.
+ * Adapter for news list fragment
  */
-
 class NewsAdapter : ListAdapter<NewCellUi, NewsAdapter.Holder>(NewDiffCallback()) {
 
     // Variables -----
+
     var onClickItem: ((NewCellUi, TextView) -> Unit) = { _, _ -> }
 
     // Initializer -----
+
     init {
         setHasStableIds(true)
     }
 
     // ListAdapter overrides -----
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return Holder(layoutInflater.inflate(R.layout.row_meneo, parent, false))
@@ -42,11 +59,13 @@ class NewsAdapter : ListAdapter<NewCellUi, NewsAdapter.Holder>(NewDiffCallback()
     override fun getItemId(position: Int) = getItem(position).id
 
     // Class methods -----
+
     fun updateList(news: List<NewCellUi>) {
         submitList(news)
     }
 
     // Inner classes -----
+
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val title = itemView.findViewById<TextView>(R.id.tvDescription)!!
@@ -71,11 +90,12 @@ class NewsAdapter : ListAdapter<NewCellUi, NewsAdapter.Holder>(NewDiffCallback()
     }
 
     private class NewDiffCallback : DiffUtil.ItemCallback<NewCellUi>() {
-        override fun areItemsTheSame(oldItem: NewCellUi?, newCellItem: NewCellUi?): Boolean = oldItem?.id == newCellItem?.id
-        override fun areContentsTheSame(oldItem: NewCellUi?, newCellItem: NewCellUi?): Boolean {
-            return oldItem?.id == newCellItem?.id
-                    && oldItem?.thumb == newCellItem?.thumb
-                    && oldItem?.logoUrl == newCellItem?.logoUrl
-        }
+        override fun areItemsTheSame(oldItem: NewCellUi?, newCellItem: NewCellUi?): Boolean =
+            oldItem?.id == newCellItem?.id
+
+        override fun areContentsTheSame(oldItem: NewCellUi?, newCellItem: NewCellUi?): Boolean =
+            oldItem?.id == newCellItem?.id &&
+                oldItem?.thumb == newCellItem?.thumb &&
+                oldItem?.logoUrl == newCellItem?.logoUrl
     }
 }

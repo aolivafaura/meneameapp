@@ -24,25 +24,28 @@ import android.view.View
 import android.view.ViewGroup
 import com.antoniooliva.logger.Lgr
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 
 /**
- * Created by antoniojoseoliva on 22/07/2017.
+ * Base fragment
  */
-
 abstract class BaseFragment : Fragment() {
 
     // Fields -----
+
     private val disposables = CompositeDisposable()
 
     // Fragment overrides -----
+
     override fun onResume() {
         super.onResume()
         Lgr.get().setCurrentScreen(activity!!, getAnalyticsName())
     }
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(getFragmentLayout(), container, false)
     }
 
@@ -52,8 +55,15 @@ abstract class BaseFragment : Fragment() {
     }
 
     // Abstract methods -----
+
+    /**
+     * @return layout associated with fragment
+     */
     @LayoutRes
     abstract fun getFragmentLayout(): Int
 
+    /**
+     * @return screen view name to report to analytics
+     */
     abstract fun getAnalyticsName(): String
 }

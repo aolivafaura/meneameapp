@@ -14,14 +14,21 @@
  * limitations under the License.
  */
 
-package es.mnmapp.aolv.meneame.di
-
-import es.mnmapp.aolv.data.testing.SimpleIdlingResource
-import org.koin.dsl.module.applicationContext
+package es.mnmapp.aolv.meneame.utils
 
 /**
- * Testing module definitions
+ * Alpha levels in use
  */
-val testingModule = applicationContext {
-    bean { SimpleIdlingResource() }
+enum class ColorAlpha(val value: String) {
+    Alpha100("FF"),
+    Alpha90("F2"),
+    Alpha80("CC"),
+    Alpha70("B3"),
+    Alpha60("99"),
+    Alpha50("80"),
+    Alpha40("66"),
+    Alpha30("4D"),
+    Alpha20("33"),
+    Alpha10("1A"),
+    Alpha0("00")
 }

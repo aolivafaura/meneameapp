@@ -25,7 +25,6 @@ import es.mnmapp.aolv.meneame.di.repositoryproviders.providesLocalDatabase
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module.applicationContext
 
-
 /**
  * Repository module definitions
  */

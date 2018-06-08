@@ -23,7 +23,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.koin.dsl.module.applicationContext
 
-
 const val KOIN_BEAN_UI_THREAD = "uiThread"
 const val KOIN_BEAN_WORKER_THREAD = "workerThread"
 

@@ -18,7 +18,6 @@ package es.mnmapp.aolv.meneame.di
 
 import org.koin.dsl.module.Module
 
-
 /**
  * Provides koin modules in use
  */

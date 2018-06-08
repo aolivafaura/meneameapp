@@ -36,7 +36,6 @@ import org.koin.android.architecture.ext.viewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module.applicationContext
 
-
 // Koin context constants
 const val KOIN_CONTEXT_LIST_VIEW = "listFragment"
 const val KOIN_CONTEXT_NEWS_DETAIL_VIEW = "newsViewer"
@@ -103,7 +102,7 @@ val viewsModule = applicationContext {
 
         // News detail fragment definitions
         context(KOIN_CONTEXT_NEWS_DETAIL_VIEW) {
-            viewModel { NewsViewerViewModel(validator = get(), connectivity = get()) }
+            viewModel { NewsViewerViewModel(validator = get()) }
         }
     }
 }
