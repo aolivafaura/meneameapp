@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:orientation="horizontal"
-    tools:parentTag="android.widget.RelativeLayout">
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:orientation="horizontal"
+	tools:parentTag="android.widget.RelativeLayout">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/shareWithMnm"
-        android:ellipsize="end"
-        android:lines="1"
-        tools:text="The newCell title awesome. Very large title is needed. C'mon." />
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentStart="true"
+		android:layout_centerVertical="true"
+		android:layout_toStartOf="@+id/shareWithMnm"
+		android:ellipsize="end"
+		android:lines="1"
+		tools:text="The newCell title awesome. Very large title is needed. C'mon." />
 
-    <ImageButton
-        android:id="@+id/shareWithMnm"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:scaleType="fitXY"
-        android:src="@mipmap/ic_launcher_round" />
+	<ImageButton
+		android:id="@+id/shareWithMnm"
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent"
+		android:layout_alignParentEnd="true"
+		android:importantForAccessibility="no"
+		android:scaleType="fitXY"
+		android:src="@mipmap/ic_launcher_round" />
 </merge>

@@ -9,7 +9,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import es.mnmapp.aolv.meneame.R
 import es.mnmapp.aolv.meneame.ui.BaseFragment
-import es.mnmapp.aolv.meneame.ui.extensions.fadeOut
+import es.mnmapp.aolv.meneame.extensions.fadeOut
 import kotlinx.android.synthetic.main.web_view_fragment.*
 import org.koin.android.ext.android.inject
 

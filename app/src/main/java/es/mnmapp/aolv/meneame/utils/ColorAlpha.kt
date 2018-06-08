@@ -14,20 +14,21 @@
  * limitations under the License.
  */
 
-package es.mnmapp.aolv.meneame.di.repositoryproviders
-
-import android.arch.persistence.room.Room
-import android.content.Context
-import es.mnmapp.aolv.data.database.LocalDatabase
-
-private const val LOCAL_DATABASE_NAME = "local"
+package es.mnmapp.aolv.meneame.utils
 
 /**
- * Creates and provides local database
- *
- * @param[context]
- *
- * @return local database
+ * Alpha levels in use
  */
-fun providesLocalDatabase(context: Context): LocalDatabase =
-    Room.databaseBuilder(context, LocalDatabase::class.java, LOCAL_DATABASE_NAME).build()
+enum class ColorAlpha(val value: String) {
+    Alpha100("FF"),
+    Alpha90("F2"),
+    Alpha80("CC"),
+    Alpha70("B3"),
+    Alpha60("99"),
+    Alpha50("80"),
+    Alpha40("66"),
+    Alpha30("4D"),
+    Alpha20("33"),
+    Alpha10("1A"),
+    Alpha0("00")
+}

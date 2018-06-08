@@ -5,12 +5,10 @@ import es.mnmapp.aolv.data.testing.SimpleIdlingResource
 import es.mnmapp.aolv.domain.entity.New
 import io.reactivex.Flowable
 
-/**
- * Created by antoniojoseoliva on 19/07/2017.
- */
-
-class NewsCloudDataSource(private val idlingResource: SimpleIdlingResource,
-                          private val meneameService: MeneameService) {
+class NewsCloudDataSource(
+    private val idlingResource: SimpleIdlingResource,
+    private val meneameService: MeneameService
+) {
 
     fun getPopular() = getFromCloud("top_visited")
 

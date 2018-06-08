@@ -1,10 +1,14 @@
 package es.mnmapp.aolv.meneame.ui.view.newslist
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
-import com.nhaarman.mockito_kotlin.*
+import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.argumentCaptor
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.times
+import com.nhaarman.mockito_kotlin.verify
 import es.mnmapp.aolv.domain.entity.New
 import es.mnmapp.aolv.domain.usecase.GetNews
-import es.mnmapp.aolv.meneame.entity.mapper.fromNewToNewCellUi
+import es.mnmapp.aolv.meneame.entity.fromNewToNewCellUi
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule

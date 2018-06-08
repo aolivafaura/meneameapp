@@ -6,7 +6,4 @@ package es.mnmapp.aolv.meneame
 
 class MnmTestingApp : MnmApp() {
 
-    override fun onCreate() {
-        super.onCreate()
-    }
 }

@@ -11,8 +11,10 @@ import io.reactivex.Single
 import io.reactivex.SingleEmitter
 import io.reactivex.internal.operators.single.SingleCreate
 
-class PlaceholdersCloudDataSource(private val idlingResource: SimpleIdlingResource,
-                                  private val firestoneDb: FirebaseFirestore) {
+class PlaceholdersCloudDataSource(
+    private val idlingResource: SimpleIdlingResource,
+    private val firestoneDb: FirebaseFirestore
+) {
 
     fun getPlaceholders(screenDensity: ScreenDensity): Single<List<PlaceholderEntity>> {
         fun handleResponse(task: Task<QuerySnapshot>, emitter: SingleEmitter<List<PlaceholderEntity>>) {
@@ -20,8 +22,13 @@ class PlaceholdersCloudDataSource(private val idlingResource: SimpleIdlingResour
 
             val result = task.result.documents
             if (task.isSuccessful && result.isNotEmpty()) {
-                @Suppress("UNCHECKED_CAST")
-                emitter.onSuccess(mapToPlaceholderCloudDto(result).map { mapToPlaceholderEntity(it, screenDensity) })
+                @Suppress("unchecked_cast")
+                emitter.onSuccess(mapToPlaceholderCloudDto(result).map {
+                    mapToPlaceholderEntity(
+                        it,
+                        screenDensity
+                    )
+                })
             } else {
                 emitter.onError(Throwable())
             }
@@ -36,13 +43,13 @@ class PlaceholdersCloudDataSource(private val idlingResource: SimpleIdlingResour
 
         return SingleCreate { emitter ->
             firestoneDb.collection(FIREBASE_COLLECTION_PLACEHOLDERS)
-                    .get()
-                    .addOnCompleteListener { task ->
-                        handleResponse(task, emitter)
-                    }
-                    .addOnFailureListener {
-                        handleError(emitter)
-                    }
+                .get()
+                .addOnCompleteListener { task ->
+                    handleResponse(task, emitter)
+                }
+                .addOnFailureListener {
+                    handleError(emitter)
+                }
         }
     }
 }

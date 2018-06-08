@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply from: '../config/dependencies.gradle'
+apply from: '../ktlint.gradle'
 
 android {
 	compileSdkVersion rootProject.compileSdkVersion

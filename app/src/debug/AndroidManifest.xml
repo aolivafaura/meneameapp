@@ -2,7 +2,7 @@
     package="es.mnmapp.aolv.meneame"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <application
-        android:name=".MnmDebugApp"
-        tools:replace="name"></application>
+	<application
+		android:name=".MnmDebugApp"
+		tools:replace="name" />
 </manifest>

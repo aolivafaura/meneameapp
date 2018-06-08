@@ -1,0 +1,1194 @@
+[
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/build/ktlint.xml src/**/*.kt",
+		"errors": [
+			{
+				"line": 1,
+				"column": 1,
+				"message": "Not a valid Kotlin file (expecting a top level declaration)",
+				"rule": ""
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/androidTest/java/es/mnmapp/aolv/meneame/ListFragmentTest.kt",
+		"errors": [
+			{
+				"line": 28,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/androidTest/java/es/mnmapp/aolv/meneame/MnmTestingApp.kt",
+		"errors": [
+			{
+				"line": 7,
+				"column": 32,
+				"message": "Unnecessary block (\"{}\")",
+				"rule": "no-empty-class-body"
+			},
+			{
+				"line": 8,
+				"column": 1,
+				"message": "Unexpected blank line(s) before \"}\"",
+				"rule": "no-blank-line-before-rbrace"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/androidTest/java/es/mnmapp/aolv/meneame/mockdispatcher/MockResponsesDispatcher.kt",
+		"errors": [
+			{
+				"line": 9,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			},
+			{
+				"line": 13,
+				"column": 13,
+				"message": "Missing spacing after \"when\"",
+				"rule": "keyword-spacing"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/androidTest/java/es/mnmapp/aolv/meneame/pageobjects/ListPageObject.kt",
+		"errors": [
+			{
+				"line": 18,
+				"column": 1,
+				"message": "Unexpected blank line(s) before \"}\"",
+				"rule": "no-blank-line-before-rbrace"
+			},
+			{
+				"line": 22,
+				"column": 1,
+				"message": "Unexpected blank line(s) before \"}\"",
+				"rule": "no-blank-line-before-rbrace"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/androidTest/java/es/mnmapp/aolv/meneame/utils/FileUtil.kt",
+		"errors": [
+			{
+				"line": 12,
+				"column": 35,
+				"message": "Unexpected spacing before \":\"",
+				"rule": "colon-spacing"
+			},
+			{
+				"line": 12,
+				"column": 45,
+				"message": "Unexpected spacing before \":\"",
+				"rule": "colon-spacing"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/debug/java/es/mnmapp/aolv/meneame/MnmDebugApp.kt",
+		"errors": [
+			{
+				"line": 6,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/connectivity/Connectivity.kt",
+		"errors": [
+			{
+				"line": 27,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/di/AppModule.kt",
+		"errors": [
+			{
+				"line": 26,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/di/Modules.kt",
+		"errors": [
+			{
+				"line": 21,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/di/RepositoryModule.kt",
+		"errors": [
+			{
+				"line": 28,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/di/TestingModule.kt",
+		"errors": [
+			{
+				"line": 22,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/di/ViewsModule.kt",
+		"errors": [
+			{
+				"line": 39,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/di/repositoryproviders/CacheDirectoryProvider.kt",
+		"errors": [
+			{
+				"line": 21,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/di/repositoryproviders/HttpClientProvider.kt",
+		"errors": [
+			{
+				"line": 25,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			},
+			{
+				"line": 41,
+				"column": 9,
+				"message": "Unexpected indentation (expected 4, actual 8)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 42,
+				"column": 9,
+				"message": "Unexpected indentation (expected 4, actual 8)",
+				"rule": "parameter-list-wrapping"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/di/repositoryproviders/LocalDatabaseProvider.kt",
+		"errors": [
+			{
+				"line": 23,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/di/repositoryproviders/MeneameServiceProvider.kt",
+		"errors": [
+			{
+				"line": 22,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/entity/NewCellUi.kt",
+		"errors": [
+			{
+				"line": 21,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			},
+			{
+				"line": 26,
+				"column": 3,
+				"message": "Unexpected indentation (expected 4, actual 2)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 27,
+				"column": 3,
+				"message": "Unexpected indentation (expected 4, actual 2)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 28,
+				"column": 3,
+				"message": "Unexpected indentation (expected 4, actual 2)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 29,
+				"column": 3,
+				"message": "Unexpected indentation (expected 4, actual 2)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 30,
+				"column": 3,
+				"message": "Unexpected indentation (expected 4, actual 2)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 31,
+				"column": 3,
+				"message": "Unexpected indentation (expected 4, actual 2)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 32,
+				"column": 3,
+				"message": "Unexpected indentation (expected 4, actual 2)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 33,
+				"column": 3,
+				"message": "Unexpected indentation (expected 4, actual 2)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 34,
+				"column": 3,
+				"message": "Unexpected indentation (expected 4, actual 2)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 35,
+				"column": 3,
+				"message": "Unexpected indentation (expected 4, actual 2)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 36,
+				"column": 3,
+				"message": "Unexpected indentation (expected 4, actual 2)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 47,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 48,
+				"column": 1,
+				"message": "Unexpected indentation (4) (it should be 6)",
+				"rule": "indent"
+			},
+			{
+				"line": 49,
+				"column": 1,
+				"message": "Unexpected indentation (4) (it should be 6)",
+				"rule": "indent"
+			},
+			{
+				"line": 50,
+				"column": 1,
+				"message": "Unexpected indentation (4) (it should be 6)",
+				"rule": "indent"
+			},
+			{
+				"line": 51,
+				"column": 1,
+				"message": "Unexpected indentation (4) (it should be 6)",
+				"rule": "indent"
+			},
+			{
+				"line": 52,
+				"column": 1,
+				"message": "Unexpected indentation (4) (it should be 6)",
+				"rule": "indent"
+			},
+			{
+				"line": 53,
+				"column": 1,
+				"message": "Unexpected indentation (4) (it should be 6)",
+				"rule": "indent"
+			},
+			{
+				"line": 54,
+				"column": 1,
+				"message": "Unexpected indentation (4) (it should be 6)",
+				"rule": "indent"
+			},
+			{
+				"line": 55,
+				"column": 1,
+				"message": "Unexpected indentation (4) (it should be 6)",
+				"rule": "indent"
+			},
+			{
+				"line": 56,
+				"column": 1,
+				"message": "Unexpected indentation (4) (it should be 6)",
+				"rule": "indent"
+			},
+			{
+				"line": 57,
+				"column": 1,
+				"message": "Unexpected indentation (4) (it should be 6)",
+				"rule": "indent"
+			},
+			{
+				"line": 58,
+				"column": 1,
+				"message": "Unexpected indentation (4) (it should be 6)",
+				"rule": "indent"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/interceptors/LocalCacheInterceptor.kt",
+		"errors": [
+			{
+				"line": 25,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			},
+			{
+				"line": 30,
+				"column": 9,
+				"message": "Unexpected indentation (expected 4, actual 8)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 31,
+				"column": 9,
+				"message": "Unexpected indentation (expected 4, actual 8)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 32,
+				"column": 9,
+				"message": "Unexpected indentation (expected 4, actual 8)",
+				"rule": "parameter-list-wrapping"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/ui/BaseActivity.kt",
+		"errors": [
+			{
+				"line": 7,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/ui/BaseFragment.kt",
+		"errors": [
+			{
+				"line": 27,
+				"column": 1,
+				"message": "Unused import",
+				"rule": "no-unused-imports"
+			},
+			{
+				"line": 44,
+				"column": 31,
+				"message": "Parameter should be on a separate line (unless all parameters can fit a single line)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 45,
+				"column": 31,
+				"message": "Unexpected indentation (expected 8, actual 30)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 45,
+				"column": 54,
+				"message": "Parameter should be on a separate line (unless all parameters can fit a single line)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 45,
+				"column": 81,
+				"message": "Missing newline before \")\"",
+				"rule": "parameter-list-wrapping"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/ui/componets/MnmToolbarContentView.kt",
+		"errors": [
+			{
+				"line": 10,
+				"column": 9,
+				"message": "Unexpected indentation (expected 4, actual 8)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 11,
+				"column": 9,
+				"message": "Unexpected indentation (expected 4, actual 8)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 12,
+				"column": 9,
+				"message": "Unexpected indentation (expected 4, actual 8)",
+				"rule": "parameter-list-wrapping"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/ui/extensions/ActivityExt.kt",
+		"errors": [
+			{
+				"line": 8,
+				"column": 36,
+				"message": "Parameter should be on a separate line (unless all parameters can fit a single line)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 9,
+				"column": 36,
+				"message": "Unexpected indentation (expected 4, actual 35)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 10,
+				"column": 36,
+				"message": "Unexpected indentation (expected 4, actual 35)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 10,
+				"column": 68,
+				"message": "Missing newline before \")\"",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 25,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/ui/extensions/ViewExt.kt",
+		"errors": [
+			{
+				"line": 14,
+				"column": 1,
+				"message": "Wildcard import",
+				"rule": "no-wildcard-imports"
+			},
+			{
+				"line": 16,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			},
+			{
+				"line": 23,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 27,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 31,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 35,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 39,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 40,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 41,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 42,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 44,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 45,
+				"column": 1,
+				"message": "Unexpected indentation (3) (it should be 6)",
+				"rule": "indent"
+			},
+			{
+				"line": 48,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 50,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 53,
+				"column": 23,
+				"message": "Parameter should be on a separate line (unless all parameters can fit a single line)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 54,
+				"column": 8,
+				"message": "Unexpected indentation (expected 4, actual 7)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 55,
+				"column": 8,
+				"message": "Unexpected indentation (expected 4, actual 7)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 55,
+				"column": 43,
+				"message": "Missing newline before \")\"",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 56,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 57,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 58,
+				"column": 1,
+				"message": "Unexpected indentation (3) (it should be 6)",
+				"rule": "indent"
+			},
+			{
+				"line": 59,
+				"column": 1,
+				"message": "Unexpected indentation (4) (it should be 7)",
+				"rule": "indent"
+			},
+			{
+				"line": 60,
+				"column": 1,
+				"message": "Unexpected indentation (5) (it should be 8)",
+				"rule": "indent"
+			},
+			{
+				"line": 63,
+				"column": 1,
+				"message": "Unexpected indentation (4) (it should be 7)",
+				"rule": "indent"
+			},
+			{
+				"line": 64,
+				"column": 1,
+				"message": "Unexpected indentation (5) (it should be 8)",
+				"rule": "indent"
+			},
+			{
+				"line": 68,
+				"column": 1,
+				"message": "Unexpected indentation (3) (it should be 6)",
+				"rule": "indent"
+			},
+			{
+				"line": 74,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 75,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 76,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 78,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 79,
+				"column": 1,
+				"message": "Unexpected indentation (4) (it should be 6)",
+				"rule": "indent"
+			},
+			{
+				"line": 80,
+				"column": 1,
+				"message": "Unexpected indentation (4) (it should be 6)",
+				"rule": "indent"
+			},
+			{
+				"line": 84,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 85,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 88,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 89,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 90,
+				"column": 1,
+				"message": "Unexpected indentation (3) (it should be 6)",
+				"rule": "indent"
+			},
+			{
+				"line": 92,
+				"column": 1,
+				"message": "Unexpected indentation (4) (it should be 7)",
+				"rule": "indent"
+			},
+			{
+				"line": 93,
+				"column": 1,
+				"message": "Unexpected indentation (5) (it should be 8)",
+				"rule": "indent"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/ui/view/newslist/NewsAdapter.kt",
+		"errors": [
+			{
+				"line": 16,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			},
+			{
+				"line": 77,
+				"column": 21,
+				"message": "Line must not begin with \"&&\"",
+				"rule": "chain-wrapping"
+			},
+			{
+				"line": 78,
+				"column": 21,
+				"message": "Line must not begin with \"&&\"",
+				"rule": "chain-wrapping"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/ui/view/newslist/NewsListFragment.kt",
+		"errors": [
+			{
+				"line": 18,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/ui/view/newslist/NewsListViewModel.kt",
+		"errors": [
+			{
+				"line": 19,
+				"column": 9,
+				"message": "Unexpected indentation (expected 4, actual 8)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 20,
+				"column": 9,
+				"message": "Unexpected indentation (expected 4, actual 8)",
+				"rule": "parameter-list-wrapping"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/ui/view/newsviewer/NewsViewerViewModel.kt",
+		"errors": [
+			{
+				"line": 9,
+				"column": 9,
+				"message": "Unexpected indentation (expected 4, actual 8)",
+				"rule": "parameter-list-wrapping"
+			},
+			{
+				"line": 10,
+				"column": 9,
+				"message": "Unexpected indentation (expected 4, actual 8)",
+				"rule": "parameter-list-wrapping"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/utils/ColorAlpha.kt",
+		"errors": [
+			{
+				"line": 23,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 24,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 25,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 26,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 27,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 28,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 29,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 30,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 31,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 32,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 33,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/utils/ColorUtils.kt",
+		"errors": [
+			{
+				"line": 23,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			},
+			{
+				"line": 32,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 33,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 34,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 35,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 42,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 43,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 44,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 45,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 47,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 49,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 50,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 58,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			},
+			{
+				"line": 63,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 4)",
+				"rule": "indent"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/test/java/es/mnmapp/aolv/meneame/ui/view/MainActivityTest.kt",
+		"errors": [
+			{
+				"line": 10,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			}
+		]
+	},
+	{
+		"file": "/home/antonio/Projects/meneameapp/app/src/test/java/es/mnmapp/aolv/meneame/ui/view/newslist/NewsListViewModelTest.kt",
+		"errors": [
+			{
+				"line": 4,
+				"column": 1,
+				"message": "Wildcard import",
+				"rule": "no-wildcard-imports"
+			},
+			{
+				"line": 14,
+				"column": 1,
+				"message": "Needless blank line(s)",
+				"rule": "no-consecutive-blank-lines"
+			},
+			{
+				"line": 20,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 21,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 23,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 25,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 26,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 28,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 30,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 32,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 35,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 37,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 38,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 41,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 43,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 44,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 47,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 49,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 51,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 52,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 53,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 54,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 57,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 59,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 61,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 62,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 63,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 64,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 67,
+				"column": 1,
+				"message": "Unexpected indentation (1) (it should be 4)",
+				"rule": "indent"
+			},
+			{
+				"line": 69,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 71,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 72,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 73,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			},
+			{
+				"line": 74,
+				"column": 1,
+				"message": "Unexpected indentation (2) (it should be 5)",
+				"rule": "indent"
+			}
+		]
+	}
+]

@@ -1,3 +1,19 @@
+/*
+ *     Copyright 2018 @ https://github.com/aolivafaura/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *          http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package es.mnmapp.aolv.meneame.ui.view.newslist
 
 import android.arch.lifecycle.Observer
@@ -15,21 +31,22 @@ import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.architecture.ext.sharedViewModel
 import org.koin.android.architecture.ext.viewModel
 
-
 /**
- * Created by antoniojoseoliva on 22/07/2017.
+ * Fragment to display news list
  */
-
 class NewsListFragment : BaseFragment() {
 
     // Fields -----
+
     private val navigationViewModel by sharedViewModel<NavigationViewModel>()
     private val newsListViewModel by viewModel<NewsListViewModel>()
 
     // Variables -----
+
     private lateinit var listAdapter: NewsAdapter
 
     // Fragment overrides -----
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -93,6 +110,7 @@ class NewsListFragment : BaseFragment() {
     }
 
     // BaseFragment overrides -----
+
     override fun getFragmentLayout() = R.layout.fragment_main
 
     override fun getAnalyticsName() = "NewsList"
