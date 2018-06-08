@@ -28,4 +28,4 @@ import okhttp3.OkHttpClient
  * @return meneame cloud service
  */
 fun provideMeneameService(okHttpClient: OkHttpClient, baseUrl: String): MeneameService =
-        MeneameService.create(okHttpClient, baseUrl)
+    MeneameService.create(okHttpClient, baseUrl)

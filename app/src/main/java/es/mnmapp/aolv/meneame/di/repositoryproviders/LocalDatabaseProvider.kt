@@ -30,4 +30,4 @@ private const val LOCAL_DATABASE_NAME = "local"
  * @return local database
  */
 fun providesLocalDatabase(context: Context): LocalDatabase =
-        Room.databaseBuilder(context, LocalDatabase::class.java, LOCAL_DATABASE_NAME).build()
+    Room.databaseBuilder(context, LocalDatabase::class.java, LOCAL_DATABASE_NAME).build()
