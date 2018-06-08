@@ -39,6 +39,7 @@ import org.koin.dsl.module.applicationContext
 // Koin context constants
 const val KOIN_CONTEXT_LIST_VIEW = "listFragment"
 const val KOIN_CONTEXT_NEWS_DETAIL_VIEW = "newsViewer"
+
 // Koin beans constants
 const val KOIN_BEAN_PLACEHOLDER_DB = "placeholderDb"
 const val KOIN_BEAN_SCREEN_DENSITY = "screenDensity"
