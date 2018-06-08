@@ -31,10 +31,13 @@ class LocalCacheInterceptor(
     private val cacheMaxStale: Int
 ) : Interceptor {
 
+    private val cacheControlMaxAge = 0
+    private val cacheControlMaxStale = 0
+
     override fun intercept(chain: Interceptor.Chain?): Response {
         val cacheBuilder = CacheControl.Builder().apply {
-            maxAge(0, TimeUnit.SECONDS)
-            maxStale(365, TimeUnit.DAYS)
+            maxAge(cacheControlMaxAge, TimeUnit.MILLISECONDS)
+            maxStale(cacheControlMaxStale, TimeUnit.DAYS)
         }
 
         val cacheControl = cacheBuilder.build()
