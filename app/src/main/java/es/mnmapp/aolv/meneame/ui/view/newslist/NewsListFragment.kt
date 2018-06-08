@@ -6,8 +6,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
 import es.mnmapp.aolv.meneame.R
-import es.mnmapp.aolv.meneame.R.id.rvListNews
-import es.mnmapp.aolv.meneame.R.id.swiperefresh
 import es.mnmapp.aolv.meneame.connectivity.Connectivity
 import es.mnmapp.aolv.meneame.entity.NewCellUi
 import es.mnmapp.aolv.meneame.ui.BaseActivity
