@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED")
+
 package es.mnmapp.aolv.meneame.utils
 
 import android.graphics.Color

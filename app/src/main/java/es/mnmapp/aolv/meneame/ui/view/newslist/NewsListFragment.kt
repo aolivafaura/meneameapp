@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
 import es.mnmapp.aolv.meneame.R
+import es.mnmapp.aolv.meneame.R.id.rvListNews
+import es.mnmapp.aolv.meneame.R.id.swiperefresh
 import es.mnmapp.aolv.meneame.connectivity.Connectivity
 import es.mnmapp.aolv.meneame.entity.NewCellUi
 import es.mnmapp.aolv.meneame.ui.BaseActivity
@@ -23,13 +25,16 @@ import org.koin.android.architecture.ext.viewModel
 class NewsListFragment : BaseFragment() {
 
     // Fields -----
+
     private val navigationViewModel by sharedViewModel<NavigationViewModel>()
     private val newsListViewModel by viewModel<NewsListViewModel>()
 
     // Variables -----
+
     private lateinit var listAdapter: NewsAdapter
 
     // Fragment overrides -----
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
