@@ -16,7 +16,6 @@
 
 package es.mnmapp.aolv.meneame.di
 
-import android.content.res.Configuration
 import es.mnmapp.aolv.data.database.LocalDatabase
 import es.mnmapp.aolv.data.repository.device.DeviceDataRepository
 import es.mnmapp.aolv.data.repository.images.ImagesDataRepository
@@ -40,70 +39,73 @@ import org.koin.dsl.module.applicationContext
 const val KOIN_CONTEXT_LIST_VIEW = "listFragment"
 const val KOIN_CONTEXT_NEWS_DETAIL_VIEW = "newsViewer"
 
-// Koin beans constants
-const val KOIN_BEAN_PLACEHOLDER_DB = "placeholderDb"
-const val KOIN_BEAN_SCREEN_DENSITY = "screenDensity"
-const val KOIN_BEAN_SCREEN_SIZE = "screenSize"
-
 /**
  * View beans definition
  */
 val viewsModule = applicationContext {
-    bean {
-        Navigation()
-    }
+    // View model
     viewModel {
         NavigationViewModel(navigation = get())
     }
 
+    bean {
+        Navigation()
+    }
+
     // News list fragment definitions
     context(KOIN_CONTEXT_LIST_VIEW) {
+        // View model
         viewModel {
             NewsListViewModel(getNews = get(), connectivity = get())
         }
 
         // News data repository
-        bean { NewsCloudDataSource(idlingResource = get(), meneameService = get()) }
-        bean<NewsRepository> { NewsDataRepository(newsCloudDataSource = get()) }
+        bean {
+            NewsCloudDataSource(idlingResource = get(), meneameService = get())
+        }
+        bean<NewsRepository> {
+            NewsDataRepository(newsCloudDataSource = get())
+        }
 
         // Images repository
-        bean { PlaceholdersCloudDataSource(idlingResource = get(), firestoneDb = get()) }
-        bean(KOIN_BEAN_PLACEHOLDER_DB) { get<LocalDatabase>().placeholdersDao() }
+        bean {
+            PlaceholdersCloudDataSource(idlingResource = get(), firestoneDb = get())
+        }
         bean {
             PlaceholdersLocalDataSource(
-                    idlingResource = get(),
-                    placeholdersRoomDao = get(KOIN_BEAN_PLACEHOLDER_DB)
+                idlingResource = get(),
+                placeholdersRoomDao = get<LocalDatabase>().placeholdersDao()
             )
         }
         bean<ImagesRepository> {
             ImagesDataRepository(
-                    placeholdersCloudDataSource = get(),
-                    placeholdersLocalDataSource = get()
+                placeholdersCloudDataSource = get(),
+                placeholdersLocalDataSource = get()
             )
         }
 
         // Device repository
-        bean(KOIN_BEAN_SCREEN_SIZE) {
-            androidApplication().baseContext.resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK
+        bean<DeviceRepository> {
+            DeviceDataRepository(androidApplication().baseContext.resources)
         }
-        bean(KOIN_BEAN_SCREEN_DENSITY) {
-            androidApplication().baseContext.resources.displayMetrics.density
-        }
-        bean<DeviceRepository> { DeviceDataRepository(androidApplication().baseContext.resources) }
 
+        // Use cases
         bean {
             GetNews(
-                    postExecutionThread = get(KOIN_BEAN_UI_THREAD),
-                    workerThread = get(KOIN_BEAN_WORKER_THREAD),
-                    newsRepository = get(),
-                    imagesRepository = get(),
-                    deviceRepository = get()
+                postExecutionThread = get(KOIN_BEAN_UI_THREAD),
+                workerThread = get(KOIN_BEAN_WORKER_THREAD),
+                newsRepository = get(),
+                imagesRepository = get(),
+                deviceRepository = get()
             )
         }
 
         // News detail fragment definitions
         context(KOIN_CONTEXT_NEWS_DETAIL_VIEW) {
-            viewModel { NewsViewerViewModel(validator = get()) }
+            // View model
+            viewModel {
+                NewsViewerViewModel(validator = get())
+            }
         }
     }
 }
