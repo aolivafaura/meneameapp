@@ -4,17 +4,7 @@ Could not find google-services.json while looking in [src/prod/minifiedDebug, sr
 registerResGeneratingTask is deprecated, use registerGeneratedResFolders(FileCollection)
 Could not find google-services.json while looking in [src/dev/debug, src/debug, src/dev]
 registerResGeneratingTask is deprecated, use registerGeneratedResFolders(FileCollection)
-:app:ktlint
-/home/antonio/Projects/meneameapp/app/src/androidTest/java/es/mnmapp/aolv/meneame/ListFragmentTest.kt:28:1: Needless blank line(s)
-/home/antonio/Projects/meneameapp/app/src/androidTest/java/es/mnmapp/aolv/meneame/MnmTestingApp.kt:7:32: Unnecessary block ("{}")
-/home/antonio/Projects/meneameapp/app/src/androidTest/java/es/mnmapp/aolv/meneame/MnmTestingApp.kt:8:1: Unexpected blank line(s) before "}"
-/home/antonio/Projects/meneameapp/app/src/androidTest/java/es/mnmapp/aolv/meneame/mockdispatcher/MockResponsesDispatcher.kt:9:1: Needless blank line(s)
-/home/antonio/Projects/meneameapp/app/src/androidTest/java/es/mnmapp/aolv/meneame/mockdispatcher/MockResponsesDispatcher.kt:13:13: Missing spacing after "when"
-/home/antonio/Projects/meneameapp/app/src/androidTest/java/es/mnmapp/aolv/meneame/pageobjects/ListPageObject.kt:18:1: Unexpected blank line(s) before "}"
-/home/antonio/Projects/meneameapp/app/src/androidTest/java/es/mnmapp/aolv/meneame/pageobjects/ListPageObject.kt:22:1: Unexpected blank line(s) before "}"
-/home/antonio/Projects/meneameapp/app/src/androidTest/java/es/mnmapp/aolv/meneame/utils/FileUtil.kt:12:35: Unexpected spacing before ":"
-/home/antonio/Projects/meneameapp/app/src/androidTest/java/es/mnmapp/aolv/meneame/utils/FileUtil.kt:12:45: Unexpected spacing before ":"
-/home/antonio/Projects/meneameapp/app/src/test/java/es/mnmapp/aolv/meneame/ui/view/MainActivityTest.kt:10:1: Needless blank line(s)
-/home/antonio/Projects/meneameapp/app/src/test/java/es/mnmapp/aolv/meneame/ui/view/newslist/NewsListViewModelTest.kt:18:1: Needless blank line(s)
-:app:ktlint FAILED
+:data:ktlint
+/home/antonio/Projects/meneameapp/data/src/test/java/es/mnmapp/aolv/data/repository/NewsDataRepositoryTest.kt:20:17: Missing spacing before "{"
+:data:ktlint FAILED
 1 actionable task: 1 executed
