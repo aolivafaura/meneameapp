@@ -12,7 +12,7 @@ buildscript {
         //noinspection GradleDynamicVersion
         classpath 'io.fabric.tools:gradle:1.+'
         classpath 'com.google.gms:google-services:3.1.2'
-        classpath 'org.jacoco:org.jacoco.core:0.7.9'
+        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.2'
     }
 }
 
@@ -24,7 +24,7 @@ allprojects {
         maven { url 'https://jitpack.io' }
         maven { url 'https://maven.google.com' }
         maven { url 'https://maven.fabric.io/public' }
-        maven { url  "https://dl.bintray.com/ekito/koin" }
+        maven { url "https://dl.bintray.com/ekito/koin" }
     }
 }
 
