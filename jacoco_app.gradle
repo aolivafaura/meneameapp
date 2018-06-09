@@ -1,63 +1,61 @@
 apply plugin: 'jacoco'
 
-project.afterEvaluate {
-    // Grab all build types and product flavors
-    def buildTypes = android.buildTypes.collect { type ->
-        type.name
+jacoco {
+    toolVersion = '0.8.0'
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDevDebugUnitTest']) {
+    reports {
+        xml.enabled = true
+        html.enabled = true
     }
-    def productFlavors = android.productFlavors.collect { flavor ->
-        flavor.name
-    }
-    // When no product flavors defined, use empty
-    if (!productFlavors) productFlavors.add('')
 
-    productFlavors.each { productFlavorName ->
-        buildTypes.each { buildTypeName ->
-            def sourceName
-            if (productFlavorName) {
-                sourceName = "${productFlavorName}${buildTypeName.capitalize()}"
-            } else {
-                sourceName = ''
-            }
-            def testTaskName = "test${sourceName.capitalize()}UnitTest"
-            def coverageTaskName = "${testTaskName}Coverage"
+    def fileFilter = [
+            '**/R.class',
+            '**/R$*.class',
+            '**/BuildConfig.*',
+            '**/Manifest*.*',
+            '**/*Test*.*',
+            'android/**/*.*',
+            '**/*$[0-9].*'
+    ]
+    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/dev/debug", excludes: fileFilter)
+    def kotlinDebugTree = fileTree(dir: "${buildDir}/tmp/kotlin-classes/devDebug", excludes: fileFilter)
 
-            // Create coverage task of form 'testFlavorTypeCoverage' depending on 'testFlavorTypeUnitTest'
-            task "${coverageTaskName}"(type: JacocoReport, dependsOn: "$testTaskName") {
-                group = "Reporting"
-                description = "Generate Jacoco coverage reports on the ${sourceName.capitalize()} build."
+    classDirectories = files([debugTree], [kotlinDebugTree])
+    def coverageSourceDirs = [
+            "src/main/java",
+            "src/dev/java",
+            "src/debug/java"
+    ]
+    additionalSourceDirs = files(coverageSourceDirs)
+    sourceDirectories = files(coverageSourceDirs)
+    executionData = fileTree(dir: project.buildDir, includes: [
+            'jacoco/testDevDebugUnitTest.exec',
+            'outputs/code-coverage/connected/*coverage.ec'
+    ])
+}
 
-                def fileFilter = [
-                        '**/R.class',
-                        '**/R$*.class',
-                        '**/*$ViewInjector*.*',
-                        '**/*$ViewBinder*.*',
-                        '**/BuildConfig.*',
-                        '**/Manifest*.*',
-                        '**/*App.*',
-                        '**/*Component.*',
-                        '**/*Module.*',
-                        '**/*Activity.*',
-                        '**/*Fragment.*'
-                ]
-                def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/$productFlavorName/$buildTypeName", excludes: fileFilter)
-                def kotlinDebugTree = fileTree(dir: "${buildDir}/tmp/kotlin-classes/$sourceName", excludes: fileFilter)
+task printCoverageReport(dependsOn: ['jacocoTestReport']) {
+    ext.srcFile = file("$buildDir/reports/jacoco/jacocoTestReport/jacocoTestReport.xml")
+    doLast {
+        def report = new XmlParser()
+        report.setFeature("http://apache.org/xml/features/disallow-doctype-decl", false)
+        report.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false)
 
-                classDirectories = files([debugTree], [kotlinDebugTree])
-                def coverageSourceDirs = [
-                        "src/main/java",
-                        "src/$productFlavorName/java",
-                        "src/$buildTypeName/java"
-                ]
-                additionalSourceDirs = files(coverageSourceDirs)
-                sourceDirectories = files(coverageSourceDirs)
-                executionData = files("${project.buildDir}/jacoco/${testTaskName}.exec")
-                reports {
-                    xml.enabled = false
-                    html.enabled = true
-                }
+        report.parse(srcFile).each { node ->
+            if (node.attributes().type != null) {
+                def covered = node.attributes().covered
+                def missed = node.attributes().missed
+                def total = Integer.valueOf(missed) + Integer.valueOf(covered)
+                def percentage = (Integer.valueOf(covered) * 100) / Double.valueOf(total)
+
+                println("${node.attributes().type}: ${String.valueOf(percentage.trunc(2))}% covered")
             }
         }
     }
 }
-
