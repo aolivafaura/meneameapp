@@ -20,13 +20,25 @@ import es.mnmapp.aolv.domain.entity.New
 
 /**
  * Representation of new cell on news lists
+ *
+ * @param[id] id
+ * @param[url] url link to new
+ * @param[title] title
+ * @param[source] source web of the new
+ * @param[imageUrl] related image url
+ * @param[positiveVotes] positive votes on meneame
+ * @param[negativeVotes] negative votes on meneame
+ * @param[karma] karma
+ * @param[comments] comments
+ * @param[date] publication date od the new
+ * @param[logoUrl] logo of the source web
  */
 data class NewCellUi(
     val id: Long,
     val url: String,
     val title: String,
     val source: String,
-    val thumb: String,
+    val imageUrl: String,
     val positiveVotes: Int,
     val negativeVotes: Int,
     val karma: Int,

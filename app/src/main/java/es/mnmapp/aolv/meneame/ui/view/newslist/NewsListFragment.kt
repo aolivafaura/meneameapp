@@ -82,8 +82,16 @@ class NewsListFragment : BaseFragment() {
     private fun observeConnectivity() {
         newsListViewModel.connectivityState.observe(this, Observer<Connectivity.State> {
             when (it) {
-                Connectivity.State.Connected -> Toast.makeText(context, "CONNECTED", Toast.LENGTH_LONG).show()
-                Connectivity.State.Disconnected -> Toast.makeText(context, "DISCONNECTED", Toast.LENGTH_LONG).show()
+                Connectivity.State.Connected -> Toast.makeText(
+                    context,
+                    "CONNECTED",
+                    Toast.LENGTH_LONG
+                ).show()
+                Connectivity.State.Disconnected -> Toast.makeText(
+                    context,
+                    "DISCONNECTED",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         })
     }

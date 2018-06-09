@@ -1,3 +1,19 @@
+/*
+ *     Copyright 2018 @ https://github.com/aolivafaura
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *          http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package es.mnmapp.aolv.meneame.ui.view.newsviewer
 
 import android.annotation.SuppressLint
@@ -8,21 +24,23 @@ import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import es.mnmapp.aolv.meneame.R
-import es.mnmapp.aolv.meneame.ui.BaseFragment
 import es.mnmapp.aolv.meneame.extensions.fadeOut
+import es.mnmapp.aolv.meneame.ui.BaseFragment
 import kotlinx.android.synthetic.main.web_view_fragment.*
 import org.koin.android.ext.android.inject
 
 /**
- * Created by antonio on 11/1/17.
+ * News detail fragment.
+ * This fragment will open a web view and show the original source of information.
  */
-
 class NewsViewerFragment : BaseFragment() {
 
     // Fields -----
+
     private val webViewViewModel by inject<NewsViewerViewModel>()
 
     // Fragment overrides -----
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -72,11 +90,13 @@ class NewsViewerFragment : BaseFragment() {
     }
 
     // BaseFragment overrides -----
+
     override fun getFragmentLayout() = R.layout.web_view_fragment
 
     override fun getAnalyticsName() = "NewsViewer"
 
     // Companion object -----
+
     companion object {
         const val KEY_URL = "webViewFragmentKeyUrl"
         const val KEY_TITLE = "webViewFragmentKeyTitle"

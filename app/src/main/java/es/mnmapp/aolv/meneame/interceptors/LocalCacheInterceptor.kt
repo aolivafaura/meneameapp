@@ -24,6 +24,10 @@ import java.util.concurrent.TimeUnit
 
 /**
  * Interceptor to cache network responses
+ *
+ * @param[connectivity]
+ * @param[cacheMaxAge] Max **seconds** allowed for cached responses when device has connectivity.
+ * @param[cacheMaxStale] Max **seconds** allowed for cached responses when device hasn't connectivity.
  */
 class LocalCacheInterceptor(
     private val connectivity: Connectivity,

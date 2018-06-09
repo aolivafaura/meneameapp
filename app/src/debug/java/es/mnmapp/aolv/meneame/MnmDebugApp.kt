@@ -19,10 +19,15 @@ package es.mnmapp.aolv.meneame
 import android.os.Build
 import com.facebook.stetho.Stetho
 
+/**
+ * Application object used on debug compilations.
+ * Mainly used to initialize Stetho.
+ */
 @Suppress("unused")
 class MnmDebugApp : MnmApp() {
 
     // Application overrides -----
+
     override fun onCreate() {
         super.onCreate()
 

@@ -31,6 +31,9 @@ import io.reactivex.disposables.CompositeDisposable
  * View model for news list
  *
  * @see NewsListFragment
+ *
+ * @param[getNews] get news use case
+ * @param[connectivity] connectivity
  */
 class NewsListViewModel(
     private val getNews: GetNews,
@@ -69,6 +72,9 @@ class NewsListViewModel(
 
     // Class methods -----
 
+    /**
+     * Retrieve and notify news
+     */
     fun fetchNews() {
         val successHandler: ((List<New>) -> Unit) = {
             state.value = ViewState.Idle

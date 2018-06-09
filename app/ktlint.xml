@@ -99,7 +99,7 @@
 		<error line="45" column="54" severity="error" message="Parameter should be on a separate line (unless all parameters can fit a single line)" source="parameter-list-wrapping" />
 		<error line="45" column="81" severity="error" message="Missing newline before &quot;)&quot;" source="parameter-list-wrapping" />
 	</file>
-	<file name="/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/ui/componets/MnmToolbarContentView.kt">
+	<file name="/home/antonio/Projects/meneameapp/app/src/main/java/es/mnmapp/aolv/meneame/ui/componets/ToolbarContentView.kt">
 		<error line="10" column="9" severity="error" message="Unexpected indentation (expected 4, actual 8)" source="parameter-list-wrapping" />
 		<error line="11" column="9" severity="error" message="Unexpected indentation (expected 4, actual 8)" source="parameter-list-wrapping" />
 		<error line="12" column="9" severity="error" message="Unexpected indentation (expected 4, actual 8)" source="parameter-list-wrapping" />

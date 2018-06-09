@@ -30,7 +30,7 @@ import org.koin.dsl.module.applicationContext
  */
 val repositoryModule = applicationContext {
     bean { provideCacheDirectory(androidApplication().baseContext.cacheDir) }
-    bean { getNetworkInterceptors(get()) }
+    bean { provideNetworkInterceptors(get()) }
     bean { provideHttpClient(get(), get()) }
     bean { provideMeneameService(get(), EndpointUrls.baseUrl) }
     bean { FirebaseFirestore.getInstance() }

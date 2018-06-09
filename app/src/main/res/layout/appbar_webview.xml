@@ -21,7 +21,7 @@
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-            <es.mnmapp.aolv.meneame.ui.componets.MnmToolbarContentView
+            <es.mnmapp.aolv.meneame.ui.widget.ToolbarContentView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

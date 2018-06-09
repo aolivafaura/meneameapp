@@ -29,7 +29,7 @@ class NewsListViewModelTest {
     var getPopularNews = mock<GetNews>()
     lateinit var newsListViewModel: NewsListViewModel
 
-    private val newsList = listOf(New(1L, "url", "title", "thumb"))
+    private val newsList = listOf(New(1L, "url", "title", "imageUrl"))
 
     @Before
     fun before() {

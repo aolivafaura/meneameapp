@@ -31,6 +31,8 @@ import es.mnmapp.aolv.meneame.extensions.loadUrl
 
 /**
  * Adapter for news list fragment
+ *
+ * @see ListAdapter
  */
 class NewsAdapter : ListAdapter<NewCellUi, NewsAdapter.Holder>(NewDiffCallback()) {
 
@@ -60,6 +62,11 @@ class NewsAdapter : ListAdapter<NewCellUi, NewsAdapter.Holder>(NewDiffCallback()
 
     // Class methods -----
 
+    /**
+     * Update list with given items
+     *
+     * @param[news] list of new items
+     */
     fun updateList(news: List<NewCellUi>) {
         submitList(news)
     }
@@ -82,7 +89,7 @@ class NewsAdapter : ListAdapter<NewCellUi, NewsAdapter.Holder>(NewDiffCallback()
                     backgroundView.setBackgroundColor(descriptionColor)
                 }
             }
-            image.loadUrl(newCell.thumb, loadImageCallback)
+            image.loadUrl(newCell.imageUrl, loadImageCallback)
             sourceLogo.loadUrl(newCell.logoUrl)
             title.text = newCell.title
             source.text = newCell.source
@@ -90,12 +97,13 @@ class NewsAdapter : ListAdapter<NewCellUi, NewsAdapter.Holder>(NewDiffCallback()
     }
 
     private class NewDiffCallback : DiffUtil.ItemCallback<NewCellUi>() {
+
         override fun areItemsTheSame(oldItem: NewCellUi?, newCellItem: NewCellUi?): Boolean =
             oldItem?.id == newCellItem?.id
 
         override fun areContentsTheSame(oldItem: NewCellUi?, newCellItem: NewCellUi?): Boolean =
             oldItem?.id == newCellItem?.id &&
-                oldItem?.thumb == newCellItem?.thumb &&
+                oldItem?.imageUrl == newCellItem?.imageUrl &&
                 oldItem?.logoUrl == newCellItem?.logoUrl
     }
 }

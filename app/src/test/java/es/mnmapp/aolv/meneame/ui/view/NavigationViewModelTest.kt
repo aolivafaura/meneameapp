@@ -14,7 +14,7 @@ class NavigationViewModelTest {
     private val navigation = mock<Navigation>()
     private val activity = mock<BaseActivity>()
 
-    private val newUi = NewCellUi(1L, "url", "title", "thumb")
+    private val newUi = NewCellUi(1L, "url", "title", "imageUrl")
 
     lateinit var navigationViewModel: NavigationViewModel
 

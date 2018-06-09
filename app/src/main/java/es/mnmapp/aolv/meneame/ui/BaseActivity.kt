@@ -21,12 +21,12 @@ import android.support.v7.app.AppCompatActivity
 import es.mnmapp.aolv.meneame.R
 
 /**
- * Created by antoniojoseoliva on 20/07/2017.
+ * Base activity. Every activity must extend this class.
  */
-
 abstract class BaseActivity : AppCompatActivity() {
 
     // Activity overrides -----
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_base_mobile)
         super.onCreate(savedInstanceState)

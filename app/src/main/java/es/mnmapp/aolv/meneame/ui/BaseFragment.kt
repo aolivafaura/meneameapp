@@ -26,7 +26,7 @@ import com.antoniooliva.logger.Lgr
 import io.reactivex.disposables.CompositeDisposable
 
 /**
- * Base fragment
+ * Base fragment. Every fragment must extend this class.
  */
 abstract class BaseFragment : Fragment() {
 

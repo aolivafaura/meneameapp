@@ -27,6 +27,8 @@ import io.reactivex.subjects.PublishSubject
 /**
  * Check device's network connectivity and speed
  * Based on Connectivity utils of {@link http://stackoverflow.com/users/220710/emil}
+ *
+ * @param[context] context
  */
 class Connectivity(val context: Context) {
 
