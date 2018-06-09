@@ -66,7 +66,10 @@ before_script:
   #- adb shell input keyevent 82 &
 
 script:
-  - "./gradlew ktlint clean build check -PdisablePreDex --stacktrace"
+  - "./gradlew ktlint clean build jacocoTestReport testDevDebugUnitTestCoverage -PdisablePreDex --stacktrace"
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 
 before_deploy:
   - cp $TRAVIS_BUILD_DIR/mnmaolvdprod.keystore $HOME/mnmaolvdprod.keystore
