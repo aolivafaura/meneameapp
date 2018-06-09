@@ -2,6 +2,8 @@ package es.mnmapp.aolv.domain.usecase
 
 import es.mnmapp.aolv.domain.entity.New
 import es.mnmapp.aolv.domain.entity.Section
+import es.mnmapp.aolv.domain.extensions.emitError
+import es.mnmapp.aolv.domain.extensions.emitNext
 import es.mnmapp.aolv.domain.repository.DeviceRepository
 import es.mnmapp.aolv.domain.repository.ImagesRepository
 import es.mnmapp.aolv.domain.repository.NewsRepository
@@ -33,7 +35,7 @@ class GetNews(
                     enrichInformation(it, emitter)
                 },
                 {
-                    emitter.tryOnError(it)
+                    emitter.emitError(it)
                 }
             )
         }, BackpressureStrategy.LATEST)
@@ -55,7 +57,10 @@ class GetNews(
         imagesRepository.getLogosForSources(*originalList.map { it.from }.toTypedArray())
             .subscribeOn(workerThread)
             .observeOn(postExecutionThread)
-            .subscribe { logosMap, _ ->
+            .subscribe { logosMap, error ->
+                if (error != null) {
+                    emitter.emitError(error)
+                }
                 val listToEmit = mutableListOf<New>()
                 originalList.forEach {
                     listToEmit.add(it.copy(logoUrl = logosMap[it.from] ?: ""))
@@ -83,10 +88,10 @@ class GetNews(
                         listToEmit.add(it.copy(thumb = imageUrl))
                     }
 
-                    emitter.onNext(listToEmit)
+                    emitter.emitNext(listToEmit)
                 }
         } else {
-            emitter.onNext(originalList)
+            emitter.emitNext(originalList)
         }
     }
 
