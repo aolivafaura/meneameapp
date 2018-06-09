@@ -7,6 +7,7 @@
     android:fitsSystemWindows="true"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
+    <!--suppress AndroidDomInspection -->
     <android.support.design.widget.CollapsingToolbarLayout
         android:id="@+id/collapsingsearch"
         android:layout_width="match_parent"
@@ -15,6 +16,7 @@
         app:contentScrim="?attr/colorPrimary"
         app:layout_scrollFlags="scroll|enterAlways|snap">
 
+        <!--suppress AndroidDomInspection -->
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"

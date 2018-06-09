@@ -7,7 +7,6 @@ import io.reactivex.Single
 import io.reactivex.SingleTransformer
 import io.reactivex.disposables.CompositeDisposable
 
-
 abstract class UseCase<T, in Params>(
     private val postExecutionThread: Scheduler,
     private val workerThread: Scheduler
@@ -25,10 +24,7 @@ abstract class UseCase<T, in Params>(
 
     internal abstract fun getUseCaseType(): Type
 
-    fun execute(params: Params,
-                onNext: ((T) -> Unit)? = {},
-                onError: ((Throwable) -> Unit)? = {}) {
-
+    fun execute(params: Params, onNext: ((T) -> Unit)? = {}, onError: ((Throwable) -> Unit)? = {}) {
         when (getUseCaseType()) {
             Type.Flowable -> {
                 this.buildFlowableUseCase(params)
@@ -49,18 +45,6 @@ abstract class UseCase<T, in Params>(
         disposables.clear()
     }
 
-    protected fun <T> applyFlowableSchedulers(): FlowableTransformer<T, T> =
-        FlowableTransformer {
-            it.subscribeOn(workerThread)
-                .observeOn(postExecutionThread)
-        }
-
-    protected fun <T> applySingleSchedulers(): SingleTransformer<T, T> =
-        SingleTransformer {
-            it.subscribeOn(workerThread)
-                .observeOn(postExecutionThread)
-        }
-
     protected fun <T> applyFlowableWorkerSchedulers(): FlowableTransformer<T, T> =
         FlowableTransformer {
             it.subscribeOn(workerThread)
@@ -71,6 +55,18 @@ abstract class UseCase<T, in Params>(
         SingleTransformer {
             it.subscribeOn(workerThread)
                 .observeOn(workerThread)
+        }
+
+    private fun <T> applyFlowableSchedulers(): FlowableTransformer<T, T> =
+        FlowableTransformer {
+            it.subscribeOn(workerThread)
+                .observeOn(postExecutionThread)
+        }
+
+    private fun <T> applySingleSchedulers(): SingleTransformer<T, T> =
+        SingleTransformer {
+            it.subscribeOn(workerThread)
+                .observeOn(postExecutionThread)
         }
 
     internal enum class Type { Flowable, Single }

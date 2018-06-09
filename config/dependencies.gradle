@@ -1,7 +1,7 @@
 ext {
     firebaseVersion = '16.0.0'
     supportVersion = '27.1.1'
-    constraintLayoutVersion = '1.1.0'
+    constraintLayoutVersion = '1.1.1'
     rxAndroidVersion = '2.0.2'
     rxJavaVersion = '2.1.7'
     koinVersion = '0.9.1'
