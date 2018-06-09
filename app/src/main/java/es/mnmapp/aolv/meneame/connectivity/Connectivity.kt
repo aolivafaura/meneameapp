@@ -22,6 +22,8 @@ import android.net.NetworkInfo
 import android.telephony.TelephonyManager
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 
 /**
@@ -30,23 +32,23 @@ import io.reactivex.subjects.PublishSubject
  *
  * @param[context] context
  */
-class Connectivity(val context: Context) {
+class Connectivity(val context: Context, val postExecutionThread: Scheduler) {
 
     // Fields -----
 
     private val connectivityPublisher = PublishSubject.create<State>()
 
     private val fastConnections = arrayOf(
-            TelephonyManager.NETWORK_TYPE_EVDO_0, // ~ 400-1000 kbps
-            TelephonyManager.NETWORK_TYPE_EVDO_A, // ~ 600-1400 kbps
-            TelephonyManager.NETWORK_TYPE_HSDPA, // ~ 2-14 Mbps
-            TelephonyManager.NETWORK_TYPE_HSPA, // ~ 700-1700 kbps
-            TelephonyManager.NETWORK_TYPE_HSUPA, // ~ 1-23 Mbps
-            TelephonyManager.NETWORK_TYPE_UMTS, // ~ 400-7000 kbps
-            TelephonyManager.NETWORK_TYPE_EHRPD, // ~ 1-2 Mbps
-            TelephonyManager.NETWORK_TYPE_EVDO_B, // ~ 5 Mbps
-            TelephonyManager.NETWORK_TYPE_HSPAP, // ~ 10-20 Mbps
-            TelephonyManager.NETWORK_TYPE_LTE // ~ 10+ Mbps
+        TelephonyManager.NETWORK_TYPE_EVDO_0, // ~ 400-1000 kbps
+        TelephonyManager.NETWORK_TYPE_EVDO_A, // ~ 600-1400 kbps
+        TelephonyManager.NETWORK_TYPE_HSDPA, // ~ 2-14 Mbps
+        TelephonyManager.NETWORK_TYPE_HSPA, // ~ 700-1700 kbps
+        TelephonyManager.NETWORK_TYPE_HSUPA, // ~ 1-23 Mbps
+        TelephonyManager.NETWORK_TYPE_UMTS, // ~ 400-7000 kbps
+        TelephonyManager.NETWORK_TYPE_EHRPD, // ~ 1-2 Mbps
+        TelephonyManager.NETWORK_TYPE_EVDO_B, // ~ 5 Mbps
+        TelephonyManager.NETWORK_TYPE_HSPAP, // ~ 10-20 Mbps
+        TelephonyManager.NETWORK_TYPE_LTE // ~ 10+ Mbps
     )
 
     // Class methods -----
@@ -74,26 +76,28 @@ class Connectivity(val context: Context) {
      * @return flowable that notifies connectivity changes.
      */
     fun observeConnectivity(): Flowable<State> =
-            connectivityPublisher
-                    .distinctUntilChanged()
-                    .toFlowable(BackpressureStrategy.LATEST)
+        connectivityPublisher
+            .distinctUntilChanged()
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .toFlowable(BackpressureStrategy.LATEST)
 
     // Private methods -----
 
     private fun isConnectedWifi(): Boolean =
-            isConnected() && getNetworkInfo()!!.type == ConnectivityManager.TYPE_WIFI
+        isConnected() && getNetworkInfo()!!.type == ConnectivityManager.TYPE_WIFI
 
     private fun isConnectedMobile(): Boolean =
-            isConnected() && getNetworkInfo()!!.type == ConnectivityManager.TYPE_MOBILE
+        isConnected() && getNetworkInfo()!!.type == ConnectivityManager.TYPE_MOBILE
 
     private fun isConnectedFast(): Boolean =
-            isConnected() && isConnectionFast(getNetworkInfo()!!.type, getNetworkInfo()!!.subtype)
+        isConnected() && isConnectionFast(getNetworkInfo()!!.type, getNetworkInfo()!!.subtype)
 
     private fun isConnectionFast(type: Int, subType: Int): Boolean =
-            when (type) {
-                ConnectivityManager.TYPE_MOBILE -> subType in fastConnections
-                else -> type == ConnectivityManager.TYPE_WIFI
-            }
+        when (type) {
+            ConnectivityManager.TYPE_MOBILE -> subType in fastConnections
+            else -> type == ConnectivityManager.TYPE_WIFI
+        }
 
     private fun getNetworkInfo(): NetworkInfo? {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

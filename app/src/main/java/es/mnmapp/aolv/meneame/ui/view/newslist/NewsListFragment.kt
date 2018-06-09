@@ -104,7 +104,10 @@ class NewsListFragment : BaseFragment() {
 
     private fun initList() {
         val listener = { newCellUi: NewCellUi, _: View ->
-            navigationViewModel.navigateToNewsDetail(activity as BaseActivity, newCellUi)
+            navigationViewModel.navigateToNewsDetail(
+                activity as BaseActivity,
+                newCellUi.url, newCellUi.title
+            )
         }
 
         val linearLayoutManager = LinearLayoutManager(this.context)

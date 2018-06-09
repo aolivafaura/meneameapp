@@ -19,6 +19,7 @@ package es.mnmapp.aolv.meneame
 import android.annotation.SuppressLint
 import android.app.Application
 import com.antoniooliva.logger.Lgr
+import com.google.firebase.FirebaseApp
 import es.mnmapp.aolv.meneame.di.getKoinModules
 import org.koin.android.ext.android.startKoin
 
@@ -33,8 +34,13 @@ open class MnmApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        initFirebase()
         initKoin()
         initLogger()
+    }
+
+    private fun initFirebase() {
+        FirebaseApp.initializeApp(this)
     }
 
     private fun initKoin() {

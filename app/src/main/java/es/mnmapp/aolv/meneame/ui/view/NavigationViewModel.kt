@@ -49,4 +49,3 @@ class NavigationViewModel(private val navigation: Navigation) : ViewModel() {
         navigation.navigateToNewsDetail(activity, url, title)
     }
 }
-

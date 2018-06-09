@@ -35,7 +35,7 @@ val appModule = applicationContext {
     bean(KOIN_BEAN_WORKER_THREAD) { Schedulers.io() }
 
     // Connectivity
-    bean { Connectivity(get()) }
+    bean { Connectivity(get(), get(KOIN_BEAN_UI_THREAD)) }
 
     // Validations
     bean { Validator }

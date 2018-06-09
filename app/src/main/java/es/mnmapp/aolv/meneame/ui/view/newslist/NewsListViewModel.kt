@@ -24,7 +24,6 @@ import es.mnmapp.aolv.domain.usecase.GetNews
 import es.mnmapp.aolv.meneame.connectivity.Connectivity
 import es.mnmapp.aolv.meneame.entity.NewCellUi
 import es.mnmapp.aolv.meneame.entity.fromNewToNewCellUi
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
 /**
@@ -56,8 +55,6 @@ class NewsListViewModel(
 
     private fun observeConnectivity() {
         connectivity.observeConnectivity()
-            .subscribeOn(AndroidSchedulers.mainThread())
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe { connectivityState.value = it }
             ?.let { disposables.addAll(it) }
     }

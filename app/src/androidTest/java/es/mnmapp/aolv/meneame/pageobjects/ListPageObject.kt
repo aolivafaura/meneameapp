@@ -11,14 +11,11 @@ object ListPageObject {
 
     fun clickOnNewWithPosition(position: Int) {
         onView(withId(R.id.rvListNews))
-                .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(position, click()))
-    }
-
-    fun scrollToBeginning() {
-
-    }
-
-    fun scrollToEnd() {
-
+            .perform(
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                    position,
+                    click()
+                )
+            )
     }
 }

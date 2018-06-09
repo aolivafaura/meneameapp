@@ -9,5 +9,5 @@ import android.content.res.AssetManager
  * @param filePath Path to JSON file
  * @return string file content
  */
-fun AssetManager.getJson(filePath : String) : String =
+fun AssetManager.getJson(filePath: String): String =
     this.open(filePath).bufferedReader().use { it.readText() }
