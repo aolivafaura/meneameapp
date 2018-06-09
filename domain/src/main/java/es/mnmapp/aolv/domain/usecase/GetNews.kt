@@ -3,8 +3,8 @@ package es.mnmapp.aolv.domain.usecase
 import es.mnmapp.aolv.domain.entity.New
 import es.mnmapp.aolv.domain.entity.Section
 import es.mnmapp.aolv.domain.repository.DeviceRepository
-import es.mnmapp.aolv.domain.repository.NewsRepository
 import es.mnmapp.aolv.domain.repository.ImagesRepository
+import es.mnmapp.aolv.domain.repository.NewsRepository
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.FlowableEmitter
@@ -17,33 +17,35 @@ import org.apache.commons.lang3.StringUtils
  */
 
 class GetNews(
-        private val postExecutionThread: Scheduler,
-        private val workerThread: Scheduler,
-        private val newsRepository: NewsRepository,
-        private val imagesRepository: ImagesRepository,
-        private val deviceRepository: DeviceRepository
+    private val postExecutionThread: Scheduler,
+    private val workerThread: Scheduler,
+    private val newsRepository: NewsRepository,
+    private val imagesRepository: ImagesRepository,
+    private val deviceRepository: DeviceRepository
 ) : UseCase<List<New>, Section>(postExecutionThread, workerThread) {
 
-    override fun buildUseCaseObservable(params: Section): Flowable<List<New>> {
+    override fun getUseCaseType() = Type.Flowable
+
+    override fun buildFlowableUseCase(params: Section): Flowable<List<New>> {
         return FlowableCreate({ emitter ->
             getTheGoodCall(params).subscribe(
-                    {
-                        enrichInformation(it, emitter)
-                    },
-                    {
-                        emitter.tryOnError(it)
-                    }
+                {
+                    enrichInformation(it, emitter)
+                },
+                {
+                    emitter.tryOnError(it)
+                }
             )
         }, BackpressureStrategy.LATEST)
     }
 
     private fun getTheGoodCall(section: Section) =
-            when (section) {
-                Section.Breaking,
-                Section.Hot,
-                Section.TopVisited -> newsRepository.getTopVisited()
-                Section.Popular -> newsRepository.getPopular()
-            }
+        when (section) {
+            Section.Breaking,
+            Section.Hot,
+            Section.TopVisited -> newsRepository.getTopVisited()
+            Section.Popular -> newsRepository.getPopular()
+        }
 
     private fun enrichInformation(originalList: List<New>, emitter: FlowableEmitter<List<New>>) {
         enrichWithLogos(originalList, emitter)
@@ -51,38 +53,38 @@ class GetNews(
 
     private fun enrichWithLogos(originalList: List<New>, emitter: FlowableEmitter<List<New>>) {
         imagesRepository.getLogosForSources(*originalList.map { it.from }.toTypedArray())
-                .subscribeOn(workerThread)
-                .observeOn(postExecutionThread)
-                .subscribe { logosMap, _ ->
-                    val listToEmit = mutableListOf<New>()
-                    originalList.forEach {
-                        listToEmit.add(it.copy(logoUrl = logosMap[it.from] ?: ""))
-                    }
-
-                    enrichWithPlaceholders(listToEmit, emitter)
+            .subscribeOn(workerThread)
+            .observeOn(postExecutionThread)
+            .subscribe { logosMap, _ ->
+                val listToEmit = mutableListOf<New>()
+                originalList.forEach {
+                    listToEmit.add(it.copy(logoUrl = logosMap[it.from] ?: ""))
                 }
+
+                enrichWithPlaceholders(listToEmit, emitter)
+            }
     }
 
     private fun enrichWithPlaceholders(originalList: List<New>, emitter: FlowableEmitter<List<New>>) {
         if (originalList.any { it.thumb.isBlank() }) {
             imagesRepository.getPlaceholders(deviceRepository.getScreenDensity())
-                    .subscribeOn(workerThread)
-                    .observeOn(postExecutionThread)
-                    .subscribe { list, _ ->
-                        val categoriesMap = list.map { it.category to it }.toMap()
-                        val listToEmit = mutableListOf<New>()
+                .subscribeOn(workerThread)
+                .observeOn(postExecutionThread)
+                .subscribe { list, _ ->
+                    val categoriesMap = list.map { it.category to it }.toMap()
+                    val listToEmit = mutableListOf<New>()
 
-                        originalList.forEach {
-                            val imageUrl = if (it.thumb.isBlank()) {
-                                categoriesMap[normalizeCategory(it.category)]?.url ?: ""
-                            } else {
-                                it.thumb
-                            }
-                            listToEmit.add(it.copy(thumb = imageUrl))
+                    originalList.forEach {
+                        val imageUrl = if (it.thumb.isBlank()) {
+                            categoriesMap[normalizeCategory(it.category)]?.url ?: ""
+                        } else {
+                            it.thumb
                         }
-
-                        emitter.onNext(listToEmit)
+                        listToEmit.add(it.copy(thumb = imageUrl))
                     }
+
+                    emitter.onNext(listToEmit)
+                }
         } else {
             emitter.onNext(originalList)
         }
