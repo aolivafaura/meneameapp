@@ -1,9 +1,12 @@
 package es.mnmapp.aolv.domain.usecase
 
 import io.reactivex.Flowable
+import io.reactivex.FlowableTransformer
 import io.reactivex.Scheduler
 import io.reactivex.Single
+import io.reactivex.SingleTransformer
 import io.reactivex.disposables.CompositeDisposable
+
 
 abstract class UseCase<T, in Params>(
     private val postExecutionThread: Scheduler,
@@ -29,15 +32,13 @@ abstract class UseCase<T, in Params>(
         when (getUseCaseType()) {
             Type.Flowable -> {
                 this.buildFlowableUseCase(params)
-                    .subscribeOn(workerThread)
-                    .observeOn(postExecutionThread)
+                    .compose(applyFlowableSchedulers())
                     .subscribe(onNext, onError)
                     .apply { disposables.add(this) }
             }
             Type.Single -> {
                 this.buildSingleUseCase(params)
-                    .subscribeOn(workerThread)
-                    .observeOn(postExecutionThread)
+                    .compose(applySingleSchedulers())
                     .subscribe(onNext, onError)
                     .apply { disposables.add(this) }
             }
@@ -47,6 +48,30 @@ abstract class UseCase<T, in Params>(
     fun clear() {
         disposables.clear()
     }
+
+    protected fun <T> applyFlowableSchedulers(): FlowableTransformer<T, T> =
+        FlowableTransformer {
+            it.subscribeOn(workerThread)
+                .observeOn(postExecutionThread)
+        }
+
+    protected fun <T> applySingleSchedulers(): SingleTransformer<T, T> =
+        SingleTransformer {
+            it.subscribeOn(workerThread)
+                .observeOn(postExecutionThread)
+        }
+
+    protected fun <T> applyFlowableWorkerSchedulers(): FlowableTransformer<T, T> =
+        FlowableTransformer {
+            it.subscribeOn(workerThread)
+                .observeOn(workerThread)
+        }
+
+    protected fun <T> applySingleWorkerSchedulers(): SingleTransformer<T, T> =
+        SingleTransformer {
+            it.subscribeOn(workerThread)
+                .observeOn(workerThread)
+        }
 
     internal enum class Type { Flowable, Single }
 }

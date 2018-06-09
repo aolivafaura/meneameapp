@@ -1,12 +1,14 @@
 package es.mnmapp.aolv.domain.usecase
 
 import es.mnmapp.aolv.domain.entity.New
+import es.mnmapp.aolv.domain.entity.Placeholder
 import es.mnmapp.aolv.domain.entity.Section
 import es.mnmapp.aolv.domain.repository.DeviceRepository
 import es.mnmapp.aolv.domain.repository.ImagesRepository
 import es.mnmapp.aolv.domain.repository.NewsRepository
 import io.reactivex.Flowable
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import org.apache.commons.lang3.StringUtils
 
 /**
@@ -15,7 +17,7 @@ import org.apache.commons.lang3.StringUtils
 
 class GetNews(
     postExecutionThread: Scheduler,
-    private val workerThread: Scheduler,
+    workerThread: Scheduler,
     private val newsRepository: NewsRepository,
     private val imagesRepository: ImagesRepository,
     private val deviceRepository: DeviceRepository
@@ -23,11 +25,8 @@ class GetNews(
 
     override fun getUseCaseType() = Type.Flowable
 
-    override fun buildFlowableUseCase(params: Section): Flowable<List<New>> {
-        return getTheGoodCall(params).flatMap {
-            enrichInformation(it)
-        }
-    }
+    override fun buildFlowableUseCase(params: Section): Flowable<List<New>> =
+        getTheGoodCall(params).flatMap { enrichInformation(it) }
 
     private fun getTheGoodCall(section: Section) =
         when (section) {
@@ -39,48 +38,45 @@ class GetNews(
 
     private fun enrichInformation(originalList: List<New>): Flowable<List<New>> {
         return enrichWithLogos(originalList)
-    }
-
-    private fun enrichWithLogos(originalList: List<New>): Flowable<List<New>> {
-        return imagesRepository.getLogosForSources(*originalList.map { it.from }.toTypedArray())
-            .subscribeOn(workerThread)
-            .observeOn(workerThread)
-            .toFlowable()
+            .compose(applySingleWorkerSchedulers())
+            .onErrorReturn { emptyMap() }
             .flatMap { logosMap ->
                 val listToEmit = mutableListOf<New>()
+
                 originalList.forEach {
                     listToEmit.add(it.copy(logoUrl = logosMap[it.from] ?: ""))
                 }
 
                 enrichWithPlaceholders(listToEmit)
             }
-            .onErrorResumeNext(Flowable.just(originalList))
+            .onErrorReturn { emptyList() }
+            .flatMap { list ->
+                val categoriesMap = list.map { it.category to it }.toMap()
+                val listToEmit = mutableListOf<New>()
+
+                originalList.forEach {
+                    val imageUrl = if (it.thumb.isBlank()) {
+                        categoriesMap[normalizeCategory(it.category)]?.url ?: ""
+                    } else {
+                        it.thumb
+                    }
+                    listToEmit.add(it.copy(thumb = imageUrl))
+                }
+
+                Single.just(listToEmit.toList())
+            }
+            .toFlowable()
     }
 
-    private fun enrichWithPlaceholders(originalList: List<New>): Flowable<List<New>> {
+    private fun enrichWithLogos(originalList: List<New>): Single<Map<String, String>> {
+        return imagesRepository.getLogosForSources(*originalList.map { it.from }.toTypedArray())
+    }
+
+    private fun enrichWithPlaceholders(originalList: List<New>): Single<List<Placeholder>> {
         return if (originalList.asSequence().any { it.thumb.isBlank() }) {
             imagesRepository.getPlaceholders(deviceRepository.getScreenDensity())
-                .subscribeOn(workerThread)
-                .observeOn(workerThread)
-                .toFlowable()
-                .flatMap { list ->
-                    val categoriesMap = list.map { it.category to it }.toMap()
-                    val listToEmit = mutableListOf<New>()
-
-                    originalList.forEach {
-                        val imageUrl = if (it.thumb.isBlank()) {
-                            categoriesMap[normalizeCategory(it.category)]?.url ?: ""
-                        } else {
-                            it.thumb
-                        }
-                        listToEmit.add(it.copy(thumb = imageUrl))
-                    }
-
-                    Flowable.just(listToEmit.toList())
-                }
-                .onErrorResumeNext(Flowable.just(originalList))
         } else {
-            Flowable.just(originalList)
+            Single.just(emptyList())
         }
     }
 
