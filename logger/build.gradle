@@ -21,6 +21,9 @@ android {
 			initWith(release)
 		}
 	}
+	lintOptions {
+		abortOnError false
+	}
 }
 
 dependencies {
