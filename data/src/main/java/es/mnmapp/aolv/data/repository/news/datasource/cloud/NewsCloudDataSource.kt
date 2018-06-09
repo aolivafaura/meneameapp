@@ -10,9 +10,9 @@ class NewsCloudDataSource(
     private val meneameService: MeneameService
 ) {
 
-    fun getPopular() = getFromCloud("top_visited")
+    fun getPopular() = getFromCloud("popular")
 
-    fun getTopVisited() = getFromCloud("popular")
+    fun getTopVisited() = getFromCloud("top_visited")
 
     private fun getFromCloud(category: String): Flowable<List<New>> {
         idlingResource.setIdleState(false)

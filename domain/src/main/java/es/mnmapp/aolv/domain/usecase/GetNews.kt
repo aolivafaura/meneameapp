@@ -2,16 +2,11 @@ package es.mnmapp.aolv.domain.usecase
 
 import es.mnmapp.aolv.domain.entity.New
 import es.mnmapp.aolv.domain.entity.Section
-import es.mnmapp.aolv.domain.extensions.emitError
-import es.mnmapp.aolv.domain.extensions.emitNext
 import es.mnmapp.aolv.domain.repository.DeviceRepository
 import es.mnmapp.aolv.domain.repository.ImagesRepository
 import es.mnmapp.aolv.domain.repository.NewsRepository
-import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
-import io.reactivex.FlowableEmitter
 import io.reactivex.Scheduler
-import io.reactivex.internal.operators.flowable.FlowableCreate
 import org.apache.commons.lang3.StringUtils
 
 /**
@@ -19,7 +14,7 @@ import org.apache.commons.lang3.StringUtils
  */
 
 class GetNews(
-    private val postExecutionThread: Scheduler,
+    postExecutionThread: Scheduler,
     private val workerThread: Scheduler,
     private val newsRepository: NewsRepository,
     private val imagesRepository: ImagesRepository,
@@ -29,16 +24,9 @@ class GetNews(
     override fun getUseCaseType() = Type.Flowable
 
     override fun buildFlowableUseCase(params: Section): Flowable<List<New>> {
-        return FlowableCreate({ emitter ->
-            getTheGoodCall(params).subscribe(
-                {
-                    enrichInformation(it, emitter)
-                },
-                {
-                    emitter.emitError(it)
-                }
-            )
-        }, BackpressureStrategy.LATEST)
+        return getTheGoodCall(params).flatMap {
+            enrichInformation(it)
+        }
     }
 
     private fun getTheGoodCall(section: Section) =
@@ -49,33 +37,33 @@ class GetNews(
             Section.Popular -> newsRepository.getPopular()
         }
 
-    private fun enrichInformation(originalList: List<New>, emitter: FlowableEmitter<List<New>>) {
-        enrichWithLogos(originalList, emitter)
+    private fun enrichInformation(originalList: List<New>): Flowable<List<New>> {
+        return enrichWithLogos(originalList)
     }
 
-    private fun enrichWithLogos(originalList: List<New>, emitter: FlowableEmitter<List<New>>) {
-        imagesRepository.getLogosForSources(*originalList.map { it.from }.toTypedArray())
+    private fun enrichWithLogos(originalList: List<New>): Flowable<List<New>> {
+        return imagesRepository.getLogosForSources(*originalList.map { it.from }.toTypedArray())
             .subscribeOn(workerThread)
-            .observeOn(postExecutionThread)
-            .subscribe { logosMap, error ->
-                if (error != null) {
-                    emitter.emitError(error)
-                }
+            .observeOn(workerThread)
+            .toFlowable()
+            .flatMap { logosMap ->
                 val listToEmit = mutableListOf<New>()
                 originalList.forEach {
                     listToEmit.add(it.copy(logoUrl = logosMap[it.from] ?: ""))
                 }
 
-                enrichWithPlaceholders(listToEmit, emitter)
+                enrichWithPlaceholders(listToEmit)
             }
+            .onErrorResumeNext(Flowable.just(originalList))
     }
 
-    private fun enrichWithPlaceholders(originalList: List<New>, emitter: FlowableEmitter<List<New>>) {
-        if (originalList.any { it.thumb.isBlank() }) {
+    private fun enrichWithPlaceholders(originalList: List<New>): Flowable<List<New>> {
+        return if (originalList.asSequence().any { it.thumb.isBlank() }) {
             imagesRepository.getPlaceholders(deviceRepository.getScreenDensity())
                 .subscribeOn(workerThread)
-                .observeOn(postExecutionThread)
-                .subscribe { list, _ ->
+                .observeOn(workerThread)
+                .toFlowable()
+                .flatMap { list ->
                     val categoriesMap = list.map { it.category to it }.toMap()
                     val listToEmit = mutableListOf<New>()
 
@@ -88,10 +76,11 @@ class GetNews(
                         listToEmit.add(it.copy(thumb = imageUrl))
                     }
 
-                    emitter.emitNext(listToEmit)
+                    Flowable.just(listToEmit.toList())
                 }
+                .onErrorResumeNext(Flowable.just(originalList))
         } else {
-            emitter.emitNext(originalList)
+            Flowable.just(originalList)
         }
     }
 

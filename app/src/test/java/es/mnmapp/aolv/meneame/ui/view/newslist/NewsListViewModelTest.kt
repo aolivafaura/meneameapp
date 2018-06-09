@@ -107,19 +107,19 @@ class NewsListViewModelTest {
             list.add(
                 New(
                     i.toLong(),
-                    "url",
-                    "title",
-                    "category",
-                    "thumb",
-                    "from",
-                    1,
-                    1,
-                    1,
-                    1,
-                    1000L,
-                    1000L,
-                    "tags",
-                    "logoUrl"
+                    "url$i",
+                    "title$i",
+                    "category$i",
+                    "thumb$i",
+                    "from$i",
+                    i,
+                    i,
+                    i,
+                    i,
+                    i.toLong(),
+                    i.toLong(),
+                    "tags$i",
+                    "logoUrl$i"
                 )
             )
         }
