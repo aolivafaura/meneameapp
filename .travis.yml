@@ -49,7 +49,7 @@ cache:
 #  - android-sdk-license-.+
 #  - google-gdk-license-.+
 
-after_install:
+before_install:
   - openssl aes-256-cbc -K $encrypted_aee72d1c3958_key -iv $encrypted_aee72d1c3958_iv -in sec.tar.enc -out sec.tar -d
   - tar xvf sec.tar
   - mv google-services.json app/google-services.json && mv props.gradle app/props.gradle && mv fabric.properties app/fabric.properties
