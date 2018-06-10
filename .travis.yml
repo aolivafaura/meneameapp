@@ -9,6 +9,7 @@ env:
   #- ANDROID_TARGET=android-25 ANDROID_ABI=armeabi-v7a
   global:
   - ANDROID_API=27
+  - ANDROID_BUILD_TOOLS=27.0.3
   - EMULATOR_API=27
   - ADB_INSTALL_TIMEOUT=30 # minutes
   - secure: "myQmH/Qymtwh8VcXWkNC6z9x1n1GQ9DAdXa569oPcRF+vCFOhM7bGldNvQ5hPtfO8Qb/B0fmvqntoTIMyFm1JH7yPV7Bp8VsxHLlWgEIAb3ZpZgwN/0mGMaZ5+oBE+jNq2wwFV20C9CB/WoSJofsVx9fRKUJWqbfa5Ge/WnYygchmqML/WsRPl9hHggc8SUj3MUEYa2wdYSpby7+3knZ8b2aLh4Sdjd9AeWO4GXpwZpnqZJn2hgyqZSLcmlGnK+LUfpQ9KASsFkmx8PHG8/ic/qoPhPN++AAbCPYlP4RwnsK3sHBSyNex7aHrwrlxlJbkebxhYUJpU0SCZrSrR4o+OxeAkPCeJ3JkA9KEQa9hHAwNPNgb65+L5lc2V7I6P1Ur2FCI59h9ZqCCUBUsqmY6zk8V2U6CzhLTvm9CQpu+kxZbTq/hRryjMgE6r4qzRWLd9J1dOyddaKpVQn7iFvAaIUkXnvW87BZqnVdhJMsFUgFws3FcneC2ekUrENveBEI2ty/8IagyCG70O2bvr6xCZmrlZzUH0cqtPWDgDlsBqdF9OdqqU2d9cQugnOV74Qmhqr8PmvuSIVYEi+I1/uZOkMYMTTuiGD6bumyFI9ADrO/YfDR6vJNgC8lmd7kYJBV8rz30Z6p6nbZcR+8HB5uhnBCGfNdfBYUyiqTrM1pTgo="
@@ -27,10 +28,10 @@ cache:
 
 android:
   components:
-  - tools-27.0.3
-  - platform-tools-27-0.3
-  - build-tools-27.0.3
-  - android-27
+  - tools-$ANDROID_BUILD_TOOLS
+  - platform-tools-$ANDROID_BUILD_TOOLS
+  - build-tools-$ANDROID_BUILD_TOOLS
+  - android-$ANDROID_API
   - add-on
   - extra
   - extra-google-m2repository
@@ -65,29 +66,34 @@ before_script:
   #- android-wait-for-emulator
   #- adb shell input keyevent 82 &
 
-script:
-  - "./gradlew ktlint clean build jacocoTestReport jacocoDomainTestReport -PdisablePreDex --stacktrace"
+jobs:
+  include:
+    - stage: test
+      script: "./gradlew ktlint --stacktrace"
+      script: "./gradlew jacocoTestReport jacocoDomainTestReport --stacktrace"
+    - stage: build
+      script: "./gradlew assembleProdRelease -PdisablePreDex --stacktrace"
+    - stage: deploy
+      before_deploy:
+        - cp $TRAVIS_BUILD_DIR/mnmaolvdprod.keystore $HOME/mnmaolvdprod.keystore
+        - cd app/build/outputs/apk/prod/release
+        - ls
+        - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/mnmaolvdprod.keystore -storepass $storepass -keypass $keypass app-prod-release-unsigned.apk production
+        # Verification
+        - jarsigner -verify app-prod-release-unsigned.apk
+        - "${ANDROID_HOME}/build-tools/${ANDROID_BUILD_TOOLS}/zipalign -v 4 app-prod-release-unsigned.apk aolvmeneame.apk"
+      deploy:
+        provider: releases
+        file: aolvmeneame.apk
+        skip_cleanup: true
+        overwrite: true
+        on:
+          repo: aolivafaura/meneameapp
+          tags: true
+          jdk: oraclejdk8
+        api_key:
+          secure: "LTaz8+md1HZWusW4NxZCtWnOfvKo7gDxQMXOJKc8ORgX8onWJrW+7muxo0ci/Br8Rw60A/VCmhZ6gpQWwLSKWjrX7+V/45kpXrUXY6TWf4FDc832ji9d+UrSDF9hStaYitV5707VwWNvlxvw9nRmvh0LrLjFGa9O22c5DnWfGBiPdy6ieygOYPeKBPZhDl9TDeng7lPSxx+aq5II50okM/QFLZxNekEuXNmJRWjBXgvC4fv170+e0am3uHmCdMouOhgJKOgfQog6tTJOSVgsou64Nnl1OZ37T07prKzkY2Y3O+G9hDj5QEPO8oalL0JhSqDgvxh8ncO9Dg2376orj5QaGsIpYzzYAyjblr3bIT1pu9iD/FXkBaRBTtPUvciqNrKJDlXJHYbZB2soCCxX3z5mF9pGXR7tdrsAJfT+6HS/DlWQWA5AVQTeOiwAUp1ukxu6Ld0JTiKzZPKhot+tem1gih3O7H1qPcan9LooPlNUd+opBhJazXK/Oj9GAAsvzSSOIQ69KeLWMDl4R93bYTnxRyaKTihj3auCnFlB3EAzI9WPhdd6btxOBLaeVrgAa0bLDH2YC9/PKg5WcKzkusUWmrS1wPtrJC/SZwKo52AjSuTcu7TEpB36tAqRanYzUegoN6Bhy1CukE8VmbnkDold7xLMOS/qe37CdytlUek="
+
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-
-before_deploy:
-  - cp $TRAVIS_BUILD_DIR/mnmaolvdprod.keystore $HOME/mnmaolvdprod.keystore
-  - cd app/build/outputs/apk/prod/release
-  - ls
-  - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/mnmaolvdprod.keystore -storepass $storepass -keypass $keypass app-prod-release-unsigned.apk production
-  # Verification
-  - jarsigner -verify app-prod-release-unsigned.apk
-  - "${ANDROID_HOME}/build-tools/27.0.3/zipalign -v 4 app-prod-release-unsigned.apk aolvmeneame.apk"
-
-deploy:
-  provider: releases
-  file: aolvmeneame.apk
-  skip_cleanup: true
-  overwrite: true
-  on:
-    repo: aolivafaura/meneameapp
-    tags: true
-    jdk: oraclejdk8
-  api_key:
-    secure: "LTaz8+md1HZWusW4NxZCtWnOfvKo7gDxQMXOJKc8ORgX8onWJrW+7muxo0ci/Br8Rw60A/VCmhZ6gpQWwLSKWjrX7+V/45kpXrUXY6TWf4FDc832ji9d+UrSDF9hStaYitV5707VwWNvlxvw9nRmvh0LrLjFGa9O22c5DnWfGBiPdy6ieygOYPeKBPZhDl9TDeng7lPSxx+aq5II50okM/QFLZxNekEuXNmJRWjBXgvC4fv170+e0am3uHmCdMouOhgJKOgfQog6tTJOSVgsou64Nnl1OZ37T07prKzkY2Y3O+G9hDj5QEPO8oalL0JhSqDgvxh8ncO9Dg2376orj5QaGsIpYzzYAyjblr3bIT1pu9iD/FXkBaRBTtPUvciqNrKJDlXJHYbZB2soCCxX3z5mF9pGXR7tdrsAJfT+6HS/DlWQWA5AVQTeOiwAUp1ukxu6Ld0JTiKzZPKhot+tem1gih3O7H1qPcan9LooPlNUd+opBhJazXK/Oj9GAAsvzSSOIQ69KeLWMDl4R93bYTnxRyaKTihj3auCnFlB3EAzI9WPhdd6btxOBLaeVrgAa0bLDH2YC9/PKg5WcKzkusUWmrS1wPtrJC/SZwKo52AjSuTcu7TEpB36tAqRanYzUegoN6Bhy1CukE8VmbnkDold7xLMOS/qe37CdytlUek="
