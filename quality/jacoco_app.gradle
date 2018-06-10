@@ -1,0 +1,37 @@
+apply plugin: 'jacoco'
+apply from: '../quality/jacoco_filters.gradle'
+apply from: '../config/dependencies.gradle'
+
+jacoco {
+    toolVersion = jacocoToolsVersion
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDevDebugUnitTest']) {
+    group "Reporting"
+    description "Generate Jacoco coverage reports."
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/dev/debug", excludes: fileFilter)
+    def kotlinDebugTree = fileTree(dir: "${buildDir}/tmp/kotlin-classes/devDebug", excludes: fileFilter)
+
+    classDirectories = files([debugTree], [kotlinDebugTree])
+    def coverageSourceDirs = [
+            "src/main/java",
+            "src/dev/java",
+            "src/debug/java"
+    ]
+    additionalSourceDirs = files(coverageSourceDirs)
+    sourceDirectories = files(coverageSourceDirs)
+    executionData = fileTree(dir: project.buildDir, includes: [
+            'jacoco/testDevDebugUnitTest.exec',
+            'outputs/code-coverage/connected/*coverage.ec'
+    ])
+}

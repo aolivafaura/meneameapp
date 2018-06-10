@@ -1,0 +1,23 @@
+apply plugin: 'jacoco'
+apply from: '../quality/jacoco_filters.gradle'
+apply from: '../config/dependencies.gradle'
+
+jacoco {
+    toolVersion = jacocoToolsVersion
+}
+
+task jacocoDomainTestReport(type: JacocoReport, dependsOn: ['test']) {
+    group "Reporting"
+    description "Generate Jacoco coverage reports."
+
+    reports {
+        xml.enabled = true
+        xml.destination file("${buildDir}/reports/jacoco/jacocoTestReport/jacocoTestReport.xml")
+        html.enabled = true
+    }
+    sourceDirectories = files(["src/main/java"])
+    classDirectories = (file("$project.buildDir/intermediates/classes/debug").exists()
+            ? fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
+            : fileTree(dir: "$project.buildDir/classes", excludes: fileFilter))
+    executionData = fileTree(dir: "$project.buildDir", includes: ["jacoco/*.exec"])
+}

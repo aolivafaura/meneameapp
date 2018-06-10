@@ -1,8 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply from: '../config/dependencies.gradle'
-apply from: '../ktlint.gradle'
-apply from: '../jacoco_module.gradle'
+apply from: '../quality/ktlint.gradle'
+apply from: '../quality/jacoco_module.gradle'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion

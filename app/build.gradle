@@ -4,9 +4,9 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'io.fabric'
 apply plugin: 'kotlin-kapt'
 apply from: 'props.gradle'
-apply from: '../jacoco_app.gradle'
+apply from: '../quality/jacoco_app.gradle'
 apply from: '../config/dependencies.gradle'
-apply from: '../ktlint.gradle'
+apply from: '../quality/ktlint.gradle'
 
 android {
     signingConfigs {
