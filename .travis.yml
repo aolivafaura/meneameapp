@@ -68,9 +68,9 @@ install:
   # Install or update Android SDK components (will not do anything if already up to date thanks to the cache mechanism)
   - echo y | $HOME/android-sdk/tools/bin/sdkmanager tools > /dev/null
   - echo y | $HOME/android-sdk/tools/bin/sdkmanager platform-tools > /dev/null
-  - echo y | $HOME/android-sdk/tools/bin/sdkmanager build-tools;26.0.1 > /dev/null
-  - echo y | $HOME/android-sdk/tools/bin/sdkmanager platforms;android-26 > /dev/null
-  - echo y | $HOME/android-sdk/tools/bin/sdkmanager extras;google;m2repository > /dev/null
+  - echo y | $HOME/android-sdk/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}" > /dev/null
+  - echo y | $HOME/android-sdk/tools/bin/sdkmanager "platforms;android-${ANDROID_API}" > /dev/null
+  - echo y | $HOME/android-sdk/tools/bin/sdkmanager "extras;google;m2repository" > /dev/null
 
 before_script:
   #Grant permissions
