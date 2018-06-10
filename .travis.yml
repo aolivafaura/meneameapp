@@ -35,7 +35,7 @@ android:
   - add-on
   - extra
   - extra-google-m2repository
-  - extra-android-m2repository # for design library
+  - extra-android-m2repository
   licenses:
   - android-sdk-preview-license-.+
   - android-sdk-license-.+
@@ -69,31 +69,30 @@ before_script:
 jobs:
   include:
     - stage: test
-      script: "./gradlew ktlint --stacktrace"
-      script: "./gradlew jacocoTestReport jacocoDomainTestReport --stacktrace"
+      script:
+        - "./gradlew ktlint --stacktrace"
+      script:
+        - "./gradlew jacocoTestReport jacocoDomainTestReport --stacktrace"
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
     - stage: build
-      script: "./gradlew assembleProdRelease -PdisablePreDex --stacktrace"
-    - stage: deploy
+      if: tag IS present
+      script: >
+        ./gradlew assembleProdRelease -PdisablePreDex --stacktrace
+        && cp ${TRAVIS_BUILD_DIR}/mnmaolvdprod.keystore $HOME/mnmaolvdprod.keystore
+        && cd app/build/outputs/apk/prod/release
+        && jarsigner -verify app-prod-release-unsigned.apk
+        && ${ANDROID_HOME}/build-tools/${ANDROID_BUILD_TOOLS}/zipalign -v 4 app-prod-release-unsigned.apk aolvmeneame.apk
       before_deploy:
-        - cp $TRAVIS_BUILD_DIR/mnmaolvdprod.keystore $HOME/mnmaolvdprod.keystore
-        - cd app/build/outputs/apk/prod/release
-        - ls
-        - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/mnmaolvdprod.keystore -storepass $storepass -keypass $keypass app-prod-release-unsigned.apk production
-        # Verification
-        - jarsigner -verify app-prod-release-unsigned.apk
-        - "${ANDROID_HOME}/build-tools/${ANDROID_BUILD_TOOLS}/zipalign -v 4 app-prod-release-unsigned.apk aolvmeneame.apk"
-      deploy:
-        provider: releases
-        file: aolvmeneame.apk
-        skip_cleanup: true
-        overwrite: true
-        on:
-          repo: aolivafaura/meneameapp
-          tags: true
-          jdk: oraclejdk8
-        api_key:
-          secure: "LTaz8+md1HZWusW4NxZCtWnOfvKo7gDxQMXOJKc8ORgX8onWJrW+7muxo0ci/Br8Rw60A/VCmhZ6gpQWwLSKWjrX7+V/45kpXrUXY6TWf4FDc832ji9d+UrSDF9hStaYitV5707VwWNvlxvw9nRmvh0LrLjFGa9O22c5DnWfGBiPdy6ieygOYPeKBPZhDl9TDeng7lPSxx+aq5II50okM/QFLZxNekEuXNmJRWjBXgvC4fv170+e0am3uHmCdMouOhgJKOgfQog6tTJOSVgsou64Nnl1OZ37T07prKzkY2Y3O+G9hDj5QEPO8oalL0JhSqDgvxh8ncO9Dg2376orj5QaGsIpYzzYAyjblr3bIT1pu9iD/FXkBaRBTtPUvciqNrKJDlXJHYbZB2soCCxX3z5mF9pGXR7tdrsAJfT+6HS/DlWQWA5AVQTeOiwAUp1ukxu6Ld0JTiKzZPKhot+tem1gih3O7H1qPcan9LooPlNUd+opBhJazXK/Oj9GAAsvzSSOIQ69KeLWMDl4R93bYTnxRyaKTihj3auCnFlB3EAzI9WPhdd6btxOBLaeVrgAa0bLDH2YC9/PKg5WcKzkusUWmrS1wPtrJC/SZwKo52AjSuTcu7TEpB36tAqRanYzUegoN6Bhy1CukE8VmbnkDold7xLMOS/qe37CdytlUek="
-
-
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+        - "./gradlew crashlyticsUploadDistributionProdRelease"
+#      deploy:
+#        provider: releases
+#        file: aolvmeneame.apk
+#        skip_cleanup: true
+#        overwrite: true
+#        on:
+#          repo: aolivafaura/meneameapp
+#          tags: true
+#          jdk: oraclejdk8
+#        api_key:
+#          secure: "LTaz8+md1HZWusW4NxZCtWnOfvKo7gDxQMXOJKc8ORgX8onWJrW+7muxo0ci/Br8Rw60A/VCmhZ6gpQWwLSKWjrX7+V/45kpXrUXY6TWf4FDc832ji9d+UrSDF9hStaYitV5707VwWNvlxvw9nRmvh0LrLjFGa9O22c5DnWfGBiPdy6ieygOYPeKBPZhDl9TDeng7lPSxx+aq5II50okM/QFLZxNekEuXNmJRWjBXgvC4fv170+e0am3uHmCdMouOhgJKOgfQog6tTJOSVgsou64Nnl1OZ37T07prKzkY2Y3O+G9hDj5QEPO8oalL0JhSqDgvxh8ncO9Dg2376orj5QaGsIpYzzYAyjblr3bIT1pu9iD/FXkBaRBTtPUvciqNrKJDlXJHYbZB2soCCxX3z5mF9pGXR7tdrsAJfT+6HS/DlWQWA5AVQTeOiwAUp1ukxu6Ld0JTiKzZPKhot+tem1gih3O7H1qPcan9LooPlNUd+opBhJazXK/Oj9GAAsvzSSOIQ69KeLWMDl4R93bYTnxRyaKTihj3auCnFlB3EAzI9WPhdd6btxOBLaeVrgAa0bLDH2YC9/PKg5WcKzkusUWmrS1wPtrJC/SZwKo52AjSuTcu7TEpB36tAqRanYzUegoN6Bhy1CukE8VmbnkDold7xLMOS/qe37CdytlUek="
