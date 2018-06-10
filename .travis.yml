@@ -1,5 +1,4 @@
 language: android
-sudo: false
 jdk: oraclejdk8
 
 env:
@@ -10,7 +9,6 @@ env:
   global:
   - ANDROID_API=27
   - ANDROID_BUILD_TOOLS=27.0.3
-  - EMULATOR_API=27
   - ADB_INSTALL_TIMEOUT=30 # minutes
   - ANDROID_HOME=$HOME/android-sdk
   - secure: "myQmH/Qymtwh8VcXWkNC6z9x1n1GQ9DAdXa569oPcRF+vCFOhM7bGldNvQ5hPtfO8Qb/B0fmvqntoTIMyFm1JH7yPV7Bp8VsxHLlWgEIAb3ZpZgwN/0mGMaZ5+oBE+jNq2wwFV20C9CB/WoSJofsVx9fRKUJWqbfa5Ge/WnYygchmqML/WsRPl9hHggc8SUj3MUEYa2wdYSpby7+3knZ8b2aLh4Sdjd9AeWO4GXpwZpnqZJn2hgyqZSLcmlGnK+LUfpQ9KASsFkmx8PHG8/ic/qoPhPN++AAbCPYlP4RwnsK3sHBSyNex7aHrwrlxlJbkebxhYUJpU0SCZrSrR4o+OxeAkPCeJ3JkA9KEQa9hHAwNPNgb65+L5lc2V7I6P1Ur2FCI59h9ZqCCUBUsqmY6zk8V2U6CzhLTvm9CQpu+kxZbTq/hRryjMgE6r4qzRWLd9J1dOyddaKpVQn7iFvAaIUkXnvW87BZqnVdhJMsFUgFws3FcneC2ekUrENveBEI2ty/8IagyCG70O2bvr6xCZmrlZzUH0cqtPWDgDlsBqdF9OdqqU2d9cQugnOV74Qmhqr8PmvuSIVYEi+I1/uZOkMYMTTuiGD6bumyFI9ADrO/YfDR6vJNgC8lmd7kYJBV8rz30Z6p6nbZcR+8HB5uhnBCGfNdfBYUyiqTrM1pTgo="
@@ -62,7 +60,7 @@ before_install:
 install:
   # Download and unzip the Android SDK tools (if not already there thanks to the cache mechanism)
   # Latest version available here: https://developer.android.com/studio/index.html#downloads
-  - if test ! -e $HOME/android-sdk-dl/sdk-tools.zip ; then curl https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip > $HOME/android-sdk-dl/sdk-tools.zip ; fi
+  - if test ! -e $HOME/android-sdk-dl/sdk-tools.zip ; then curl https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip > $HOME/android-sdk-dl/sdk-tools.zip ; fi
   - unzip -qq -n $HOME/android-sdk-dl/sdk-tools.zip -d $HOME/android-sdk
 
   # Install or update Android SDK components (will not do anything if already up to date thanks to the cache mechanism)
