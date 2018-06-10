@@ -27,9 +27,6 @@ android {
         testInstrumentationRunner "es.mnmapp.aolv.meneame.TestRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
-        manifestPlaceholders = [
-                fabricApiKey: fabricApiKey
-        ]
     }
     buildTypes {
         release {

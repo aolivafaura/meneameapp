@@ -24,10 +24,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Fabric -->
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="${fabricApiKey}" />
     </application>
 
 </manifest>
