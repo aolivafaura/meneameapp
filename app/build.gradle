@@ -27,6 +27,7 @@ android {
         testInstrumentationRunner "es.mnmapp.aolv.meneame.TestRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
+        ext.betaDistributionReleaseNotes = "${gitTagMessage}\nBranch: ${gitBranch}\nCommit: ${gitSHA}"
     }
     buildTypes {
         release {

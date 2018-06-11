@@ -40,6 +40,9 @@ ext {
     versionCode = versionMajor * 100000 + versionMinor * 1000 + versionPatch + 100 * versionDev
     versionName = "${versionMajor}.${versionMinor}.${versionPatch}${if (versionDev != 0) ".$versionDev" else ""}"
     applicationId = "es.mnmapp.aolv.meneame"
+    gitBranch = "git name-rev --name-only HEAD".execute([], project.rootDir).text.trim().replace("remotes/origin/", "")
+    gitSHA = "git rev-parse --short HEAD".execute([], project.rootDir).text.trim()
+    gitTagMessage = "git tag -n10 | grep `git describe --tags --abbrev=0`".execute([], project.rootDir).text.trim()
 }
 
 configurations {

@@ -2,10 +2,6 @@ language: android
 jdk: oraclejdk8
 
 env:
-  # TODO UI test on CI
-  #matrix:
-  #- ANDROID_TARGET=android-19 ANDROID_ABI=armeabi-v7a
-  #- ANDROID_TARGET=android-25 ANDROID_ABI=armeabi-v7a
   global:
   - ANDROID_API=27
   - ANDROID_BUILD_TOOLS=27.0.3
@@ -32,21 +28,6 @@ cache:
     # Android build cache (see http://tools.android.com/tech-docs/build-cache)
     - $HOME/.android/build-cache
 
-#android:
-#  components:
-#  - tools-$ANDROID_BUILD_TOOLS
-#  - platform-tools-$ANDROID_BUILD_TOOLS
-#  - build-tools-$ANDROID_BUILD_TOOLS
-#  - android-$ANDROID_API
-#  - add-on
-#  - extra
-#  - extra-google-m2repository
-#  - extra-android-m2repository
-#  licenses:
-#  - android-sdk-preview-license-.+
-#  - android-sdk-license-.+
-#  - google-gdk-license-.+
-
 before_install:
   - openssl aes-256-cbc -K $encrypted_aee72d1c3958_key -iv $encrypted_aee72d1c3958_iv -in sec.tar.enc -out sec.tar -d
   - tar xvf sec.tar
@@ -70,21 +51,6 @@ install:
   - echo y | $HOME/android-sdk/tools/bin/sdkmanager "platforms;android-${ANDROID_API}" > /dev/null
   - echo y | $HOME/android-sdk/tools/bin/sdkmanager "extras;google;m2repository" > /dev/null
 
-before_script:
-  #Grant permissions
-  # - chmod +x gradlew
-  # - echo "y" | android update sdk -a --no-ui --filter android-$ANDROID_API
-  # - $ANDROID_HOME/tools/bin/sdkmanager tools
-  # Uncomment to print tools info
-  #  - cat $ANDROID_HOME/platform-tools/source.properties | grep Pkg.Revision
-  #  - cat $ANDROID_HOME/tools/source.properties | grep Pkg.Revision
-  # TODO run UI test on CI
-  # - sdkmanager "system-images;$ANDROID_TARGET;google_apis;$ANDROID_ABI"
-  # - echo no | $ANDROID_HOME/tools/bin/avdmanager create avd -n test -k "system-images;$ANDROID_TARGET;google_apis;$ANDROID_ABI"
-  # - $ANDROID_HOME/tools/emulator -avd test -no-skin -no-window &    #Start emulator
-  # - android-wait-for-emulator
-  # - adb shell input keyevent 82 &
-
 jobs:
   include:
     - stage: test
@@ -105,14 +71,3 @@ jobs:
               && ${ANDROID_HOME}/build-tools/${ANDROID_BUILD_TOOLS}/zipalign -v 4 app-prod-release-unsigned.apk aolvmeneame.apk
               && cd ${TRAVIS_BUILD_DIR}
               && ./gradlew crashlyticsUploadDistributionProdRelease
-#      deploy:
-#        provider: releases
-#        file: aolvmeneame.apk
-#        skip_cleanup: true
-#        overwrite: true
-#        on:
-#          repo: aolivafaura/meneameapp
-#          tags: true
-#          jdk: oraclejdk8
-#        api_key:
-#          secure: "LTaz8+md1HZWusW4NxZCtWnOfvKo7gDxQMXOJKc8ORgX8onWJrW+7muxo0ci/Br8Rw60A/VCmhZ6gpQWwLSKWjrX7+V/45kpXrUXY6TWf4FDc832ji9d+UrSDF9hStaYitV5707VwWNvlxvw9nRmvh0LrLjFGa9O22c5DnWfGBiPdy6ieygOYPeKBPZhDl9TDeng7lPSxx+aq5II50okM/QFLZxNekEuXNmJRWjBXgvC4fv170+e0am3uHmCdMouOhgJKOgfQog6tTJOSVgsou64Nnl1OZ37T07prKzkY2Y3O+G9hDj5QEPO8oalL0JhSqDgvxh8ncO9Dg2376orj5QaGsIpYzzYAyjblr3bIT1pu9iD/FXkBaRBTtPUvciqNrKJDlXJHYbZB2soCCxX3z5mF9pGXR7tdrsAJfT+6HS/DlWQWA5AVQTeOiwAUp1ukxu6Ld0JTiKzZPKhot+tem1gih3O7H1qPcan9LooPlNUd+opBhJazXK/Oj9GAAsvzSSOIQ69KeLWMDl4R93bYTnxRyaKTihj3auCnFlB3EAzI9WPhdd6btxOBLaeVrgAa0bLDH2YC9/PKg5WcKzkusUWmrS1wPtrJC/SZwKo52AjSuTcu7TEpB36tAqRanYzUegoN6Bhy1CukE8VmbnkDold7xLMOS/qe37CdytlUek="
