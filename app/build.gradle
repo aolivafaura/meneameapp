@@ -3,13 +3,27 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'io.fabric'
 apply plugin: 'kotlin-kapt'
-apply from: 'props.gradle'
 apply from: '../quality/jacoco_app.gradle'
 apply from: '../config/dependencies.gradle'
 apply from: '../quality/ktlint.gradle'
+apply from: '../config/git.gradle'
+
+// Check if configuration properties exists
+def signingConfigurationPresent = file("signing.properties") != null
 
 android {
     signingConfigs {
+        if (signingConfigurationPresent != null) {
+            def props = new Properties()
+            file("signing.properties").withInputStream { props.load(it) }
+            release {
+                storeFile file(props.getProperty("storeFile"))
+                storePassword props.getProperty("storePassword")
+                keyAlias props.getProperty("keyAlias")
+                keyPassword props.getProperty("keyPassword")
+                v2SigningEnabled true
+            }
+        }
         minifiedDebug {
             keyAlias 'test'
             keyPassword '12345678'
@@ -27,7 +41,8 @@ android {
         testInstrumentationRunner "es.mnmapp.aolv.meneame.TestRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
-        ext.betaDistributionReleaseNotes = "${gitTagMessage}\nBranch: ${gitBranch}\nCommit: ${gitSHA}"
+        ext.betaDistributionReleaseNotes = "${gitTag}\nBranch: ${gitBranch}\nCommit: ${gitSHA}"
+        ext.betaDistributionGroupAliasesFilePath = file("group_aliases.txt")
     }
     buildTypes {
         release {
@@ -35,6 +50,9 @@ android {
             minifyEnabled true
             useProguard true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (signingConfigurationPresent) {
+                signingConfig signingConfigs.release
+            }
         }
         debug {
             debuggable true

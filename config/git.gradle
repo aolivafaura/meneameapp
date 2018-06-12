@@ -1,0 +1,32 @@
+def getSHA = { ->
+    def hashStdOut = new ByteArrayOutputStream()
+    exec {
+        commandLine "git", "rev-parse", "--short", "HEAD"
+        standardOutput = hashStdOut
+    }
+    return hashStdOut.toString().trim()
+}
+
+def getBranch = { ->
+    def hashStdOut = new ByteArrayOutputStream()
+    exec {
+        commandLine "git", "rev-parse", "--abbrev-ref", "HEAD"
+        standardOutput = hashStdOut
+    }
+    return hashStdOut.toString().trim()
+}
+
+def getTag = {
+    def hashStdOut = new ByteArrayOutputStream()
+    exec {
+        commandLine "bash", "-c", "git tag -n10 | grep `git describe --tags --abbrev=0`"
+        standardOutput = hashStdOut
+    }
+    return hashStdOut.toString().trim().replaceAll("\\s+", " ");
+}
+
+ext {
+    gitSHA = getSHA()
+    gitBranch = getBranch()
+    gitTag = getTag()
+}
