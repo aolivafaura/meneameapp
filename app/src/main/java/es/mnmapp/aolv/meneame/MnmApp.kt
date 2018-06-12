@@ -34,13 +34,8 @@ open class MnmApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        initFirebase()
         initKoin()
         initLogger()
-    }
-
-    private fun initFirebase() {
-        FirebaseApp.initializeApp(this)
     }
 
     private fun initKoin() {

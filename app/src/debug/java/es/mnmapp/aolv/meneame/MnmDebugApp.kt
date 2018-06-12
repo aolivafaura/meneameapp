@@ -18,6 +18,8 @@ package es.mnmapp.aolv.meneame
 
 import android.os.Build
 import com.facebook.stetho.Stetho
+import com.google.firebase.FirebaseApp
+import com.squareup.picasso.Picasso
 
 /**
  * Application object used on debug compilations.
@@ -34,10 +36,24 @@ class MnmDebugApp : MnmApp() {
         if (isNotUnitTestingRun()) {
             initStetho()
         }
+
+        // Firebase and Picasso works with content providers to get the context.
+        // On Roboelectric test, they are not initialized when test hits the instance, so error
+        // is thrown. Initializing them here the exception is avoided.
+        initFirebase()
+        initPicasso()
     }
 
     private fun initStetho() {
         Stetho.initializeWithDefaults(this)
+    }
+
+    private fun initFirebase() {
+        FirebaseApp.initializeApp(this)
+    }
+
+    private fun initPicasso() {
+        Picasso.setSingletonInstance(Picasso.Builder(this).build())
     }
 
     private fun isNotUnitTestingRun() = "robolectric" != Build.FINGERPRINT

@@ -30,8 +30,8 @@ allprojects {
 
 def versionMajor = 0
 def versionMinor = 0
-def versionPatch = 1
-def versionDev = 2
+def versionPatch = 4
+def versionDev = 1
 
 ext {
     compileSdkVersion = 27
