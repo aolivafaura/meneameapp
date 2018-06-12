@@ -14,5 +14,7 @@ props.gradle
 mnmaolvdprod.keystore
 google-services.json
 dig
-sec.tar
+sec.tar.gz
 report.txt
+group_aliases.txt
+signing.properties
