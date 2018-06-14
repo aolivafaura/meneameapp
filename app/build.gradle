@@ -56,7 +56,6 @@ android {
         }
         debug {
             debuggable true
-            ext.enableCrashlytics = false
             ext.alwaysUpdateBuildId = false
         }
         minifiedDebug {

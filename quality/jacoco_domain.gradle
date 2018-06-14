@@ -1,5 +1,5 @@
 apply plugin: 'jacoco'
-apply from: '../quality/jacoco_filters.gradle'
+apply from: '../quality/jacoco_vars.gradle'
 apply from: '../config/dependencies.gradle'
 
 jacoco {
@@ -7,8 +7,8 @@ jacoco {
 }
 
 task jacocoDomainTestReport(type: JacocoReport, dependsOn: ['test']) {
-    group "Reporting"
-    description "Generate Jacoco coverage reports."
+    group taskGroup
+    description taskDescription
 
     reports {
         xml.enabled = true

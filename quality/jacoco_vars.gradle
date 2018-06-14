@@ -8,4 +8,6 @@ ext {
             'android/**/*.*',
             '**/*$[0-9].*'
     ]
+    taskGroup = 'Reporting'
+    taskDescription = 'Generate Jacoco coverage reports.'
 }

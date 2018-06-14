@@ -19,7 +19,6 @@ package es.mnmapp.aolv.meneame
 import android.annotation.SuppressLint
 import android.app.Application
 import com.antoniooliva.logger.Lgr
-import com.google.firebase.FirebaseApp
 import es.mnmapp.aolv.meneame.di.getKoinModules
 import org.koin.android.ext.android.startKoin
 
