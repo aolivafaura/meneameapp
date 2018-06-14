@@ -51,7 +51,6 @@ class GetNewsTest {
         whenever(newsRepo.getPopular()).thenReturn(Flowable.just(newsList))
 
         getNews.execute(Section.Popular, {}, {})
-        Thread.sleep(2000)
         verify(newsRepo, times(1)).getPopular()
     }
 
