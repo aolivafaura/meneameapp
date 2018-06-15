@@ -17,15 +17,14 @@
 package es.mnmapp.aolv.domain.usecase
 
 import es.mnmapp.aolv.domain.entity.New
-import es.mnmapp.aolv.domain.entity.Placeholder
 import es.mnmapp.aolv.domain.entity.Section
+import es.mnmapp.aolv.domain.extensions.stripAccents
 import es.mnmapp.aolv.domain.repository.DeviceRepository
 import es.mnmapp.aolv.domain.repository.ImagesRepository
 import es.mnmapp.aolv.domain.repository.NewsRepository
 import io.reactivex.Flowable
 import io.reactivex.Scheduler
 import io.reactivex.Single
-import org.apache.commons.lang3.StringUtils
 
 /**
  * Created by antoniojoseoliva on 09/07/2017.
@@ -52,9 +51,20 @@ class GetNews(
             Section.Popular -> newsRepository.getPopular()
         }
 
-    private fun enrichInformation(originalList: List<New>): Flowable<List<New>> {
-        return enrichWithLogos(originalList)
+    private fun enrichInformation(originalList: List<New>): Flowable<List<New>> =
+        enrichWithLogos(originalList)
             .compose(applySingleWorkerSchedulers())
+            .flatMap {
+                if (hasAnyEmptyImage(it)) {
+                    enrichWithPlaceholders(it)
+                } else {
+                    Single.just(it)
+                }
+            }
+            .toFlowable()
+
+    private fun enrichWithLogos(originalList: List<New>): Single<List<New>> =
+        imagesRepository.getLogosForSources(*originalList.map { it.from }.toTypedArray())
             .onErrorReturn { emptyMap() }
             .flatMap { logosMap ->
                 val listToEmit = mutableListOf<New>()
@@ -63,8 +73,11 @@ class GetNews(
                     listToEmit.add(it.copy(logoUrl = logosMap[it.from] ?: ""))
                 }
 
-                enrichWithPlaceholders(listToEmit)
+                Single.just(listToEmit)
             }
+
+    private fun enrichWithPlaceholders(originalList: List<New>): Single<List<New>> =
+        imagesRepository.getPlaceholders(deviceRepository.getScreenDensity())
             .onErrorReturn { emptyList() }
             .flatMap { list ->
                 val categoriesMap = list.map { it.category to it }.toMap()
@@ -72,7 +85,7 @@ class GetNews(
 
                 originalList.forEach {
                     val imageUrl = if (it.thumb.isBlank()) {
-                        categoriesMap[normalizeCategory(it.category)]?.url ?: ""
+                        categoriesMap[it.category.stripAccents().toLowerCase()]?.url ?: ""
                     } else {
                         it.thumb
                     }
@@ -81,20 +94,6 @@ class GetNews(
 
                 Single.just(listToEmit.toList())
             }
-            .toFlowable()
-    }
 
-    private fun enrichWithLogos(originalList: List<New>): Single<Map<String, String>> {
-        return imagesRepository.getLogosForSources(*originalList.map { it.from }.toTypedArray())
-    }
-
-    private fun enrichWithPlaceholders(originalList: List<New>): Single<List<Placeholder>> {
-        return if (originalList.asSequence().any { it.thumb.isBlank() }) {
-            imagesRepository.getPlaceholders(deviceRepository.getScreenDensity())
-        } else {
-            Single.just(emptyList())
-        }
-    }
-
-    private fun normalizeCategory(category: String) = StringUtils.stripAccents(category).toLowerCase()
+    private fun hasAnyEmptyImage(list: List<New>): Boolean = list.any { it.thumb.isBlank() }
 }
