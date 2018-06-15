@@ -6,7 +6,8 @@ ext {
             '**/Manifest*.*',
             '**/*Test*.*',
             'android/**/*.*',
-            '**/*$[0-9].*'
+            '**/*$[0-9].*',
+            '**/*$*$*.*'
     ]
     taskGroup = 'Reporting'
     taskDescription = 'Generate Jacoco coverage reports.'

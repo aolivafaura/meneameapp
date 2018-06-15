@@ -23,10 +23,12 @@ import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import es.mnmapp.aolv.domain.entity.New
+import es.mnmapp.aolv.domain.entity.Placeholder
 import es.mnmapp.aolv.domain.entity.Section
 import es.mnmapp.aolv.domain.repository.DeviceRepository
 import es.mnmapp.aolv.domain.repository.ImagesRepository
 import es.mnmapp.aolv.domain.repository.NewsRepository
+import es.mnmapp.aolv.domain.repository.ScreenDensity
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.schedulers.TestScheduler
@@ -45,7 +47,7 @@ class GetNewsTest {
 
     private lateinit var getNews: GetNews
 
-    val signal = CountDownLatch(1)
+    private val signal = CountDownLatch(1)
 
     @Before
     fun before() {
@@ -100,7 +102,7 @@ class GetNewsTest {
     }
 
     @Test
-    fun `Given news with some blank placeholder, when logos call fails, then placeholders are retrieved`() {
+    fun `Given news with some blank image, when logos call fails, then placeholders are retrieved`() {
         // Given
         val newsList = generateNews(2, true)
         whenever(newsRepo.getTopVisited()).thenReturn(Flowable.just(newsList))
@@ -150,6 +152,37 @@ class GetNewsTest {
     }
 
     @Test
+    fun `Given news retrieved, when some new has no image, then placeholder is added`() {
+        // Given
+        val newsList = generateNews(2, true)
+        val placeholders = generatePlaceholders(2)
+        whenever(newsRepo.getTopVisited()).thenReturn(Flowable.just(newsList))
+        // When
+        whenever(imagesRepo.getLogosForSources(any())).thenReturn(Single.just(emptyMap()))
+        whenever(imagesRepo.getPlaceholders(any())).thenReturn(Single.just(placeholders))
+        whenever(deviceRepo.getScreenDensity()).thenReturn(ScreenDensity.Large)
+        // Then
+        val expectedList = mutableListOf<New>().apply {
+            for (i in 0 until newsList.size) {
+                add(newsList[i].copy(thumb = "url$i"))
+            }
+        }
+        var receivedList: List<New>? = null
+        getNews.execute(
+            Section.TopVisited,
+            {
+                receivedList = it
+                signal.countDown()
+            },
+            {
+            }
+        )
+        scheduler.triggerActions()
+        signal.await()
+        assertEquals(expectedList, receivedList)
+    }
+
+    @Test
     fun `Given news retrieved, when logos call success, then logos are added to list`() {
         // Given
         val newsList = generateNews(2)
@@ -179,38 +212,41 @@ class GetNewsTest {
         assertEquals(expectedList, receivedList)
     }
 
-    private fun generateNews(count: Int, withBlankThumb: Boolean = false): List<New> {
-        val list = mutableListOf<New>()
-        for (i in 0..count) {
-            list.add(
-                New(
-                    i.toLong(),
-                    "url$i",
-                    "title$i",
-                    "category$i",
-                    if (withBlankThumb) "" else "thumb$i",
-                    "from$i",
-                    i,
-                    i,
-                    i,
-                    i,
-                    i.toLong(),
-                    i.toLong(),
-                    "tags$i",
-                    ""
+    private fun generateNews(count: Int, withBlankThumb: Boolean = false): List<New> =
+        mutableListOf<New>().apply {
+            for (i in 0..count) {
+                add(
+                    New(
+                        i.toLong(),
+                        "url$i",
+                        "title$i",
+                        "category$i",
+                        if (withBlankThumb) "" else "thumb$i",
+                        "from$i",
+                        i,
+                        i,
+                        i,
+                        i,
+                        i.toLong(),
+                        i.toLong(),
+                        "tags$i",
+                        ""
+                    )
                 )
-            )
+            }
+        }.toList()
+
+    private fun generateLogos(count: Int): Map<String, String> =
+        mutableMapOf<String, String>().apply {
+            for (i in 0..count) {
+                put("from$i", "logo$i")
+            }
         }
 
-        return list.toMutableList()
-    }
-
-    private fun generateLogos(count: Int): Map<String, String> {
-        val logosMap = mutableMapOf<String, String>()
-        for (i in 0..count) {
-            logosMap["from$i"] = "logo$i"
+    private fun generatePlaceholders(count: Int): List<Placeholder> =
+        mutableListOf<Placeholder>().apply {
+            for (i in 0..count) {
+                add(Placeholder("category$i", "url$i"))
+            }
         }
-
-        return logosMap
-    }
 }
