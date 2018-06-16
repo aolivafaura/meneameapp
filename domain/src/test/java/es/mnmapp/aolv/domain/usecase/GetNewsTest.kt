@@ -37,22 +37,33 @@ import org.junit.Before
 import org.junit.Test
 import java.util.concurrent.CountDownLatch
 
+/**
+ * Test class for GetNews
+ *
+ * @see GetNews
+ */
 class GetNewsTest {
 
-    private val scheduler = TestScheduler()
+    // Fields -----
 
+    private val scheduler = TestScheduler()
     private val newsRepo = mock<NewsRepository>()
     private val imagesRepo = mock<ImagesRepository>()
     private val deviceRepo = mock<DeviceRepository>()
+    private val signal = CountDownLatch(1)
+
+    // Variables -----
 
     private lateinit var getNews: GetNews
 
-    private val signal = CountDownLatch(1)
+    // Configuration -----
 
     @Before
     fun before() {
         getNews = GetNews(scheduler, scheduler, newsRepo, imagesRepo, deviceRepo)
     }
+
+    // Test cases -----
 
     @Test
     fun `When popular news use case is built, then popular news are retrieved from repo`() {
@@ -211,6 +222,8 @@ class GetNewsTest {
         signal.await()
         assertEquals(expectedList, receivedList)
     }
+
+    // Private methods -----
 
     private fun generateNews(count: Int, withBlankThumb: Boolean = false): List<New> =
         mutableListOf<New>().apply {
