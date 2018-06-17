@@ -27,4 +27,5 @@ ext {
     roboelectricVersion = '3.8'
     apacheCommonsVersion = "3.6"
     jacocoToolsVersion = '0.8.1'
+    mockkVersion = "1.8.3"
 }

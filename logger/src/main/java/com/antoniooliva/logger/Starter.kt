@@ -21,7 +21,7 @@ import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.core.CrashlyticsCore
 import io.fabric.sdk.android.Fabric
 
-object Starter {
+internal object Starter {
 
     fun start(application: Application) {
         val core = CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()

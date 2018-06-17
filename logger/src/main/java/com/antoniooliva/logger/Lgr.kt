@@ -27,23 +27,23 @@ import android.os.Bundle
 class Lgr private constructor(context: Context) : ContextWrapper(context) {
 
     fun d(message: String?) {
-        ServiceLocator.provideTimber().d(message)
+        ServiceLocator.provideTimber(BuildConfig.DEBUG).d(message)
     }
 
     fun w(message: String?) {
-        ServiceLocator.provideTimber().w(message)
+        ServiceLocator.provideTimber(BuildConfig.DEBUG).w(message)
     }
 
     fun i(message: String?) {
-        ServiceLocator.provideTimber().i(message)
+        ServiceLocator.provideTimber(BuildConfig.DEBUG).i(message)
     }
 
     fun v(message: String?) {
-        ServiceLocator.provideTimber().v(message)
+        ServiceLocator.provideTimber(BuildConfig.DEBUG).v(message)
     }
 
     fun e(message: String?) {
-        ServiceLocator.provideTimber().e(message)
+        ServiceLocator.provideTimber(BuildConfig.DEBUG).e(message)
     }
 
     fun logEvent(name: String, params: Map<String, String>?) {
@@ -55,11 +55,11 @@ class Lgr private constructor(context: Context) : ContextWrapper(context) {
             }
         }
 
-        ServiceLocator.provideFirebaseAnalytics(baseContext).logEvent(name, bundle)
+        ServiceLocator.provideAnalyticsLogger(baseContext).logEvent(name, bundle)
     }
 
     fun setCurrentScreen(activity: Activity, screen: String) {
-        ServiceLocator.provideFirebaseAnalytics(activity).setCurrentScreen(activity, screen, null)
+        ServiceLocator.provideAnalyticsLogger(activity).setCurrentScreen(activity, screen, null)
     }
 
     companion object {
@@ -80,5 +80,8 @@ class Lgr private constructor(context: Context) : ContextWrapper(context) {
             selfInstance?.let {
                 it
             } ?: throw IllegalStateException("Lgr must be initialized first")
+
+        @Synchronized
+        fun isInitialized(): Boolean = selfInstance != null
     }
 }

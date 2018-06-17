@@ -16,24 +16,25 @@
 
 package com.antoniooliva.logger
 
-import android.content.Context
-import com.antoniooliva.logger.tree.CrashlyticsTree
-import com.google.firebase.analytics.FirebaseAnalytics
-import timber.log.Timber
+/**
+ * Checks that exceptions hasn't been thrown when the action is executed
+ *
+ * @param[action] action under test
+ */
+fun shouldNotThrowException(action: (() -> Any?)) =
+    try {
+        action.invoke()
+    } catch (ex: Exception) {
+        throw Error("expected not to throw!", ex)
+    }
 
-internal object ServiceLocator {
-
-    private var timberTree: Timber.Tree? = null
-
-    @Synchronized
-    fun provideTimber(debug: Boolean): Timber.Tree =
-        timberTree?.let {
-            it
-        } ?: if (debug) {
-            Timber.DebugTree()
-        } else {
-            CrashlyticsTree()
-        }
-
-    fun provideAnalyticsLogger(context: Context) = FirebaseAnalytics.getInstance(context)
-}
+/**
+ * Checks that exceptions has been thrown when the action is executed
+ *
+ * @param[action] action under test
+ */
+fun shouldThrowException(action: (() -> Any?)) =
+    try {
+        action.invoke()
+    } catch (ex: Exception) {
+    }

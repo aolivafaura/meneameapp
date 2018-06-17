@@ -31,6 +31,7 @@ dependencies {
     // Unit testing
     testImplementation "junit:junit:$junitVersion"
     testImplementation "com.nhaarman:mockito-kotlin-kt1.1:$mockitoKotlinVersion"
+    testImplementation "io.mockk:mockk:$mockkVersion"
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
