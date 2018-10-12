@@ -14,16 +14,10 @@
  * limitations under the License.
  */
 
-package es.mnmapp.aolv.meneame.di
+package es.mnmapp.aolv.meneame.dagger.scope
 
-import org.koin.dsl.module.Module
+import javax.inject.Scope
 
-/**
- * Provides koin modules in use
- */
-fun getKoinModules(): List<Module> = listOf(
-        appModule,
-        repositoryModule,
-        viewsModule,
-        testingModule
-)
+//@Scope
+//@Retention(AnnotationRetention.RUNTIME)
+//annotation class PerFragment

@@ -16,6 +16,7 @@
 
 package es.mnmapp.aolv.meneame.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
@@ -23,12 +24,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.antoniooliva.logger.Lgr
+import dagger.android.support.AndroidSupportInjection
+import es.mnmapp.aolv.meneame.dagger.videmodel.ViewModelFactory
 import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
 /**
  * Base fragment. Every fragment must extend this class.
  */
 abstract class BaseFragment : Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     // Fields -----
 
@@ -52,6 +59,11 @@ abstract class BaseFragment : Fragment() {
     override fun onDestroy() {
         disposables.clear()
         super.onDestroy()
+    }
+
+    override fun onAttach(context: Context?) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
     }
 
     // Abstract methods -----

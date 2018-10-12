@@ -17,22 +17,29 @@
 package es.mnmapp.aolv.meneame.connectivity
 
 import android.content.Context
+import android.content.ContextWrapper
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.telephony.TelephonyManager
+import es.mnmapp.aolv.domain.UI_THREAD
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Check device's network connectivity and speed
  * Based on Connectivity utils of {@link http://stackoverflow.com/users/220710/emil}
  *
  * @param[context] context
+ * @param[postExecutionThread] UI Thread
  */
-class Connectivity(val context: Context, val postExecutionThread: Scheduler) {
+class Connectivity @Inject constructor(
+    context: Context,
+    @Named(UI_THREAD) private val postExecutionThread: Scheduler
+) : ContextWrapper(context) {
 
     // Fields -----
 
@@ -78,8 +85,8 @@ class Connectivity(val context: Context, val postExecutionThread: Scheduler) {
     fun observeConnectivity(): Flowable<State> =
         connectivityPublisher
             .distinctUntilChanged()
-            .subscribeOn(AndroidSchedulers.mainThread())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(postExecutionThread)
+            .observeOn(postExecutionThread)
             .toFlowable(BackpressureStrategy.LATEST)
 
     // Private methods -----
@@ -100,7 +107,7 @@ class Connectivity(val context: Context, val postExecutionThread: Scheduler) {
         }
 
     private fun getNetworkInfo(): NetworkInfo? {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val cm = baseContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         return cm.activeNetworkInfo
     }
 

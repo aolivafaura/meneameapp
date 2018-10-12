@@ -4,8 +4,9 @@ import es.mnmapp.aolv.data.entity.mapToNew
 import es.mnmapp.aolv.data.testing.SimpleIdlingResource
 import es.mnmapp.aolv.domain.entity.New
 import io.reactivex.Flowable
+import javax.inject.Inject
 
-class NewsCloudDataSource(
+class NewsCloudDataSource @Inject constructor(
     private val idlingResource: SimpleIdlingResource,
     private val meneameService: MeneameService
 ) {

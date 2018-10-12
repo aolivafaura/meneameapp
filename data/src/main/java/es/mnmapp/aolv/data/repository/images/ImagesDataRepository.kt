@@ -26,8 +26,9 @@ import es.mnmapp.aolv.domain.repository.ImagesRepository
 import es.mnmapp.aolv.domain.repository.ScreenDensity
 import io.reactivex.Single
 import io.reactivex.internal.operators.single.SingleJust
+import javax.inject.Inject
 
-class ImagesDataRepository(
+class ImagesDataRepository @Inject constructor(
     private val placeholdersCloudDataSource: PlaceholdersCloudDataSource,
     private val placeholdersLocalDataSource: PlaceholdersLocalDataSource
 ) : ImagesRepository {

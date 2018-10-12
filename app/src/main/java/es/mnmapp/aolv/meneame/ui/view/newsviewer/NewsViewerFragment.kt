@@ -17,7 +17,6 @@
 package es.mnmapp.aolv.meneame.ui.view.newsviewer
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v4.widget.NestedScrollView
 import android.view.View
@@ -27,17 +26,12 @@ import es.mnmapp.aolv.meneame.R
 import es.mnmapp.aolv.meneame.extensions.fadeOut
 import es.mnmapp.aolv.meneame.ui.BaseFragment
 import kotlinx.android.synthetic.main.web_view_fragment.*
-import org.koin.android.ext.android.inject
 
 /**
  * News detail fragment.
  * This fragment will open a web view and show the original source of information.
  */
 class NewsViewerFragment : BaseFragment() {
-
-    // Fields -----
-
-    private val webViewViewModel by inject<NewsViewerViewModel>()
 
     // Fragment overrides -----
 
@@ -48,26 +42,26 @@ class NewsViewerFragment : BaseFragment() {
     }
 
     private fun initObservers() {
-        webViewViewModel.url.observe(this, Observer {
-            if (it != null) {
-                webViewContainer.loadUrl(it)
-            } else {
-                activity?.supportFragmentManager?.popBackStack()
-            }
-        })
-
-        webViewViewModel.title.observe(this, Observer {
-            activity?.title = it
-        })
+//        webViewViewModel.url.observe(this, Observer {
+//            if (it != null) {
+//                webViewContainer.loadUrl(it)
+//            } else {
+//                activity?.supportFragmentManager?.popBackStack()
+//            }
+//        })
+//
+//        webViewViewModel.title.observe(this, Observer {
+//            activity?.title = it
+//        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setUpWebView()
-
-        webViewViewModel.setTitle(arguments?.getString(KEY_TITLE))
-        webViewViewModel.setUrl(arguments?.getString(KEY_URL))
+//
+//        webViewViewModel.setTitle(arguments?.getString(KEY_TITLE))
+//        webViewViewModel.setUrl(arguments?.getString(KEY_URL))
     }
 
     @SuppressLint("SetJavaScriptEnabled")

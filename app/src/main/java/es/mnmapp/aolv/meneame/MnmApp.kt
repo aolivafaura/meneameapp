@@ -17,31 +17,38 @@
 package es.mnmapp.aolv.meneame
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Application
 import com.antoniooliva.logger.Lgr
-import es.mnmapp.aolv.meneame.di.getKoinModules
-import org.koin.android.ext.android.startKoin
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasActivityInjector
+import javax.inject.Inject
 
 /**
  * Application object
  */
 @SuppressLint("Registered")
-open class MnmApp : Application() {
+open class MnmApp : Application(), HasActivityInjector {
+
+    // Injection -----
+
+    @Inject
+    lateinit var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
     // Application overrides -----
 
     override fun onCreate() {
         super.onCreate()
-
-        initKoin()
         initLogger()
-    }
-
-    private fun initKoin() {
-        startKoin(this, getKoinModules())
+        DaggerAppComponent.builder().application(this).build().inject(this)
     }
 
     private fun initLogger() {
         Lgr.initialize(this)
     }
+
+    // HasActivityInjector overrides -----
+
+    override fun activityInjector(): AndroidInjector<Activity> = activityDispatchingAndroidInjector
 }

@@ -19,13 +19,14 @@ package es.mnmapp.aolv.meneame.ui.view
 import android.arch.lifecycle.ViewModel
 import es.mnmapp.aolv.meneame.ui.BaseActivity
 import es.mnmapp.aolv.meneame.ui.Navigation
+import javax.inject.Inject
 
 /**
  * View model to manage navigation across the app.
  *
  * @param[navigation] Navigation manager
  */
-class NavigationViewModel(private val navigation: Navigation) : ViewModel() {
+class NavigationViewModel @Inject constructor(private val navigation: Navigation) : ViewModel() {
 
     // Class methods -----
 

@@ -16,19 +16,38 @@
 
 package es.mnmapp.aolv.meneame.ui
 
+import android.arch.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.HasSupportFragmentInjector
 import es.mnmapp.aolv.meneame.R
+import javax.inject.Inject
 
 /**
  * Base activity. Every activity must extend this class.
  */
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector {
+
+    @Inject
+    lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     // Activity overrides -----
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         setContentView(R.layout.activity_base_mobile)
         super.onCreate(savedInstanceState)
     }
+
+    // HasSupportFragmentInjector overrides
+
+    override fun supportFragmentInjector(): AndroidInjector<Fragment> =
+        fragmentDispatchingAndroidInjector
 }

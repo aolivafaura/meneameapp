@@ -22,8 +22,9 @@ import es.mnmapp.aolv.data.testing.SimpleIdlingResource
 import io.reactivex.Single
 import io.reactivex.internal.operators.completable.CompletableCreate
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class PlaceholdersLocalDataSource(
+class PlaceholdersLocalDataSource @Inject constructor(
     private val idlingResource: SimpleIdlingResource,
     private val placeholdersRoomDao: PlaceholdersRoomDao
 ) {

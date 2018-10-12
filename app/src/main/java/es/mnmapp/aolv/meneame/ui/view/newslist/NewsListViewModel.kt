@@ -25,6 +25,7 @@ import es.mnmapp.aolv.meneame.connectivity.Connectivity
 import es.mnmapp.aolv.meneame.entity.NewCellUi
 import es.mnmapp.aolv.meneame.entity.fromNewToNewCellUi
 import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
 /**
  * View model for news list
@@ -34,7 +35,7 @@ import io.reactivex.disposables.CompositeDisposable
  * @param[getNews] get news use case
  * @param[connectivity] connectivity
  */
-class NewsListViewModel(
+class NewsListViewModel @Inject constructor(
     private val getNews: GetNews,
     private val connectivity: Connectivity
 ) : ViewModel() {

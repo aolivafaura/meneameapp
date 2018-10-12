@@ -14,20 +14,10 @@
  * limitations under the License.
  */
 
-package es.mnmapp.aolv.meneame.di.repositoryproviders
+package es.mnmapp.aolv.meneame.dagger.scope
 
-import android.arch.persistence.room.Room
-import android.content.Context
-import es.mnmapp.aolv.data.database.LocalDatabase
+import javax.inject.Scope
 
-private const val LOCAL_DATABASE_NAME = "local"
-
-/**
- * Creates and provides local database
- *
- * @param[context]
- *
- * @return local database
- */
-fun providesLocalDatabase(context: Context): LocalDatabase =
-    Room.databaseBuilder(context, LocalDatabase::class.java, LOCAL_DATABASE_NAME).build()
+//@Scope
+//@Retention(AnnotationRetention.RUNTIME)
+//annotation class PerActivity

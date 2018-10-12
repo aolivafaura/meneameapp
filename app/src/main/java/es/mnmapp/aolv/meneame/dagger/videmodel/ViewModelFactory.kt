@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
-package es.mnmapp.aolv.meneame.di.repositoryproviders
+package es.mnmapp.aolv.meneame.dagger.videmodel
 
-import java.io.File
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
+import javax.inject.Inject
+import javax.inject.Provider
+import javax.inject.Singleton
 
-private const val CACHE_FILE_NAME = "responses"
+@Singleton
+class ViewModelFactory @Inject constructor(
+    private val viewModels: MutableMap<Class<out ViewModel>, Provider<ViewModel>>
+) : ViewModelProvider.Factory {
 
-/**
- * Creates and provides directory to store cached http responses.
- *
- * @param[file] Target file
- *
- * @return created cache directory
- */
-fun provideCacheDirectory(file: File): File = File(file, CACHE_FILE_NAME)
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(clazz: Class<T>): T = viewModels[clazz]?.get() as T
+}

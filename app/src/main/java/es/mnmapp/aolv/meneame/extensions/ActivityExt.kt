@@ -16,11 +16,14 @@
 
 package es.mnmapp.aolv.meneame.extensions
 
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProviders
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import es.mnmapp.aolv.meneame.R
+import es.mnmapp.aolv.meneame.ui.BaseActivity
 
 /**
  * Adds given fragment to fragment stack. Transaction commit is done allowing state loss.
@@ -49,3 +52,6 @@ fun AppCompatActivity.initFragment(
 
     transaction.commitAllowingStateLoss()
 }
+
+inline fun <reified T : ViewModel> BaseActivity.viewModel(): Lazy<T> =
+    lazy { ViewModelProviders.of(this, this.viewModelFactory)[T::class.java] }

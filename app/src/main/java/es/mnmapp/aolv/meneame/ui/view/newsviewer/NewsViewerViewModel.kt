@@ -19,6 +19,7 @@ package es.mnmapp.aolv.meneame.ui.view.newsviewer
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import es.mnmapp.aolv.meneame.utils.Validator
+import javax.inject.Inject
 
 /**
  * View model for detail fragment
@@ -27,7 +28,7 @@ import es.mnmapp.aolv.meneame.utils.Validator
  *
  * @param[validator] validator
  */
-class NewsViewerViewModel(
+class NewsViewerViewModel @Inject constructor(
     private val validator: Validator
 ) : ViewModel() {
 

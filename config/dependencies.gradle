@@ -4,7 +4,7 @@ ext {
     constraintLayoutVersion = '1.1.1'
     rxAndroidVersion = '2.0.2'
     rxJavaVersion = '2.1.7'
-    koinVersion = '0.9.1'
+    daggerVersion = '2.16'
     timberVersion = '4.5.1'
     architectureComponentsVersion = '1.1.1'
     roomVersion = '1.1.0'
@@ -28,4 +28,6 @@ ext {
     apacheCommonsVersion = "3.6"
     jacocoToolsVersion = '0.8.1'
     mockkVersion = "1.8.3"
+    jsrVersion = '1.0'
+    javaxVersion = '1'
 }

@@ -24,22 +24,20 @@ import android.widget.Toast
 import es.mnmapp.aolv.meneame.R
 import es.mnmapp.aolv.meneame.connectivity.Connectivity
 import es.mnmapp.aolv.meneame.entity.NewCellUi
+import es.mnmapp.aolv.meneame.extensions.sharedViewModel
+import es.mnmapp.aolv.meneame.extensions.viewModel
 import es.mnmapp.aolv.meneame.ui.BaseActivity
 import es.mnmapp.aolv.meneame.ui.BaseFragment
 import es.mnmapp.aolv.meneame.ui.view.NavigationViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
-import org.koin.android.architecture.ext.sharedViewModel
-import org.koin.android.architecture.ext.viewModel
 
 /**
  * Fragment to display news list
  */
 class NewsListFragment : BaseFragment() {
 
-    // Fields -----
-
-    private val navigationViewModel by sharedViewModel<NavigationViewModel>()
-    private val newsListViewModel by viewModel<NewsListViewModel>()
+    private val navigationViewModel: NavigationViewModel by sharedViewModel()
+    private val newsListViewModel: NewsListViewModel by viewModel()
 
     // Variables -----
 
@@ -117,7 +115,7 @@ class NewsListFragment : BaseFragment() {
     }
 
     private fun setSwipeListener() {
-        swiperefresh.setOnRefreshListener({ newsListViewModel.fetchNews() })
+        swiperefresh.setOnRefreshListener { newsListViewModel.fetchNews() }
     }
 
     // BaseFragment overrides -----

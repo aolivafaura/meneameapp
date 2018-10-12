@@ -4,8 +4,9 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import es.mnmapp.aolv.domain.repository.DeviceRepository
 import es.mnmapp.aolv.domain.repository.ScreenDensity
+import javax.inject.Inject
 
-class DeviceDataRepository(private val resources: Resources) : DeviceRepository {
+class DeviceDataRepository @Inject constructor(private val resources: Resources) : DeviceRepository {
 
     override fun getScreenDensity(): ScreenDensity {
         val density = resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK

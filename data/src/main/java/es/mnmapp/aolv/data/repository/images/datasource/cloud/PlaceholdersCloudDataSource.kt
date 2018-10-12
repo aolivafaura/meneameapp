@@ -10,8 +10,9 @@ import es.mnmapp.aolv.domain.repository.ScreenDensity
 import io.reactivex.Single
 import io.reactivex.SingleEmitter
 import io.reactivex.internal.operators.single.SingleCreate
+import javax.inject.Inject
 
-class PlaceholdersCloudDataSource(
+class PlaceholdersCloudDataSource @Inject constructor(
     private val idlingResource: SimpleIdlingResource,
     private val firestoneDb: FirebaseFirestore
 ) {

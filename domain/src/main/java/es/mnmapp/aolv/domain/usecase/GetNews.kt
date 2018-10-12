@@ -16,6 +16,8 @@
 
 package es.mnmapp.aolv.domain.usecase
 
+import es.mnmapp.aolv.domain.UI_THREAD
+import es.mnmapp.aolv.domain.WORKER_THREAD
 import es.mnmapp.aolv.domain.entity.New
 import es.mnmapp.aolv.domain.entity.Section
 import es.mnmapp.aolv.domain.extensions.stripAccents
@@ -25,14 +27,16 @@ import es.mnmapp.aolv.domain.repository.NewsRepository
 import io.reactivex.Flowable
 import io.reactivex.Scheduler
 import io.reactivex.Single
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Created by antoniojoseoliva on 09/07/2017.
  */
 
-class GetNews(
-    postExecutionThread: Scheduler,
-    workerThread: Scheduler,
+class GetNews @Inject constructor(
+    @Named(UI_THREAD) postExecutionThread: Scheduler,
+    @Named(WORKER_THREAD) workerThread: Scheduler,
     private val newsRepository: NewsRepository,
     private val imagesRepository: ImagesRepository,
     private val deviceRepository: DeviceRepository

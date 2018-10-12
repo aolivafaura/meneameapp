@@ -17,8 +17,8 @@
 package es.mnmapp.aolv.meneame.ui.view
 
 import android.os.Bundle
+import es.mnmapp.aolv.meneame.extensions.viewModel
 import es.mnmapp.aolv.meneame.ui.BaseActivity
-import org.koin.android.architecture.ext.viewModel
 
 /**
  * Main activity. This is the only one activity on the project, and is used to manage interactions
@@ -26,9 +26,7 @@ import org.koin.android.architecture.ext.viewModel
  */
 class MainActivity : BaseActivity() {
 
-    // Fields -----
-
-    private val mainViewModel by viewModel<NavigationViewModel>()
+    private val navigationViewModel: NavigationViewModel by viewModel()
 
     // Activity overrides -----
 
@@ -36,7 +34,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            mainViewModel.navigateToNewsList(this)
+            navigationViewModel.navigateToNewsList(this)
         }
     }
 }
